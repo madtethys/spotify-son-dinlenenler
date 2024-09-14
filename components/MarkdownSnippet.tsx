@@ -18,65 +18,65 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
 
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc})`;
-    const customCount = `![Spotify Son Dinlenen Müzikler](${svgSrc}&count={count})`;
-    const customWidth = `![Spotify Son Dinlenen Müzikler](${svgSrc}&width={width})`;
-    const uniqueTracks = `![Spotify Son Dinlenen Müzikler](${svgSrc}&unique={true|1|on|yes})`;
+    const customCount = `![Spotify Son Dinlenen Müzikler](${svgSrc}&count={muziksayisi})`;
+    const customWidth = `![Spotify Son Dinlenen Müzikler](${svgSrc}&width={genislik})`;
+    const uniqueTracks = `![Spotify Son Dinlenen Müzikler](${svgSrc}&unique=true)`;
 
     const htmlCode = `<img src="${svgSrc}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
-    const htmlCount = `<img src="${svgSrc}&count={count}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
-    const htmlWidth = `<img src="${svgSrc}&width={width}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
-    const htmlUniqueTracks = `<img src="${svgSrc}&unique={true|1|on|yes}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const htmlCount = `<img src="${svgSrc}&count={muziksayisi}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const htmlWidth = `<img src="${svgSrc}&width={genişlik}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const htmlUniqueTracks = `<img src="${svgSrc}&unique=true" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
     return (
         <Tabs defaultActiveKey="1">
-            <TabPane tab="Markdown" key="1">
+            <TabPane tab="Markdown'a Nasıl Eklerim?" key="1">
                 <Space className="vert-space" direction="vertical" size="small">
-                    <Title level={5}>{username} olarak giriş yapıldı.</Title>
-                    <Text>Markdown kod parçacığı:</Text>
+                    <Title level={5}>"{username}" olarak giriş yapıldı.</Title>
+                    <Text>Varsayılan Markdown Kodu:</Text>
                     <TextArea className="markdown" autoSize readOnly value={markdownCode} />
                     <Text>
-                        Özel sayı için (
+                        Listede bulunacak müzik sayısını ayarlamak için: (
                         <b>
-                            {Constants.minCount} &#8804; &#123;Sayı&#125; &#8804; {Constants.maxCount}
+                            {Constants.minCount} &#8804; &#123;Müzik Sayısı&#125; &#8804; {Constants.maxCount}
                         </b>
                         ):
                     </Text>
                     <TextArea className="markdown" autoSize readOnly value={customCount} />
                     <Text>
-                        Özel genişlik için (
+                        Listenin genişliğini ayarlamak için: (
                         <b>
-                            {Constants.minWidth} &#8804; &#123;Genişlik&#125; &#8804; {Constants.maxWidth}
+                            {Constants.minWidth} &#8804; &#123;Liste Genişliği&#125; &#8804; {Constants.maxWidth}
                         </b>
                         ):
                     </Text>
                     <TextArea className="markdown" autoSize readOnly value={customWidth} />
-                    <Text>Benzersiz parçalar için:</Text>
+                    <Text>Listede tekrar dinlenen müzikleri göstermek için:</Text>
                     <TextArea className="markdown" autoSize readOnly value={uniqueTracks} />
                     <object type="image/svg+xml" data={svgSrc}></object>
                 </Space>
             </TabPane>
-            <TabPane tab="HTML" key="2">
+            <TabPane tab="HTML'e Nasıl Eklerim?" key="2">
                 <Space className="vert-space" direction="vertical" size="small">
-                    <Title level={5}>{username} olarak giriş yapıldı.</Title>
-                    <Text>HTML kod parçacığı:</Text>
+                    <Title level={5}>"{username}" olarak giriş yapıldı.</Title>
+                    <Text>Varsayılan HTML Kodu:</Text>
                     <TextArea className="html" autoSize readOnly value={htmlCode} />
                     <Text>
-                        Özel sayı için (
+                        Listede bulunacak müzik sayısını ayarlamak için: (
                         <b>
-                            {Constants.minCount} &#8804; &#123;Sayı&#125; &#8804; {Constants.maxCount}
+                            {Constants.minCount} &#8804; &#123;Müzik Sayısı&#125; &#8804; {Constants.maxCount}
                         </b>
                         ):
                     </Text>
                     <TextArea className="html" autoSize readOnly value={htmlCount} />
                     <Text>
-                        Özel genişlik için (
+                        Listenin genişliğini ayarlamak için: (
                         <b>
-                            {Constants.minWidth} &#8804; &#123;Genişlik&#125; &#8804; {Constants.maxWidth}
+                            {Constants.minWidth} &#8804; &#123;Liste Genişliği&#125; &#8804; {Constants.maxWidth}
                         </b>
                         ):
                     </Text>
                     <TextArea className="html" autoSize readOnly value={htmlWidth} />
-                    <Text>Benzersiz parçalar için:</Text>
+                    <Text>Listede tekrar dinlenen müzikleri göstermek için:</Text>
                     <TextArea className="html" autoSize readOnly value={htmlUniqueTracks} />
                     <object type="image/svg+xml" data={svgSrc}></object>
                 </Space>
