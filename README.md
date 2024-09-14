@@ -103,7 +103,7 @@ Son olarak, `utils/Constants.ts` dosyasını düzenleyin ve `ClientId`, `BaseUrl
 ## • BÖLÜM 4: Yerel olarak çalıştırma
 1. Git ile projeyi klonlayın:
     ```sh
-    $ git clone https://github.com/mustcodes/spotify-son-oynatilan-parcalar.git
+    $ git clone https://github.com/madtethys/spotify-son-dinlenenler.git
     ```
 2. Node modüllerini yükleyin:
     ```sh
