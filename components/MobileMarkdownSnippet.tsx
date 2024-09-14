@@ -15,7 +15,7 @@ export function MobileMarkdownSnippet(props: Props): JSX.Element | null {
         return null;
     }
 
-    const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+    const svgSrc = `${Constants.BaseUrl}/api?user=${username}&width=300`;
     const markdownCode = `![Alt text](${svgSrc})`;
     const customCount = `![Alt text](${svgSrc}&count={count})`;
     const customWidth = `![Alt text](${svgSrc}&width={width})`;
