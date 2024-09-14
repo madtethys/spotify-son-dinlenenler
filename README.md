@@ -20,7 +20,7 @@ Aşağıdaki düğmeye tıklayarak Spotify hesabınızı bağlayın. Bu, son oyn
 
 ### Spotify profil bağlantısı
 Widget'ı Spotify profilinize (veya herhangi bir websiteye) eklemek için aşağıdaki kodu kullanın:
-
+ 
 ```md
 [![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu)](https://open.spotify.com/user/31e4wu2ua42rf5qvqaukgjwgz7tu)
 ```
