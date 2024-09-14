@@ -31,10 +31,12 @@ Listede bulunacak müzik sayısını ayarlamak için API URL'sine `&count=x` ekl
 > Maksimum: `10`
 
 #### + Markdown'a eklemek için:
+ℹ️ `?user=` parametresini kendi kullanıcı adınıza göre düzenlemeyi unutmayın!
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&count=3)
 ```
 #### + HTML'e eklemek için:
+ℹ️ `?user=` parametresini kendi kullanıcı adınıza göre düzenlemeyi unutmayın!
 ```md
 <img src="https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&count=3" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
@@ -49,10 +51,12 @@ Listenin genişliğini ayarlamak için API URL'sine `&width=xxx` ekleyebilirsini
 > Maksimum: `1000`
 
 #### + Markdown'a eklemek için:
+ℹ️ `?user=` parametresini kendi kullanıcı adınıza göre düzenlemeyi unutmayın!
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&width=600)
 ```
 #### + HTML'e eklemek için:
+ℹ️ `?user=` parametresini kendi kullanıcı adınıza göre düzenlemeyi unutmayın!
 ```md
 <img src="https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&width=600" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
@@ -66,10 +70,12 @@ Listede tekrar dinlenen müzikleri göstermek için API URL'sine `&unique=true` 
 > API URL'sine `&unique=true` eklediğinizde listede tekrar dinlediğiniz müzikleri görebilirsiniz.
 
 #### + Markdown'a eklemek için:
+ℹ️ `?user=` parametresini kendi kullanıcı adınıza göre düzenlemeyi unutmayın!
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&unique=true)
 ```
 #### + HTML'e eklemek için:
+ℹ️ `?user=` parametresini kendi kullanıcı adınıza göre düzenlemeyi unutmayın!
 ```md
 <img src="https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&unique=true" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
