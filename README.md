@@ -126,7 +126,7 @@ Son olarak, `utils/Constants.ts` dosyasını düzenleyin ve `ClientId`, `BaseUrl
     $ npm run dev
     ```
 
-Uygulamanız [http://localhost:3000](http://localhost:3000) başlamış olacaktır.
+📍 Uygulamanız [http://localhost:3000](http://localhost:3000) başlamış olacaktır.
 
 ## • BÖLÜM 5: Sıkça Sorulan Sorular
 #### ❓ SORU: Widget GitHub'da yüklenmiyor.
@@ -152,5 +152,15 @@ Bu, kesin bir çözüm olmayabilir ve sorunu %100 ortadan kaldırmayabilir. Daha
 #### ❓ SORU: Firebase veritabanı URL'si nedir?
 ✔️ Firebase veritabanı URL'si, Firebase'da oluşturduğunuz projenin veritabanı URL'sidir. Bu URL, Firebase'da projenizi tanımlamak için kullanılır ve `FIREBASE_DATABASE_URL` ortam değişkeninde ayarlanmalıdır. 
 
-## License
-[MIT](LICENSE)
+## • BÖLÜM 6: Eklenecek Özellikler
+#### + Ayarlar Sekmesi:
+> API'nin URL'siyle uğraşmanıza gerek kalmadan ayarlar sekmesinden yapacağınız ayarlar ile URL'yi daha kolay şekilde temin edebileceksiniz.
+
+#### + Instagram Hikayesine Ekleme:
+> API'den aldığımız görüntüyü Instagram hikayesinde paylaşma eklenecek. Bunun için `Backend` ve `Instagram Graph API` çalışmalarım devam ediyor. 
+
+#### + Anlık Veri Çekme:
+> Bu proje [Vercel](https://vercel.com/) tarafından desteklenmektedir. Şu anda %100 anlık veri çekemesek de %94.7 oranında anlık veri çekebiliyoruz. Bu gecikmenin sebebi ise proje [Vercel](https://vercel.com/)'in Europe-West1 sunucusunda bulunmasından dolayıdır. Yakın zamanda proje başka sağlayıcıya(Türkiye sunucusuna) taşınacaktır. 
+
+## • BÖLÜM 7: Lisans
+Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır. Daha fazla bilgi için lisans dosyasına bakınız.
