@@ -1,7 +1,7 @@
 # Spotify Son Dinlenen Müzikler
 Spotify'da son dinlediğiniz müzikleri websitenize/profilinize ekleyin. [Vercel](https://vercel.com) tarafından desteklenmektedir.
 
-## Başlangıç
+### Başlangıç
 Aşağıdaki "Yetkilendir" düğmesine tıklayarak Spotify hesabınızı bağlayın. Bu, son dinlediğiniz müziklere erişmek için gereklidir.
 
 > Uygulamayı yetkilendirerek, Spotify kullanıcı adınız, erişim tokeniniz ve yenileme tokeninizin güvenli bir şekilde Google Firebase veritabanında saklanmasına izin veriyorsunuz. Bu, yalnızca bir kez yetkilendirme yapmanızı ve uygulamanın otomatik olarak erişim tokeninizin yenilemesini sağlar.
@@ -19,7 +19,7 @@ Yetkilendirdikten sonra, aşağıdaki kodu websitenize/profilinize ekleyin ve `?
 ## HTML'e eklemek için:
 ```md
 <img src="https://spotify.mdusova.com/api?user=xxxxx" alt="Spotify Son Dinlenen Müzikler by madtethys" />
-```md
+```
 
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu)
 
@@ -34,7 +34,7 @@ Listede bulunacak müzik sayısını ayarlamak için API URL'sine `&count=x` ekl
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&count=3)
 ```
-## HTML'e eklemek için:
+> HTML'e eklemek için:
 ```md
 <img src="https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&count=3" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
