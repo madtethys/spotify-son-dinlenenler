@@ -132,7 +132,7 @@ Son olarak, `utils/Constants.ts` dosyasını düzenleyin ve `ClientId`, `BaseUrl
 #### ❓ SORU: Widget GitHub'da yüklenmiyor.
 ✔️ Bazen GitHub'da widget yüklenmiyor ve `camo.githubusercontent.com`'dan 502 yanıt alıyor olabilirsiniz. Bu, GitHub'nın resimleri proxy etmesi ve uzun süreli isteklerin zaman aşımına uğraması nedeniyle oluyor. Uzun istek süreleri genellikle Firebase veritabanı **sunucu uzaklığı** nedeniyle oluyor, bu da birkaç saniye sürebiliyor. Eğer sayfayı yenilediğinizde halen daha görüntü yüklenmiyorsa Firebase projenizi başka bir Google hesabıyla tekrardan oluşturabilirsiniz.
 
-Bu, kesin bir çözüm olmayabilir ve sorunu %100 ortadan kaldırmayabilir. Daha iyi çözümleriniz varsa veya genel optimizasyonlarınız varsa, bana iletebilirsiniz!
+ℹ️ Bu, **kesin** bir çözüm **olmayabilir** ve **sorunu %100 ortadan kaldırmayabilir**. Daha iyi çözümleriniz varsa veya genel optimizasyonlarınız varsa, bana iletebilirsiniz!
 
 #### ❓ SORU: Spotify uygulaması istemci kimliği nedir?
 ✔️ Spotify uygulaması istemci kimliği, Spotify'da oluşturduğunuz uygulamanın kimliğidir. Bu kimlik, Spotify'da uygulamanızı tanımlamak için kullanılır ve `NEXT_PUBLIC_CLIENT_ID` ortam değişkeninde ayarlanmalıdır.
@@ -160,7 +160,7 @@ Bu, kesin bir çözüm olmayabilir ve sorunu %100 ortadan kaldırmayabilir. Daha
 > API'den aldığımız görüntüyü Instagram hikayesinde paylaşma eklenecek. Bunun için `Backend` ve `Instagram Graph API` çalışmalarım devam ediyor. 
 
 #### + Anlık Veri Çekme:
-> Bu proje [Vercel](https://vercel.com/) tarafından desteklenmektedir. Şu anda %100 anlık veri çekemesek de %94.7 oranında anlık veri çekebiliyoruz. Bu gecikmenin sebebi ise proje [Vercel](https://vercel.com/)'in Europe-West1 sunucusunda bulunmasından dolayıdır. Yakın zamanda proje başka sağlayıcıya(Türkiye sunucusuna) taşınacaktır. 
+> Bu proje [Vercel](https://vercel.com/) tarafından desteklenmektedir. Şu anda %100 anlık veri çekemesek de %92.4 gibi güzel bir oranda anlık veri çekebiliyoruz. Bu gecikmenin sebebi ise projenin [Vercel](https://vercel.com/)'in Europe-West1 (Ireland) ve [Firebase Veritabanı](https://firebase.google.com/)'nın Europe-West1 (Belgium) sunucusunda bulunmasından dolayıdır. Yakın zamanda proje başka sağlayıcıya(Türkiye sunucularına) taşınacaktır. 
 
 ## • BÖLÜM 7: Lisans
 Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır. Daha fazla bilgi için lisans dosyasına bakınız.
