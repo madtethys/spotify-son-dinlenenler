@@ -1,7 +1,7 @@
 # Spotify Son Dinlenen Müzikler
 Spotify'da son dinlediğiniz müzikleri websitenize/profilinize ekleyin. [Vercel](https://vercel.com) tarafından desteklenmektedir.
 
-### Başlangıç
+## Başlangıç
 Aşağıdaki "Yetkilendir" düğmesine tıklayarak Spotify hesabınızı bağlayın. Bu, son dinlediğiniz müziklere erişmek için gereklidir.
 
 > Uygulamayı yetkilendirerek, Spotify kullanıcı adınız, erişim tokeniniz ve yenileme tokeninizin güvenli bir şekilde Google Firebase veritabanında saklanmasına izin veriyorsunuz. Bu, yalnızca bir kez yetkilendirme yapmanızı ve uygulamanın otomatik olarak erişim tokeninizin yenilemesini sağlar.
@@ -12,64 +12,64 @@ Aşağıdaki "Yetkilendir" düğmesine tıklayarak Spotify hesabınızı bağlay
 
 Yetkilendirdikten sonra, aşağıdaki kodu websitenize/profilinize ekleyin ve `?user=xxxxx` parametresindeki xxxxx kısmına Spotify kullanıcı adınızı yazın.
 
-## Markdown'a eklemek için:
+#### Markdown'a eklemek için:
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=xxxxx)
 ```
-## HTML'e eklemek için:
+#### HTML'e eklemek için:
 ```md
 <img src="https://spotify.mdusova.com/api?user=xxxxx" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
 
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu)
 
-### Listede bulunan müzik sayısı ayarlamak:
+## Listede bulunan müzik sayısı ayarlamak:
 Listede bulunacak müzik sayısını ayarlamak için API URL'sine `&count=x` ekleyebilirsiniz. `x`in alabileceği değerler:
 
 > Varsayılan: `5`  
 > Minimum: `1`  
 > Maksimum: `10`
 
-## Markdown'a eklemek için:
+#### Markdown'a eklemek için:
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&count=3)
 ```
-> HTML'e eklemek için:
+#### HTML'e eklemek için:
 ```md
 <img src="https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&count=3" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
 
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&count=3)
 
-### Listenin genişliğini ayarlamak:
+## Listenin genişliğini ayarlamak:
 Listenin genişliğini ayarlamak için API URL'sine `&width=xxx` ekleyebilirsiniz. `xxx`in alabileceği değerler:
 
 > Varsayılan: `400`  
 > Minimum: `300`  
 > Maksimum: `1000`
 
-## Markdown'a eklemek için:
+#### Markdown'a eklemek için:
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&width=600)
 ```
-## HTML'e eklemek için:
+#### HTML'e eklemek için:
 ```md
 <img src="https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&width=600" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
 
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&width=600)
 
-### Listede tekrar dinlenen müzikleri göstermek:
+## Listede tekrar dinlenen müzikleri göstermek:
 Listede tekrar dinlenen müzikleri göstermek için API URL'sine `&unique=true` ekleyebilirsiniz. 
 
 > Varsayılan olarak URL'ye eklenmemiş haldedir. Yani listede tekrar dinlediğiniz müzikler gösterilmeyecektir. 
 > API URL'sine `&unique=true` eklediğinizde listede tekrar dinlediğiniz müzikleri görebilirsiniz.
 
-## Markdown'a eklemek için:
+#### Markdown'a eklemek için:
 ```md
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&unique=true)
 ```
-## HTML'e eklemek için:
+#### HTML'e eklemek için:
 ```md
 <img src="https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&unique=true" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
@@ -123,27 +123,27 @@ Son olarak, `utils/Constants.ts` dosyasını düzenleyin ve `ClientId`, `BaseUrl
 Uygulamanız [http://localhost:3000](http://localhost:3000) başlamış olacaktır.
 
 ## Sıkça Sorulan Sorular
-### Widget GitHub'da yüklenmiyor.
+#### Widget GitHub'da yüklenmiyor.
 Bazen GitHub'da widget yüklenmiyor ve `camo.githubusercontent.com`'dan 502 yanıt alıyor olabilirsiniz. Bu, GitHub'nın resimleri proxy etmesi ve uzun süreli isteklerin zaman aşımına uğraması nedeniyle oluyor. Uzun istek süreleri genellikle Firebase veritabanı **sunucu uzaklığı** nedeniyle oluyor, bu da birkaç saniye sürebiliyor. Eğer sayfayı yenilediğinizde halen daha görüntü yüklenmiyorsa Firebase projenizi başka bir Google hesabıyla tekrardan oluşturabilirsiniz.
 
 Bu, kesin bir çözüm olmayabilir ve sorunu %100 ortadan kaldırmayabilir. Daha iyi çözümleriniz varsa veya genel optimizasyonlarınız varsa, bana iletebilirsiniz!
 
-### Spotify uygulaması istemci kimliği nedir?
+#### Spotify uygulaması istemci kimliği nedir?
 Spotify uygulaması istemci kimliği, Spotify'da oluşturduğunuz uygulamanın kimliğidir. Bu kimlik, Spotify'da uygulamanızı tanımlamak için kullanılır ve `NEXT_PUBLIC_CLIENT_ID` ortam değişkeninde ayarlanmalıdır.
 
-### Spotify uygulaması istemci gizli anahtarı nedir?
+#### Spotify uygulaması istemci gizli anahtarı nedir?
 Spotify uygulaması istemci gizli anahtarı, Spotify'da oluşturduğunuz uygulamanın gizli anahtarıdır. Bu anahtar, Spotify'da uygulamanızı tanımlamak için kullanılır ve `CLIENT_SECRET` ortam değişkeninde ayarlanmalıdır.
 
-### Firebase proje kimliği(ID) nedir?
+#### Firebase proje kimliği(ID) nedir?
 Firebase proje kimliği(ID), Firebase'da oluşturduğunuz projenin kimliğidir. Bu kimlik, Firebase'da projenizi tanımlamak için kullanılır ve `FIREBASE_PROJECT_ID` ortam değişkeninde ayarlanmalıdır.
 
-### Firebase sistem kullanıcısı özel anahtarının base64 encode edilmiş hali nedir?
+#### Firebase sistem kullanıcısı özel anahtarının base64 encode edilmiş hali nedir?
 Firebase sistem kullanıcısı özel anahtarının base64 encode edilmiş hali, Firebase'da oluşturduğunuz projenin özel anahtarının base64 şeklinde encode edilmiş halidir. Bu anahtar, Firebase'da projenizi tanımlamak için kullanılır ve `FIREBASE_PRIVATE_KEY_B64` ortam değişkeninde ayarlanmalıdır.
 
-### Firebase sistem kullanıcı e-postası nedir?
+#### Firebase sistem kullanıcı e-postası nedir?
 Firebase sistem kullanıcı e-postası, Firebase'da oluşturduğunuz projenin sistem kullanıcısının e-postasıdır. Bu e-posta, Firebase'da projenizi tanımlamak için kullanılır ve `FIREBASE_CLIENT_EMAIL` ortam değişkeninde ayarlanmalıdır.
 
-### Firebase veritabanı URL'si nedir?
+#### Firebase veritabanı URL'si nedir?
 Firebase veritabanı URL'si, Firebase'da oluşturduğunuz projenin veritabanı URL'sidir. Bu URL, Firebase'da projenizi tanımlamak için kullanılır ve `FIREBASE_DATABASE_URL` ortam değişkeninde ayarlanmalıdır. 
 
 ## License
