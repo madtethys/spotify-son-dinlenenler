@@ -194,13 +194,13 @@ html[data-theme='light'] .site-footer {
 
 html[data-theme='light'] .footer-content p {
   margin: 0;
-  color: var(--footer-textcolor)
+  color: var(--footer-textcolor);
   font-size: 14px;
 }
 
 html[data-theme='dark'] .footer-content p {
   margin: 0;
-  color: var(--footer-textcolor)
+  color: var(--footer-textcolor);
   font-size: 14px;
 }
 
