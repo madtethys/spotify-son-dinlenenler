@@ -1,4 +1,4 @@
-import { Alert, Breadcrumb, Button, Space, Typography, Switch } from 'antd';
+import { Alert, Breadcrumb, Button, Space, Typography } from 'antd';
 import Cookie from 'js-cookie';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -12,7 +12,6 @@ const { Text, Title } = Typography;
 export default function Home(): JSX.Element {
     const router = useRouter();
     const [currentUser, setCurrentUser] = useState<string | undefined>(undefined);
-    const [darkMode, setDarkMode] = useState<boolean>(false);
     const error = router.query['error'];
 
     useEffect(() => {
@@ -20,23 +19,11 @@ export default function Home(): JSX.Element {
         if (user) {
             setCurrentUser(user);
         }
-
-        // Koyu mod tercihlerini kontrol et
-        const darkModePreference = Cookie.get('darkMode');
-        setDarkMode(darkModePreference === 'true');
-        
-        // Tema sınıfını ayarla
-        document.body.className = darkMode ? 'dark-theme' : 'light-theme';
-    }, [darkMode]);
+    });
 
     const handleClearCreds = () => {
         Cookie.remove('spotifyuser');
         window.location.reload();
-    };
-
-    const toggleDarkMode = (checked: boolean) => {
-        setDarkMode(checked);
-        Cookie.set('darkMode', checked.toString());
     };
 
     return (
@@ -49,15 +36,6 @@ export default function Home(): JSX.Element {
             <Breadcrumb separator=">" style={{ marginBottom: 25 }}>
                 <Breadcrumb.Item href="/">Anasayfa</Breadcrumb.Item>
             </Breadcrumb>
-
-            <div className="switch-container">
-                <Switch
-                    checked={darkMode}
-                    onChange={toggleDarkMode}
-                    checkedChildren="Koyu Mod"
-                    unCheckedChildren="Açık Mod"
-                />
-            </div>
 
             <div>
                 <Title level={2}>Spotify Son Çalınan Parçalar README Oluşturucu</Title>
@@ -73,8 +51,7 @@ export default function Home(): JSX.Element {
                         <MarkdownSnippet username={currentUser} />
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
                         <Button type="link" danger onClick={handleClearCreds}>
-                            Yerel kimlik bilgilerini temizle
-                        </Button>
+                        Yerel kimlik bilgilerini temizle</Button>
                     </Space>
                 )}
             </div>
