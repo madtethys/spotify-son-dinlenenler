@@ -62,7 +62,7 @@ input, textarea {
   width: 100%;
 }
 
-.markdown {
+.markdown, .htmlkodu {
   font-family: monospace;
   margin-bottom: 8px !important;
   background-color: var(--input-background);
@@ -70,6 +70,8 @@ input, textarea {
   border: 1px solid var(--border-color);
   padding: 10px;
   border-radius: 4px;
+  white-space: pre-wrap; /* Satır sonlarını koruyarak kodun düzgün görünmesini sağlar */
+  word-break: break-word; /* Uzun kelimelerin veya kodların taşmasını önler */
 }
 
 /* Dark Mode Styles for Ant Design Components */
