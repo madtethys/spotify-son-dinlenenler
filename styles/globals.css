@@ -5,11 +5,6 @@ html[data-theme='light'] {
   --input-background: #ffffff;
   --input-text-color: #000000;
   --border-color: #d9d9d9;
-  --button-background: #007bff;
-  --button-text-color: #ffffff;
-  --button-border: #007bff;
-  --button-hover-background: #0056b3;
-  --button-hover-border: #0056b3;
 }
 
 /* Dark Theme */
@@ -19,11 +14,6 @@ html[data-theme='dark'] {
   --input-background: #333333;
   --input-text-color: #ffffff;
   --border-color: #444444;
-  --button-background: #007bff;
-  --button-text-color: #ffffff;
-  --button-border: #007bff;
-  --button-hover-background: #0056b3;
-  --button-hover-border: #0056b3;
 }
 
 body {
@@ -46,16 +36,13 @@ input, textarea {
 }
 
 .spotify-auth-btn {
-  background: var(--button-background) !important;
-  color: var(--button-text-color) !important;
-  border-color: var(--button-border) !important;
-  border-radius: 4px;
-  transition: background-color 0.3s, border-color 0.3s;
+  background: #1db954 !important; /* Green background for Spotify auth button */
+  border-color: #1db954 !important;
 }
 
 .spotify-auth-btn:hover {
-  background: var(--button-hover-background) !important;
-  border-color: var(--button-hover-border) !important;
+  background: #45bb6e !important;
+  border-color: #45bb6e !important;
 }
 
 .vert-space {
@@ -72,52 +59,28 @@ input, textarea {
   border-radius: 4px;
 }
 
-/* Dark Mode Styles for Ant Design Components */
-.ant-breadcrumb-link {
-  color: var(--text-color) !important;
+/* Custom buttons */
+.theme-toggle-btn, .source-code-btn {
+  margin-left: 10px;
 }
 
-.ant-tabs-nav-list {
-  color: var(--text-color) !important;
-}
-
-/* Custom Button Styles */
-.custom-button {
-  background: var(--button-background);
-  color: var(--button-text-color);
-  border: 1px solid var(--button-border);
-  border-radius: 4px;
-  padding: 8px 16px;
-  margin: 0 5px;
-  transition: background-color 0.3s, border-color 0.3s;
-  display: flex;
-  align-items: center;
-}
-
-.custom-button:hover {
-  background: var(--button-hover-background);
-  border-color: var(--button-hover-border);
-}
-
-/* Custom Source Code Button Styles */
 .source-code-btn {
-  background: transparent;
-  color: var(--text-color);
+  background: #007bff; /* Blue color for source code button */
+  color: #ffffff;
   border: none;
-  border-bottom: 1px solid var(--border-color);
-  padding: 8px 16px;
-  margin: 0 5px;
-  transition: color 0.3s, border-color 0.3s;
 }
 
 .source-code-btn:hover {
-  color: var(--button-hover-background);
-  border-color: var(--button-hover-background);
+  background: #0056b3; /* Darker blue on hover */
 }
 
-/* Dark Mode and Light Mode Icons */
-.theme-icon {
-  font-size: 20px;
-  cursor: pointer;
-  margin: 0 10px;
+.theme-toggle-btn {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.theme-toggle-btn:hover {
+  background: var(--border-color);
+  color: var(--text-color);
 }
