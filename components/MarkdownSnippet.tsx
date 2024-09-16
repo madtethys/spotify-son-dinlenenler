@@ -16,16 +16,16 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         return null;
     }
 
-    const svgSrc = ${Constants.BaseUrl}/api?user=${username};
-    const markdownCode = ![Spotify Son Dinlenen Müzikler](${svgSrc});
-    const customCount = ![Spotify Son Dinlenen Müzikler](${svgSrc}&count={muziksayisi});
-    const customWidth = ![Spotify Son Dinlenen Müzikler](${svgSrc}&width={genislik});
-    const uniqueTracks = ![Spotify Son Dinlenen Müzikler](${svgSrc}&unique=true);
+    const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+    const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc})`;
+    const customCount = `![Spotify Son Dinlenen Müzikler](${svgSrc}&count={muziksayisi})`;
+    const customWidth = `![Spotify Son Dinlenen Müzikler](${svgSrc}&width={genislik})`;
+    const uniqueTracks = `![Spotify Son Dinlenen Müzikler](${svgSrc}&unique=true)`;
 
-    const htmlCode = <img src="${svgSrc}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />;
-    const htmlCount = <img src="${svgSrc}&count={muziksayisi}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />;
-    const htmlWidth = <img src="${svgSrc}&width={genişlik}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />;
-    const htmlUniqueTracks = <img src="${svgSrc}&unique=true" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />;
+    const htmlCode = `<img src="${svgSrc}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const htmlCount = `<img src="${svgSrc}&count={muziksayisi}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const htmlWidth = `<img src="${svgSrc}&width={genişlik}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const htmlUniqueTracks = `<img src="${svgSrc}&unique=true" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
     return (
         <Tabs defaultActiveKey="1">
