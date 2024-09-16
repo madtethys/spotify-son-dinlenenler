@@ -62,8 +62,8 @@ export default function Home(): JSX.Element {
                 <Button onClick={handleViewSource} className="source-code-btn">
                     Kaynak Kodunu Görüntüle
                 </Button>
-                <Button onClick={toggleTheme} className="custom-button">
-                    {theme === 'dark' ? <FaSun className="theme-icon" /> : <FaMoon className="theme-icon" />}
+                <Button onClick={toggleTheme} className="source-code-btn">
+                    {theme === 'dark' ? <FaSun className="theme-icon" /> : <FaMoon className="theme-icon" />} Temayı Değiştir
                 </Button>
             </div>
 
