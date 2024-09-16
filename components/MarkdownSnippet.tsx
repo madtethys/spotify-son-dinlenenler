@@ -1,11 +1,10 @@
-import { Input, Space, Typography, Tabs, Select, Slider, Switch } from 'antd';
+import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
 const { TabPane } = Tabs;
-const { Option } = Select;
 
 interface Props {
     username?: string;
@@ -25,11 +24,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
     const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`;
-    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - ${username}" />`;
-
-    const handleTrackCountChange = (value: string) => {
-        setTrackCount(parseInt(value, 10));
-    };
+    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
     const handleWidthChange = (value: number | [number, number]) => {
         if (typeof value === 'number') {
@@ -37,26 +32,32 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         }
     };
 
-    const textColor = theme === 'dark' ? '#d0d0d0' : '#222222';
-    const backgroundColor = theme === 'dark' ? '#2e2e2e' : '#f9f9f9';
+    const handleTrackCountChange = (value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setTrackCount(value);
+        }
+    };
 
     return (
         <div>
-            <Title level={5} style={{ color: textColor, marginBottom: '20px' }}>
+            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000', marginBottom: '20px' }}>
                 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
                 <TabPane tab="Markdown'a Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text style={{ color: textColor }}>Varsayılan Markdown Kodu:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Varsayılan Markdown Kodu:</Text>
                         <TextArea
                             className="markdown"
                             autoSize
                             readOnly
                             value={markdownCode}
-                            style={{ backgroundColor, color: textColor }}
+                            style={{
+                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
+                                color: theme === 'dark' ? '#ffffff' : '#000000'
+                            }}
                         />
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
                             Önizleme
                         </Title>
                         <object
@@ -70,15 +71,18 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 </TabPane>
                 <TabPane tab="HTML'e Nasıl Eklerim?" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text style={{ color: textColor }}>Varsayılan HTML Kodu:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Varsayılan HTML Kodu:</Text>
                         <TextArea
                             className="htmlkodu"
                             autoSize
                             readOnly
                             value={htmlCode}
-                            style={{ backgroundColor, color: textColor }}
+                            style={{
+                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
+                                color: theme === 'dark' ? '#ffffff' : '#000000'
+                            }}
                         />
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
                             Önizleme
                         </Title>
                         <object
@@ -92,40 +96,38 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 </TabPane>
                 <TabPane tab="Ayarlar" key="3">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
                             Ayarları Yapılandırın
                         </Title>
-                        <Text style={{ color: textColor }}>Listede bulunacak müzik sayısını ayarlayın:</Text>
-                        <Select
-                            value={trackCount.toString()}
-                            onChange={handleTrackCountChange}
-                            style={{ width: '100%' }}
-                        >
-                            {[...Array(10).keys()].map(i => (
-                                <Option key={i + 1} value={(i + 1).toString()}>
-                                    {i + 1}
-                                </Option>
-                            ))}
-                        </Select>
-                        <Text style={{ color: textColor }}>Listenin genişliğini ayarlayın (px):</Text>
-                        <Slider
-                            min={300}
-                            max={1000}
-                            step={1}
-                            value={width}
-                            onChange={handleWidthChange}
-                            tooltip={{
-                                formatter: (value) => `${value}px`,
-                            }}
-                            className="slider" // CSS sınıfını ekleyin
-                        />
-                        <Text style={{ color: textColor }}>Listede tekrar dinlenen müzikleri göster:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listede bulunacak müzik sayısını ayarlayın:</Text>
+                        <Tooltip title={`${trackCount} müzik`}>
+                            <Slider
+                                min={1}
+                                max={10}
+                                step={1}
+                                value={trackCount}
+                                onChange={handleTrackCountChange}
+                                className="slider"
+                            />
+                        </Tooltip>
+                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listenin genişliğini ayarlayın (px):</Text>
+                        <Tooltip title={`${width}px`}>
+                            <Slider
+                                min={300}
+                                max={1000}
+                                step={1}
+                                value={width}
+                                onChange={handleWidthChange}
+                                className="slider"
+                            />
+                        </Tooltip>
+                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listede tekrar dinlenen müzikleri göster:</Text>
                         <Switch
                             checked={uniqueTracks}
-                            onChange={setUniqueTracks}
-                            className="switch" // CSS sınıfını ekleyin
+                            onChange={checked => setUniqueTracks(checked)}
                             checkedChildren="Evet"
                             unCheckedChildren="Hayır"
+                            className="switch"
                         />
                     </Space>
                 </TabPane>
