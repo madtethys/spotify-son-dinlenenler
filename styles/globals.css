@@ -161,9 +161,21 @@ html[data-theme='dark'] .htmlkodu {
   color: var(--button-text-color);
 }
 
-.site-footer {
+html[data-theme='dark'] .site-footer {
   background-color: var(--background-color);
   color: var(--input-text-color);
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #444444;
+  margin-top: 20px;
+}
+
+light[data-theme='dark'] .site-footer {
+  background-color: var(--background-color);
+  color: rgba(127,127,127);
   text-align: center;
   padding: 20px;
   position: relative;
