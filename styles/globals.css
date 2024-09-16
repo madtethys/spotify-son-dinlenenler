@@ -27,7 +27,7 @@ html[data-theme='dark'] {
   --button-border: #a6c8ff;
   --button-hover-background: #8ab4ff; /* Hover durumunda pastel mavi */
   --button-hover-border: #8ab4ff;
-  --source-code-btn-background: #3f3f3f; /* Pastel koyu gri arka plan */
+  --source-code-btn-background: #4a4a4a; /* Pastel koyu gri arka plan */
   --source-code-btn-text-color: #e0e0e0; /* Pastel açık gri metin */
   --source-code-btn-border: #555555; /* Pastel koyu gri sınır */
 }
@@ -155,7 +155,7 @@ html[data-theme='dark'] .htmlkodu {
 }
 
 .source-code-btn:hover {
-  background-color: var(--button-hover-background);
+  background-color: var(--button-hover-background); /* Hover durumunda pastel mavi */
   color: var(--button-text-color);
 }
 
