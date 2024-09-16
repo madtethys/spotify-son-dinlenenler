@@ -48,7 +48,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             <Tabs defaultActiveKey="1">
                 <TabPane tab="❓ Markdown'a Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>Varsayılan Markdown Kodu:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>➕ Markdown'a eklemek için kodunuz</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.</Text>
                         <TextArea
                             className="markdown"
                             autoSize
@@ -72,7 +73,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 </TabPane>
                 <TabPane tab="❓ HTML'e Nasıl Eklerim?" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>Varsayılan HTML Kodu:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>➕ HTML'e eklemek için kodunuz</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Lütfen bu kodu HTML kodunuzda eklemek istediğiniz yere ekleyin.</Text>
                         <TextArea
                             className="htmlkodu"
                             autoSize
@@ -100,7 +102,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             🔨 Ayarları Yapılandırın
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>📋 Listede Bulunacak Müzik Sayısı</Text>
-                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listede bulunan müizk sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5) <br />API URL'sine <b>&count={girdiğinizdeğer}</b> ekleyecektir.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listede bulunan müizk sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5) <br />API URL'sine <b>&count=girdiğinizdeğer</b> ekleyecektir.</Text>
                         <Tooltip title={`${trackCount} müzik`}>
                             <Slider
                                 min={1}
@@ -112,7 +114,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             />
                         </Tooltip>
                         <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>↔️ Listenin Genişliği(px)</Text>
-                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width={girdiğinizdeğer}</b> ekleyecektir.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width=girdiğinizdeğer</b> ekleyecektir.</Text>
                         <Tooltip title={`${width}px`}>
                             <Slider
                                 min={300}
