@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip } from 'antd';
+import React, { useState } from 'react';
+import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button } from 'antd';
+import Share from 'react-native-share'; // react-native-share kütüphanesini import ettik
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -13,47 +14,52 @@ interface Props {
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const { username, theme } = props;
-    const [trackCount, setTrackCount] = useState<number>(5);
-    const [width, setWidth] = useState<number>(400);
-    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
-    const [pngSrc, setPngSrc] = useState<string | null>(null);
+    const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
+    const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
+    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
 
     if (!username) {
         return null;
     }
 
+    // SVG URL'sini ve parametreleri güncelle
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
     const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`;
     const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
-    useEffect(() => {
-        const svgImage = new Image();
-        svgImage.src = `${svgSrc}${updateParams}`;
-        svgImage.onload = () => {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            if (context) {
-                canvas.width = svgImage.width;
-                canvas.height = svgImage.height;
-                context.drawImage(svgImage, 0, 0);
-                canvas.toBlob((blob) => {
-                    if (blob) {
-                        const pngDataUrl = URL.createObjectURL(blob);
-                        setPngSrc(pngDataUrl);
-                    }
-                }, 'image/png');
-            }
-        };
-    }, [svgSrc, updateParams]);
+    // Handle değişim fonksiyonları
+    const handleWidthChange = (value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setWidth(value);
+        }
+    };
 
-    const handleShareOnInstagram = () => {
-        if (pngSrc) {
-            window.open(
-                'https://www.instagram.com/', // Instagram ana sayfasına yönlendirir
-                '_blank'
-            );
-            alert('Resmi telefonunuza indirin ve Instagram uygulamasında paylaşın!');
+    const handleTrackCountChange = (value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setTrackCount(value);
+        }
+    };
+
+    // Instagram Stories için paylaşım fonksiyonu
+    const shareToInstagramStory = async () => {
+        // Önizleme resmi URL'si
+        const previewImageUri = `${svgSrc}${updateParams}`;
+        // Arka plan resmi URL'si (örneğin, boş bir arka plan resmi kullanabilirsiniz)
+        const backgroundImageUri = 'https://example.com/your-background-image.png'; 
+
+        const options = {
+            backgroundImage: backgroundImageUri, // Arka plan resmi
+            stickerImage: previewImageUri,       // Ön plan resmi olarak önizleme resmi
+            sourceApplication: 'YourAppId',       // Uygulama ID'nizi buraya ekleyin
+        };
+
+        try {
+            await Share.open({
+                method: Share.InstagramStories.share(options),
+            });
+        } catch (error) {
+            console.error('Error sharing to Instagram:', error);
         }
     };
 
@@ -68,7 +74,9 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             Markdown'a eklemek için kodunuz:
                         </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.
+                        </Text>
                         <TextArea
                             className="markdown"
                             autoSize
@@ -83,22 +91,10 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={pngSrc || `${svgSrc}${updateParams}`}
+                            src={`${svgSrc}${updateParams}`}
                             alt="Spotify Son Dinlenen Müzikler"
-                            key={updateParams}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                                if (pngSrc) {
-                                    const link = document.createElement('a');
-                                    link.href = pngSrc;
-                                    link.download = 'spotify_recent_tracks.png'; // İndirilecek dosyanın adı
-                                    link.click();
-                                }
-                            }}
+                            key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
                         />
-                        <button onClick={handleShareOnInstagram}>
-                            Instagram Hikayesine Paylaş
-                        </button>
                     </Space>
                 </TabPane>
                 <TabPane tab="❓ HTML'e Nasıl Eklerim?" key="2">
@@ -106,7 +102,9 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             HTML'e eklemek için kodunuz:
                         </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Lütfen bu kodu HTML kodunuzda eklemek istediğiniz yere ekleyin.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Lütfen bu kodu HTML kodunuzda eklemek istediğiniz yere ekleyin.
+                        </Text>
                         <TextArea
                             className="htmlkodu"
                             autoSize
@@ -121,22 +119,10 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={pngSrc || `${svgSrc}${updateParams}`}
+                            src={`${svgSrc}${updateParams}`}
                             alt="Spotify Son Dinlenen Müzikler"
-                            key={updateParams}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                                if (pngSrc) {
-                                    const link = document.createElement('a');
-                                    link.href = pngSrc;
-                                    link.download = 'spotify_recent_tracks.png'; // İndirilecek dosyanın adı
-                                    link.click();
-                                }
-                            }}
+                            key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
                         />
-                        <button onClick={handleShareOnInstagram}>
-                            Instagram Hikayesine Paylaş
-                        </button>
                     </Space>
                 </TabPane>
                 <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
@@ -144,7 +130,9 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             📋 Listede Bulunacak Müzik Sayısı:
                         </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Listede bulunan müizk sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5) <br />API URL'sine <b>&count=girdiğinizdeğer</b> ekleyecektir.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listede bulunan müizk sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5) <br />API URL'sine <b>&count=girdiğinizdeğer</b> ekleyecektir.
+                        </Text>
                         <Tooltip title={`${trackCount} müzik`}>
                             <Slider
                                 min={1}
@@ -158,7 +146,9 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             ↔️ Listenin Genişliği(px):
                         </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width=girdiğinizdeğer</b> ekleyecektir.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width=girdiğinizdeğer</b> ekleyecektir.
+                        </Text>
                         <Tooltip title={`${width}px`}>
                             <Slider
                                 min={300}
@@ -172,7 +162,9 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             🔁 Tekrar Dinlenen Müzikler:
                         </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir eklemek yapılmayacaktır.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir eklemek yapılmayacaktır.
+                        </Text>
                         <Switch
                             checked={uniqueTracks}
                             onChange={checked => setUniqueTracks(checked)}
@@ -183,6 +175,10 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                     </Space>
                 </TabPane>
             </Tabs>
+            {/* Paylaşım butonu ekleyelim */}
+            <Button onClick={shareToInstagramStory} type="primary" style={{ marginTop: 20 }}>
+                Instagram Stories'e Paylaş
+            </Button>
         </div>
     );
 }
