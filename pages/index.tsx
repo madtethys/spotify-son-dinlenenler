@@ -40,7 +40,7 @@ export default function Home(): JSX.Element {
     };
 
     const handleViewSource = () => {
-        window.open('https://github.com/madtethys/spotify-son-dinlenenler', '_blank'); // Replace with your repository URL
+        window.open('https://github.com/your-repo-url', '_blank'); // Replace with your repository URL
     };
 
     return (
@@ -52,12 +52,12 @@ export default function Home(): JSX.Element {
 
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 25 }}>
                 <Breadcrumb separator=">" style={{ marginRight: 20 }}>
-                    <Breadcrumb.Item href="https://mdusova.com/">Anasayfa</Breadcrumb.Item>
+                    <Breadcrumb.Item href="/" className="ant-breadcrumb-link">Anasayfa</Breadcrumb.Item>
                 </Breadcrumb>
-                <Button onClick={toggleTheme} style={{ marginRight: 20 }}>
+                <Button onClick={toggleTheme} className="custom-button">
                     {theme === 'dark' ? 'Aydınlık Mod' : 'Koyu Mod'}
                 </Button>
-                <Button onClick={handleViewSource}>
+                <Button onClick={handleViewSource} className="source-code-btn">
                     Kaynak Kodunu Görüntüle
                 </Button>
             </div>
