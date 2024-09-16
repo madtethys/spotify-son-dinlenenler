@@ -1,5 +1,5 @@
 import { Input, Space, Typography, Tabs } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -8,17 +8,11 @@ const { TabPane } = Tabs;
 
 interface Props {
     username?: string;
+    theme?: string;  // Tema prop olarak alınıyor
 }
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
-    const { username } = props;
-    const [theme, setTheme] = useState<string>('light');
-
-    useEffect(() => {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        setTheme(currentTheme);
-    }, []);
-
+    const { username, theme } = props;
     if (!username) {
         return null;
     }
@@ -38,57 +32,54 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         <Tabs defaultActiveKey="1">
             <TabPane tab="Markdown'a Nasıl Eklerim?" key="1">
                 <Space className="vert-space" direction="vertical" size="small">
-                    <Title level={5} style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
-                        "{username}" olarak giriş yapıldı.
-                    </Title>
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>Varsayılan Markdown Kodu:</Text>
-                    <TextArea className="markdown" autoSize readOnly value={markdownCode} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>
+                    <Title level={5}>"{username}" olarak giriş yapıldı.</Title>
+                    <Text>Varsayılan Markdown Kodu:</Text>
+                    {/* Tema stilini buraya ekledik */}
+                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={markdownCode} />
+                    <Text>
                         Listede bulunacak müzik sayısını ayarlamak için: (
                         <b>
                             {Constants.minCount} &#8804; &#123;Müzik Sayısı&#125; &#8804; {Constants.maxCount}
                         </b>
                         ):
                     </Text>
-                    <TextArea className="markdown" autoSize readOnly value={customCount} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>
+                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={customCount} />
+                    <Text>
                         Listenin genişliğini ayarlamak için: (
                         <b>
                             {Constants.minWidth} &#8804; &#123;Liste Genişliği&#125; &#8804; {Constants.maxWidth}
                         </b>
                         ):
                     </Text>
-                    <TextArea className="markdown" autoSize readOnly value={customWidth} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>Listede tekrar dinlenen müzikleri göstermek için:</Text>
-                    <TextArea className="markdown" autoSize readOnly value={uniqueTracks} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
+                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={customWidth} />
+                    <Text>Listede tekrar dinlenen müzikleri göstermek için:</Text>
+                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={uniqueTracks} />
                     <object type="image/svg+xml" data={svgSrc}></object>
                 </Space>
             </TabPane>
             <TabPane tab="HTML'e Nasıl Eklerim?" key="2">
                 <Space className="vert-space" direction="vertical" size="small">
-                    <Title level={5} style={{ color: theme === 'dark' ? '#fff' : '#000' }}>
-                        "{username}" olarak giriş yapıldı.
-                    </Title>
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>Varsayılan HTML Kodu:</Text>
-                    <TextArea className="html" autoSize readOnly value={htmlCode} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>
+                    <Title level={5}>"{username}" olarak giriş yapıldı.</Title>
+                    <Text>Varsayılan HTML Kodu:</Text>
+                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlCode} />
+                    <Text>
                         Listede bulunacak müzik sayısını ayarlamak için: (
                         <b>
                             {Constants.minCount} &#8804; &#123;Müzik Sayısı&#125; &#8804; {Constants.maxCount}
                         </b>
                         ):
                     </Text>
-                    <TextArea className="html" autoSize readOnly value={htmlCount} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>
+                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlCount} />
+                    <Text>
                         Listenin genişliğini ayarlamak için: (
                         <b>
                             {Constants.minWidth} &#8804; &#123;Liste Genişliği&#125; &#8804; {Constants.maxWidth}
                         </b>
                         ):
                     </Text>
-                    <TextArea className="html" autoSize readOnly value={htmlWidth} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
-                    <Text style={{ color: theme === 'dark' ? '#ddd' : '#000' }}>Listede tekrar dinlenen müzikleri göstermek için:</Text>
-                    <TextArea className="html" autoSize readOnly value={htmlUniqueTracks} style={{ backgroundColor: theme === 'dark' ? '#333' : '#fff', color: theme === 'dark' ? '#fff' : '#000' }} />
+                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlWidth} />
+                    <Text>Listede tekrar dinlenen müzikleri göstermek için:</Text>
+                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlUniqueTracks} />
                     <object type="image/svg+xml" data={svgSrc}></object>
                 </Space>
             </TabPane>
