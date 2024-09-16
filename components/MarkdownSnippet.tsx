@@ -1,7 +1,6 @@
 import { Space, Typography, Tabs, Switch, Slider } from 'antd';
 import React, { useState, useCallback } from 'react';
 import * as Constants from '../utils/Constants';
-import './MarkdownSnippet.css'; // CSS dosyanızı import edin
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
