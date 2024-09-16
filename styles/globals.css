@@ -210,39 +210,29 @@ html[data-theme='dark'] .ant-tabs-ink-bar {
 }
 
 /* Slider Styles */
-.slider {
-  width: 100%;
-}
-
-html[data-theme='dark'] .slider .ant-slider {
+.slider .ant-slider {
   background-color: var(--input-background);
 }
 
-html[data-theme='dark'] .slider .ant-slider-track {
+.slider .ant-slider-track {
   background-color: #64b5f6;
 }
 
-html[data-theme='dark'] .slider .ant-slider-handle {
+.slider .ant-slider-handle {
   border-color: #64b5f6;
-}
-
-html[data-theme='light'] .slider .ant-slider-track {
-  background-color: #64b5f6;
-}
-
-html[data-theme='light'] .slider .ant-slider-handle {
-  border-color: #64b5f6;
+  background-color: #ffffff; /* Handle rengi */
 }
 
 /* Switch Styles */
-.switch {
-  margin-top: 10px;
-}
-
-html[data-theme='dark'] .switch .ant-switch {
+.switch .ant-switch {
   background-color: #64b5f6;
 }
 
-html[data-theme='light'] .switch .ant-switch {
+/* Custom Styles */
+html[data-theme='dark'] .ant-switch.ant-switch-checked {
+  background-color: #64b5f6;
+}
+
+html[data-theme='light'] .ant-switch.ant-switch-checked {
   background-color: #64b5f6;
 }
