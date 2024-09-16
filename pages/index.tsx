@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import MarkdownSnippet from '../components/MarkdownSnippet';
 import SpotifyAuthButton from '../components/SpotifyAuthButton';
 import { ClientId, RedirectUri } from '../utils/Constants';
-import { FaMoon, FaSun } from 'react-icons/fa'; // Importing icons
 
 const { Text, Title } = Typography;
 const { Footer } = Layout;
@@ -88,9 +87,9 @@ export default function Home(): JSX.Element {
                 ) : (
                     <Space className="vert-space" direction="vertical" size="middle" style={{ width: '100%' }}>
                         <MarkdownSnippet username={currentUser} theme={theme} />
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div className="auth-button-container">
                             <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
-                            <Button type="link" danger onClick={handleClearCreds} style={{ marginLeft: '10px' }}>
+                            <Button type="link" danger onClick={handleClearCreds} style={{ marginTop: '10px' }}>
                                 Yerel kimlik bilgilerini temizle
                             </Button>
                         </div>
