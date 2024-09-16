@@ -5,6 +5,11 @@ html[data-theme='light'] {
   --input-background: #ffffff;
   --input-text-color: #000000;
   --border-color: #d9d9d9;
+  --button-background: #007bff;
+  --button-text-color: #ffffff;
+  --button-border: #007bff;
+  --button-hover-background: #0056b3;
+  --button-hover-border: #0056b3;
 }
 
 /* Dark Theme */
@@ -14,6 +19,11 @@ html[data-theme='dark'] {
   --input-background: #333333;
   --input-text-color: #ffffff;
   --border-color: #444444;
+  --button-background: #007bff;
+  --button-text-color: #ffffff;
+  --button-border: #007bff;
+  --button-hover-background: #0056b3;
+  --button-hover-border: #0056b3;
 }
 
 body {
@@ -36,37 +46,69 @@ input, textarea {
 }
 
 .spotify-auth-btn {
-  background: #1db954 !important;
-  border-color: #1db954 !important;
+  background: var(--button-background) !important;
+  color: var(--button-text-color) !important;
+  border-color: var(--button-border) !important;
+  border-radius: 4px;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .spotify-auth-btn:hover {
-  background: #45bb6e !important;
-  border-color: #45bb6e !important;
+  background: var(--button-hover-background) !important;
+  border-color: var(--button-hover-border) !important;
 }
 
 .vert-space {
   width: 100%;
 }
 
-.markdown, .html {
+.markdown {
   font-family: monospace;
   margin-bottom: 8px !important;
-  background-color: var(--input-background); /* Tema uyumlu arka plan */
-  color: var(--input-text-color); /* Tema uyumlu yazı rengi */
-  border: 1px solid var(--border-color); /* Tema uyumlu sınır */
+  background-color: var(--input-background);
+  color: var(--input-text-color);
+  border: 1px solid var(--border-color);
   padding: 10px;
   border-radius: 4px;
 }
 
-.ant-typography {
-  color: var(--text-color) !important; /* Ant Design Typography bileşenlerinin yazı rengini güncelledik */
-}
-
+/* Dark Mode Styles for Ant Design Components */
 .ant-breadcrumb-link {
   color: var(--text-color) !important;
 }
 
 .ant-tabs-nav-list {
   color: var(--text-color) !important;
+}
+
+/* Custom Button Styles */
+.custom-button {
+  background: var(--button-background);
+  color: var(--button-text-color);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 0 5px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-button:hover {
+  background: var(--button-hover-background);
+  border-color: var(--button-hover-border);
+}
+
+/* Custom Styles for the Source Code Button */
+.source-code-btn {
+  background: var(--button-background);
+  color: var(--button-text-color);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 0 5px;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.source-code-btn:hover {
+  background: var(--button-hover-background);
+  border-color: var(--button-hover-border);
 }
