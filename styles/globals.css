@@ -1,43 +1,35 @@
 /* Light Theme */
 html[data-theme='light'] {
-  --background-color: #f9f9f9; /* Daha yumuşak bir arka plan */
-  --text-color: #222222; /* Siyah yerine daha koyu gri */
-  --input-background: #f5f5f5; /* Çok hafif gri */
-  --input-text-color: #333333; /* Orta koyulukta gri */
-  --border-color: #cccccc; /* Hafif gri sınır */
-  --button-background: #64b5f6; /* Daha yumuşak mavi */
+  --background-color: #f9f9f9;
+  --text-color: #222222;
+  --input-background: #f5f5f5;
+  --input-text-color: #333333;
+  --border-color: #cccccc;
+  --button-background: #64b5f6;
   --button-text-color: #ffffff;
   --button-border: #64b5f6;
-  --button-hover-background: #42a5f5; /* Hover durumda daha koyu ama hala yumuşak bir mavi */
+  --button-hover-background: #42a5f5;
   --button-hover-border: #42a5f5;
-  --source-code-btn-background: #ffffff; /* Beyaz arka plan */
-  --source-code-btn-text-color: #222222; /* Koyu gri metin */
-  --source-code-btn-border: #cccccc; /* Hafif gri sınır */
-  --slider-background: #e0e0e0; /* Slider arka plan rengi */
-  --slider-track-background: #64b5f6; /* Slider izinin rengi */
-  --switch-background: #e0e0e0; /* Switch arka plan rengi */
-  --switch-checked-background: #64b5f6; /* Switch seçili arka plan rengi */
+  --source-code-btn-background: #ffffff;
+  --source-code-btn-text-color: #222222;
+  --source-code-btn-border: #cccccc;
 }
 
 /* Dark Theme */
 html[data-theme='dark'] {
-  --background-color: #2e2e2e; /* Daha açık bir koyu gri */
-  --text-color: #d0d0d0; /* Daha pastel bir gri */
-  --input-background: #3c3c3c; /* Orta koyulukta gri */
-  --input-text-color: #b0b0b0; /* Daha pastel bir gri */
+  --background-color: #2e2e2e;
+  --text-color: #d0d0d0;
+  --input-background: #3c3c3c;
+  --input-text-color: #b0b0b0;
   --border-color: #555555;
   --button-background: #64b5f6;
   --button-text-color: #ffffff;
   --button-border: #64b5f6;
   --button-hover-background: #42a5f5;
   --button-hover-border: #42a5f5;
-  --source-code-btn-background: #4a4a4a; /* Koyu gri arka plan */
-  --source-code-btn-text-color: #e0e0e0; /* Açık gri metin */
-  --source-code-btn-border: #555555; /* Koyu gri sınır */
-  --slider-background: #3c3c3c; /* Slider arka plan rengi */
-  --slider-track-background: #64b5f6; /* Slider izinin rengi */
-  --switch-background: #3c3c3c; /* Switch arka plan rengi */
-  --switch-checked-background: #64b5f6; /* Switch seçili arka plan rengi */
+  --source-code-btn-background: #4a4a4a;
+  --source-code-btn-text-color: #e0e0e0;
+  --source-code-btn-border: #555555;
 }
 
 body {
@@ -61,11 +53,10 @@ body {
   margin-bottom: 25px;
 }
 
-/* Mobil görünümde butonları yan yana tut */
 @media screen and (max-width: 768px) {
   .button-container {
-    flex-direction: row; /* Butonları yan yana tut */
-    flex-wrap: wrap; /* Sıkıştıklarında bir alt satıra geçmelerini sağlar */
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
@@ -100,15 +91,14 @@ body {
 
 .auth-button-container {
   display: flex;
-  flex-direction: column; /* Butonları alt alta yerleştirir */
+  flex-direction: column;
   align-items: center;
 }
 
-/* Mobil görünümde butonları yan yana tut */
 @media screen and (max-width: 768px) {
   .auth-button-container {
-    flex-direction: column; /* Butonları alt alta yerleştirir */
-    gap: 10px; /* Aralarındaki boşluğu artırır */
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
@@ -119,7 +109,7 @@ input, textarea {
 }
 
 .spotify-auth-btn {
-  background: #1db954 !important; /* Spotify yeşili */
+  background: #1db954 !important;
   color: var(--button-text-color) !important;
   border-color: #1db954 !important;
   border-radius: 4px;
@@ -147,10 +137,9 @@ input, textarea {
   word-break: break-word;
 }
 
-/* Dark theme Markdown ve HTML arka planını kapat */
 html[data-theme='dark'] .markdown, 
 html[data-theme='dark'] .htmlkodu {
-  background-color: transparent; /* Arka planı kaldır */
+  background-color: transparent;
 }
 
 .source-code-btn {
@@ -160,11 +149,11 @@ html[data-theme='dark'] .htmlkodu {
   padding: 10px 20px;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
-  text-align: center; /* Yazıları ortala */
-  display: inline-flex; /* İçeriği ortalamak için flex kullanımı */
-  align-items: center; /* Dikey ortalamak için */
-  justify-content: center; /* Yatay ortalamak için */
-  line-height: 1.5; /* Satır yüksekliğini ayarlayarak metin hizalamasını iyileştirme */
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
 }
 
 .source-code-btn:hover {
@@ -172,7 +161,6 @@ html[data-theme='dark'] .htmlkodu {
   color: var(--button-text-color);
 }
 
-/* Footer Styles */
 .site-footer {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -181,7 +169,7 @@ html[data-theme='dark'] .htmlkodu {
   position: relative;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #444444; /* Daha pastel bir gri */
+  border-top: 1px solid #444444;
   margin-top: 20px;
 }
 
@@ -204,48 +192,57 @@ html[data-theme='dark'] .htmlkodu {
   text-decoration: underline;
 }
 
-/* Dark theme for Ant Design Tabs */
 html[data-theme='dark'] .ant-tabs-tab {
   background-color: transparent;
-  color: var(--source-code-btn-text-color); /* Tabların arka plan rengini kaldır */
+  color: var(--source-code-btn-text-color);
 }
 
 html[data-theme='dark'] .ant-tabs-tab-active {
-  background-color: transparent; /* Aktif tabın arka plan rengini kaldır */
+  background-color: transparent;
 }
 
 html[data-theme='dark'] .ant-tabs-card .ant-tabs-tab {
-  background-color: transparent; /* Kart tarzı tabların arka plan rengini kaldır */
+  background-color: transparent;
 }
 
 html[data-theme='dark'] .ant-tabs-ink-bar {
-  background: #64b5f6; /* Aktif tab alt çizgi rengi */
+  background: #64b5f6;
 }
 
-/* Slider Stilleri */
-.ant-slider {
-  background-color: var(--slider-background);
+/* Slider Styles */
+.slider {
+  width: 100%;
 }
 
-.ant-slider-track {
-  background-color: var(--slider-track-background);
+html[data-theme='dark'] .slider .ant-slider {
+  background-color: var(--input-background);
 }
 
-.ant-slider-handle {
-  border-color: var(--button-background);
-  background-color: var(--button-background);
+html[data-theme='dark'] .slider .ant-slider-track {
+  background-color: #64b5f6;
 }
 
-/* Switch Stilleri */
-.ant-switch {
-  background-color: var(--switch-background);
+html[data-theme='dark'] .slider .ant-slider-handle {
+  border-color: #64b5f6;
 }
 
-.ant-switch-checked {
-  background-color: var(--switch-checked-background);
+html[data-theme='light'] .slider .ant-slider-track {
+  background-color: #64b5f6;
 }
 
-.ant-switch-handle {
-  border-color: var(--button-background);
-  background-color: var(--button-background);
+html[data-theme='light'] .slider .ant-slider-handle {
+  border-color: #64b5f6;
+}
+
+/* Switch Styles */
+.switch {
+  margin-top: 10px;
+}
+
+html[data-theme='dark'] .switch .ant-switch {
+  background-color: #64b5f6;
+}
+
+html[data-theme='light'] .switch .ant-switch {
+  background-color: #64b5f6;
 }
