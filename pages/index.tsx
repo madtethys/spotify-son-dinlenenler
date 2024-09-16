@@ -24,7 +24,10 @@ export default function Home(): JSX.Element {
         // Koyu mod tercihlerini kontrol et
         const darkModePreference = Cookie.get('darkMode');
         setDarkMode(darkModePreference === 'true');
-    }, []);
+        
+        // Tema sınıfını ayarla
+        document.body.className = darkMode ? 'dark-theme' : 'light-theme';
+    }, [darkMode]);
 
     const handleClearCreds = () => {
         Cookie.remove('spotifyuser');
@@ -37,55 +40,44 @@ export default function Home(): JSX.Element {
     };
 
     return (
-        <ConfigProvider
-            theme={{
-                token: {
-                    colorPrimary: darkMode ? '#1db954' : '#1890ff', // Ant Design ana renk
-                    colorBgBase: darkMode ? '#121212' : '#ffffff', // Temel arka plan rengi
-                    colorTextBase: darkMode ? '#e0e0e0' : '#000000', // Temel metin rengi
-                },
-                // Diğer tema ayarlarını buraya ekleyebilirsiniz
-            }}
-        >
-            <div className="container">
-                <Head>
-                    <title>Spotify Son Çalınan Parçalar README Oluşturucu</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head>
+        <div className="container">
+            <Head>
+                <title>Spotify Son Çalınan Parçalar README Oluşturucu</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-                <Breadcrumb separator=">" style={{ marginBottom: 25 }}>
-                    <Breadcrumb.Item href="/">Anasayfa</Breadcrumb.Item>
-                </Breadcrumb>
+            <Breadcrumb separator=">" style={{ marginBottom: 25 }}>
+                <Breadcrumb.Item href="/">Anasayfa</Breadcrumb.Item>
+            </Breadcrumb>
 
-                <div style={{ marginBottom: 20 }}>
-                    <Switch
-                        checked={darkMode}
-                        onChange={toggleDarkMode}
-                        checkedChildren="Koyu Mod"
-                        unCheckedChildren="Açık Mod"
-                    />
-                </div>
-
-                <div>
-                    <Title level={2}>Spotify Son Çalınan Parçalar README Oluşturucu</Title>
-                    {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
-
-                    {!currentUser ? (
-                        <Space className="vert-space" direction="vertical" size="middle">
-                            <Text>Spotify'ı yetkilendirerek başlayalım.</Text>
-                            <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
-                        </Space>
-                    ) : (
-                        <Space className="vert-space" direction="vertical" size="middle">
-                            <MarkdownSnippet username={currentUser} />
-                            <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
-                            <Button type="link" danger onClick={handleClearCreds}>
-                                Yerel kimlik bilgilerini temizle
-                            </Button>
-                        </Space>
-                    )}
-                </div>
+            <div style={{ marginBottom: 20 }}>
+                <Switch
+                    checked={darkMode}
+                    onChange={toggleDarkMode}
+                    checkedChildren="Koyu Mod"
+                    unCheckedChildren="Açık Mod"
+                />
             </div>
-        </ConfigProvider>
+
+            <div>
+                <Title level={2}>Spotify Son Çalınan Parçalar README Oluşturucu</Title>
+                {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
+
+                {!currentUser ? (
+                    <Space className="vert-space" direction="vertical" size="middle">
+                        <Text>Spotify'ı yetkilendirerek başlayalım.</Text>
+                        <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
+                    </Space>
+                ) : (
+                    <Space className="vert-space" direction="vertical" size="middle">
+                        <MarkdownSnippet username={currentUser} />
+                        <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
+                        <Button type="link" danger onClick={handleClearCreds}>
+                            Yerel kimlik bilgilerini temizle
+                        </Button>
+                    </Space>
+                )}
+            </div>
+        </div>
     );
 }
