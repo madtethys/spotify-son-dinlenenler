@@ -13,6 +13,7 @@ html[data-theme='light'] {
   --source-code-btn-background: #ffffff;
   --source-code-btn-text-color: #222222;
   --source-code-btn-border: #cccccc;
+  --footer-textcolor: #7f7f7f;
 }
 
 /* Dark Theme */
@@ -30,6 +31,7 @@ html[data-theme='dark'] {
   --source-code-btn-background: #4a4a4a;
   --source-code-btn-text-color: #e0e0e0;
   --source-code-btn-border: #555555;
+  --footer-textcolor: #b0b0b0;
 }
 
 body {
@@ -192,6 +194,7 @@ light[data-theme='dark'] .site-footer {
 
 .footer-content p {
   margin: 0;
+  color: var(--footer-textcolor)
   font-size: 14px;
 }
 
