@@ -25,7 +25,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
     const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`;
-    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler by mdusova.com" />`;
 
     useEffect(() => {
         const svgImage = new Image();
@@ -56,7 +56,12 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     };
 
     const handleImageClick = () => {
-        window.open(`${svgSrc}${updateParams}`, '_blank');
+        if (pngSrc) {
+            const link = document.createElement('a');
+            link.href = pngSrc;
+            link.download = 'spotify_son_dinlenenler_by_mdusova.png'; // İndirilecek dosyanın adı
+            link.click();
+        }
     };
 
     return (
@@ -85,12 +90,15 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={pngSrc || `${svgSrc}${updateParams}`}
-                            alt="Spotify Son Dinlenen Müzikler"
+                            src={`${svgSrc}${updateParams}`}
+                            alt="Spotify Son Dinlenen Müzikler by mdusova"
                             key={updateParams}
                             onClick={handleImageClick}
-                            style={{ cursor: 'pointer' }} // Görselin tıklanabilir olduğunu belirten işaret
+                            style={{ cursor: 'pointer' }}
                         />
+                        <a href={pngSrc || `${svgSrc}${updateParams}`} download="spotify_son_dinlenenler_by_mdusova.png">
+                            PNG olarak indir
+                        </a>
                     </Space>
                 </TabPane>
                 <TabPane tab="❓ HTML'e Nasıl Eklerim?" key="2">
@@ -113,12 +121,15 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={pngSrc || `${svgSrc}${updateParams}`}
-                            alt="Spotify Son Dinlenen Müzikler"
+                            src={`${svgSrc}${updateParams}`}
+                            alt="Spotify Son Dinlenen Müzikler by mdusova"
                             key={updateParams}
                             onClick={handleImageClick}
-                            style={{ cursor: 'pointer' }} // Görselin tıklanabilir olduğunu belirten işaret
+                            style={{ cursor: 'pointer' }}
                         />
+                        <a href={pngSrc || `${svgSrc}${updateParams}`} download="spotify_son_dinlenenler_by_mdusova.png">
+                            PNG olarak indir
+                        </a>
                     </Space>
                 </TabPane>
                 <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
