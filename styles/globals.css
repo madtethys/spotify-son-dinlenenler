@@ -29,7 +29,6 @@ body {
   padding-bottom: 25px;
 }
 
-/* Input ve textarea için tema uyumlu stil */
 input, textarea {
   background-color: var(--input-background);
   color: var(--input-text-color);
@@ -50,19 +49,9 @@ input, textarea {
   width: 100%;
 }
 
-/* Markdown için tema uyumlu stil */
-.markdown {
+.markdown, .html {
   font-family: monospace;
   margin-bottom: 8px !important;
-  background-color: var(--input-background); /* Tema uyumlu arka plan */
-  color: var(--input-text-color); /* Tema uyumlu yazı rengi */
-  border: 1px solid var(--border-color); /* Tema uyumlu sınır */
-  padding: 10px;
-  border-radius: 4px;
-}
-
-/* HTML için tema uyumlu stil */
-.html {
   background-color: var(--input-background); /* Tema uyumlu arka plan */
   color: var(--input-text-color); /* Tema uyumlu yazı rengi */
   border: 1px solid var(--border-color); /* Tema uyumlu sınır */
