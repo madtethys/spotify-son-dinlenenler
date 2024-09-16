@@ -75,7 +75,12 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         max={10}
                         step={1}
                         value={trackCount}
-                        onChange={value => setTrackCount(value as number)}
+                        onChange={(value: number | [number, number]) => {
+                            // Slider değeri number ise setTrackCount ile güncelle
+                            if (typeof value === 'number') {
+                                setTrackCount(value);
+                            }
+                        }}
                         marks={{ 1: '1', 10: '10' }}
                     />
                     <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listenin genişliğini ayarlayın (px):</Text>
@@ -84,7 +89,12 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         max={1000}
                         step={1}
                         value={width}
-                        onChange={value => setWidth(value as number)}
+                        onChange={(value: number | [number, number]) => {
+                            // Slider değeri number ise setWidth ile güncelle
+                            if (typeof value === 'number') {
+                                setWidth(value);
+                            }
+                        }}
                         marks={{ 300: '300px', 1000: '1000px' }}
                     />
                     <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listede tekrar dinlenen müzikleri göster:</Text>
