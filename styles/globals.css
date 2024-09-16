@@ -72,34 +72,13 @@ input, textarea {
   border-radius: 4px;
 }
 
-.htmlcode {
-  font-family: monospace;
-  margin-bottom: 8px !important;
-  background-color: var(--input-background);
-  color: var(--input-text-color);
-  border: 1px solid var(--border-color);
-  padding: 10px;
-  border-radius: 4px;
+/* Dark Mode Styles for Ant Design Components */
+.ant-breadcrumb-link {
+  color: var(--text-color) !important;
 }
 
-/* Responsive Optimizations */
-@media screen and (max-width: 768px) {
-  .container {
-    width: 95%; /* Daha küçük ekranlar için genişliği artırıyoruz */
-  }
-
-  .custom-button, .source-code-btn {
-    padding: 10px 20px; /* Butonları daha büyük yapıyoruz */
-    font-size: 14px; /* Metin boyutunu mobil için optimize ediyoruz */
-  }
-
-  .vert-space {
-    margin-bottom: 20px; /* Mobilde dikey boşlukları artırıyoruz */
-  }
-
-  .footer-content p {
-    font-size: 12px; /* Mobilde küçük metinler */
-  }
+.ant-tabs-nav-list {
+  color: var(--text-color) !important;
 }
 
 /* Custom Button Styles */
@@ -110,17 +89,16 @@ input, textarea {
   border-radius: 4px;
   padding: 8px 16px;
   margin: 0 5px;
-  transition: background-color 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
+  transition: background-color 0.3s, border-color 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  text-align: center; /* Yatayda ortalama */
 }
 
 .custom-button:hover {
   background: var(--button-hover-background);
   border-color: var(--button-hover-border);
-  transform: translateY(-2px); /* Butonlar üzerine gelince hafif yukarı kayar */
 }
 
 /* Custom Source Code Button Styles */
@@ -131,17 +109,64 @@ input, textarea {
   border-bottom: 1px solid var(--border-color);
   padding: 8px 16px;
   margin: 0 5px;
-  transition: color 0.3s, border-color 0.3s, transform 0.3s ease;
+  transition: color 0.3s, border-color 0.3s;
+  text-align: center; /* Yatayda ortalama */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: center; /* Dikeyde ortalama */
+  justify-content: center; /* Buton içindeki içeriği ortalar */
 }
 
 .source-code-btn:hover {
   color: var(--button-hover-background);
   border-color: var(--button-hover-background);
-  transform: translateY(-2px);
+}
+
+/* Dark Mode Custom Button Styles */
+html[data-theme='dark'] .custom-button,
+html[data-theme='dark'] .source-code-btn {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Dark Mode Button Hover Styles */
+html[data-theme='dark'] .custom-button:hover,
+html[data-theme='dark'] .source-code-btn:hover {
+  background: var(--button-hover-background);
+  color: var(--text-color);
+  border-color: var(--button-hover-background);
+}
+
+/* Dark Mode General Button Styles */
+html[data-theme='dark'] button {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+html[data-theme='dark'] button:hover {
+  background: var(--button-hover-background);
+  color: var(--text-color);
+  border-color: var(--button-hover-background);
+}
+
+/* Dark Mode and Light Mode Icons */
+.theme-icon {
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 10px;
+  background: transparent; /* Şeffaf arka plan */
+}
+
+/* Icon Button Styles */
+.icon-button {
+  background: transparent; /* Şeffaf arka plan */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Footer Styles */
@@ -174,4 +199,24 @@ input, textarea {
 
 .footer-content a:hover {
   text-decoration: underline;
+}
+
+/* Responsive Optimizations */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 95%; /* Daha küçük ekranlar için genişliği artırıyoruz */
+  }
+
+  .custom-button, .source-code-btn {
+    padding: 10px 20px; /* Butonları daha büyük yapıyoruz */
+    font-size: 14px; /* Metin boyutunu mobil için optimize ediyoruz */
+  }
+
+  .vert-space {
+    margin-bottom: 20px; /* Mobilde dikey boşlukları artırıyoruz */
+  }
+
+  .footer-content p {
+    font-size: 12px; /* Mobilde küçük metinler */
+  }
 }
