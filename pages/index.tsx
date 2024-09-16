@@ -1,4 +1,4 @@
-import { Alert, Breadcrumb, Button, Space, Typography, ConfigProvider, Switch } from 'antd';
+import { Alert, Breadcrumb, Button, Space, Typography, Switch } from 'antd';
 import Cookie from 'js-cookie';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -50,7 +50,7 @@ export default function Home(): JSX.Element {
                 <Breadcrumb.Item href="/">Anasayfa</Breadcrumb.Item>
             </Breadcrumb>
 
-            <div style={{ marginBottom: 20 }}>
+            <div className="switch-container">
                 <Switch
                     checked={darkMode}
                     onChange={toggleDarkMode}
