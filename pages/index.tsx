@@ -76,7 +76,7 @@ export default function Home(): JSX.Element {
                     <Space className="vert-space" direction="vertical" size="middle">
                         <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
                             <b>Spotify Hesabınızı Yetkilendirerek Son Dinlediğiniz Müzikleri Görüntüleyin!</b>
-                            <br />
+                            <br /><br />
                             Spotify hesabınızı yetkilendirerek, dinleme geçmişinizi kolayca görüntüleyebilir ve en son dinlediğiniz müzikleri keşfedebilirsiniz. Bu işlem, müzik dinleme alışkanlıklarınızı takip etmenize ve müzik zevkinizi daha iyi anlamanıza olanak tanır. Yetkilendirme işlemi hızlı ve güvenli bir şekilde gerçekleştirilir; tek yapmanız gereken Spotify hesabınıza giriş yapmak ve gerekli izinleri vermek.
                             <br /><br />
                             Yetkilendirmenin ardından, son dinlediğiniz müzikleri rahatlıkla görebilir ve bu verileri herhangi bir web sitesine veya uygulamaya entegre edebilirsiniz. Bu özellik, kullanıcı deneyiminizi zenginleştirir ve müzikle ilgili içgörüler elde etmenizi sağlar. Ayrıca, embed kodu sayesinde bu bilgileri kendi projelerinize ve platformlarınıza kolayca entegre edebilirsiniz.
