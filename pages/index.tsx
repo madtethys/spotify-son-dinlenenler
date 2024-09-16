@@ -43,6 +43,11 @@ export default function Home(): JSX.Element {
         window.open('https://github.com/madtethys/spotify-son-dinlenenler', '_blank'); 
     };
 
+    const handleAnasayfa = () => {
+        window.open('https://mdusova.com/'); 
+    };
+
+
     return (
         <div className="container">
             <Head>
@@ -51,9 +56,9 @@ export default function Home(): JSX.Element {
             </Head>
 
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 25 }}>
-                <Breadcrumb separator=">" style={{ marginRight: 20 }}>
-                    <Breadcrumb.Item href="https://mdusova.com/" className="ant-breadcrumb-link">Anasayfa</Breadcrumb.Item>
-                </Breadcrumb>
+                <Button onClick={handleAnasayfa} className="source-code-btn">
+                    Anasayfa
+                </Button>
                 <Button onClick={handleViewSource} className="source-code-btn">
                     Kaynak Kodunu Görüntüle
                 </Button>
