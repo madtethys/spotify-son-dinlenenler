@@ -163,7 +163,7 @@ html[data-theme='dark'] .htmlkodu {
 
 .site-footer {
   background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--input-text-color);
   text-align: center;
   padding: 20px;
   position: relative;
@@ -199,6 +199,12 @@ html[data-theme='dark'] .ant-tabs-tab {
 
 html[data-theme='dark'] .ant-tabs-tab-active {
   background-color: transparent;
+  color: var(--button-background);
+}
+
+html[data-theme='light'] .ant-tabs-tab-active {
+  background-color: transparent;
+  color: var(--button-background);
 }
 
 html[data-theme='dark'] .ant-tabs-card .ant-tabs-tab {
@@ -206,7 +212,7 @@ html[data-theme='dark'] .ant-tabs-card .ant-tabs-tab {
 }
 
 html[data-theme='dark'] .ant-tabs-ink-bar {
-  background: #64b5f6;
+  background: var(--button-background);
 }
 
 /* Slider Styles */
@@ -215,7 +221,7 @@ html[data-theme='dark'] .ant-tabs-ink-bar {
 }
 
 .slider .ant-slider-track {
-  background-color: #64b5f6;
+  background-color: var(--button-background);
 }
 
 .slider .ant-slider-handle {
@@ -225,14 +231,14 @@ html[data-theme='dark'] .ant-tabs-ink-bar {
 
 /* Switch Styles */
 .switch .ant-switch {
-  background-color: #64b5f6;
+  background-color: var(--button-background);
 }
 
 /* Custom Styles */
 html[data-theme='dark'] .ant-switch.ant-switch-checked {
-  background-color: #64b5f6;
+  background-color: var(--button-background);
 }
 
 html[data-theme='light'] .ant-switch.ant-switch-checked {
-  background-color: #64b5f6;
+  background-color: var(--button-background);
 }
