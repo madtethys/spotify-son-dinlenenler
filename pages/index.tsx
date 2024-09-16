@@ -12,7 +12,7 @@ const { Text, Title } = Typography;
 export default function Home(): JSX.Element {
     const router = useRouter();
     const [currentUser, setCurrentUser] = useState<string | undefined>(undefined);
-    const [theme, setTheme] = useState<string>('light'); // Temayı yönetmek için bir state ekledik.
+    const [theme, setTheme] = useState<string>('light'); // Tema durumunu burada yönetiyoruz
     const error = router.query['error'];
 
     useEffect(() => {
@@ -21,24 +21,26 @@ export default function Home(): JSX.Element {
             setCurrentUser(user);
         }
 
-        // Sayfa yüklendiğinde mevcut temayı almak için
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        setTheme(currentTheme);
+        // Tema durumunu güncelle
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+        document.documentElement.setAttribute('data-theme', savedTheme);
     }, []);
-
-    const handleThemeToggle = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme); // Tema değişimini DOM'a yansıtıyoruz.
-    };
 
     const handleClearCreds = () => {
         Cookie.remove('spotifyuser');
         window.location.reload();
     };
 
+    const handleThemeToggle = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
+
     return (
-        <div className={`container ${theme}`}>
+        <div className="container">
             <Head>
                 <title>Spotify Son Çalınan Parçalar README Oluşturucu</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -48,13 +50,13 @@ export default function Home(): JSX.Element {
                 <Breadcrumb.Item href="/">Anasayfa</Breadcrumb.Item>
             </Breadcrumb>
 
-            <Button onClick={handleThemeToggle} style={{ marginBottom: '20px' }}>
-                {theme === 'light' ? 'Dark Mode\'a Geç' : 'Light Mode\'a Geç'}
-            </Button>
-
             <div>
                 <Title level={2}>Spotify Son Çalınan Parçalar README Oluşturucu</Title>
                 {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
+
+                <Button onClick={handleThemeToggle} style={{ marginBottom: 20 }}>
+                    {theme === 'light' ? 'Koyu Tema' : 'Açık Tema'}
+                </Button>
 
                 {!currentUser ? (
                     <Space className="vert-space" direction="vertical" size="middle">
@@ -63,8 +65,7 @@ export default function Home(): JSX.Element {
                     </Space>
                 ) : (
                     <Space className="vert-space" direction="vertical" size="middle">
-                        {/* Temayı MarkdownSnippet'e geçiyoruz */}
-                        <MarkdownSnippet username={currentUser} theme={theme} />
+                        <MarkdownSnippet username={currentUser} theme={theme} /> {/* Tema prop'u ekleyin */}
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
                         <Button type="link" danger onClick={handleClearCreds}>
                             Yerel kimlik bilgilerini temizle
