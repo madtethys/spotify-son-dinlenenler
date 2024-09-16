@@ -12,7 +12,7 @@ const { Text, Title } = Typography;
 export default function Home(): JSX.Element {
     const router = useRouter();
     const [currentUser, setCurrentUser] = useState<string | undefined>(undefined);
-    const [theme, setTheme] = useState<string>('light');
+    const [theme, setTheme] = useState<string>('light'); // Temayı yönetmek için bir state ekledik.
     const error = router.query['error'];
 
     useEffect(() => {
@@ -21,16 +21,15 @@ export default function Home(): JSX.Element {
             setCurrentUser(user);
         }
 
-        const savedTheme = Cookie.get('theme') || 'light';
-        setTheme(savedTheme);
-        document.documentElement.setAttribute('data-theme', savedTheme);
+        // Sayfa yüklendiğinde mevcut temayı almak için
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        setTheme(currentTheme);
     }, []);
 
-    const toggleTheme = () => {
+    const handleThemeToggle = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
-        document.documentElement.setAttribute('data-theme', newTheme);
-        Cookie.set('theme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme); // Tema değişimini DOM'a yansıtıyoruz.
     };
 
     const handleClearCreds = () => {
@@ -39,7 +38,7 @@ export default function Home(): JSX.Element {
     };
 
     return (
-        <div className="container">
+        <div className={`container ${theme}`}>
             <Head>
                 <title>Spotify Son Çalınan Parçalar README Oluşturucu</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -49,11 +48,11 @@ export default function Home(): JSX.Element {
                 <Breadcrumb.Item href="/">Anasayfa</Breadcrumb.Item>
             </Breadcrumb>
 
-            <div>
-                <Button onClick={toggleTheme}>
-                    {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-                </Button>
+            <Button onClick={handleThemeToggle} style={{ marginBottom: '20px' }}>
+                {theme === 'light' ? 'Dark Mode\'a Geç' : 'Light Mode\'a Geç'}
+            </Button>
 
+            <div>
                 <Title level={2}>Spotify Son Çalınan Parçalar README Oluşturucu</Title>
                 {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
 
