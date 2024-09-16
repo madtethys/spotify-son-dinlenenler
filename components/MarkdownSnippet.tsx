@@ -43,13 +43,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     return (
         <div>
             <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', marginBottom: '20px' }}>
-               👤 "{username}" olarak giriş yapıldı. ✨
+               👤 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
                 <TabPane tab="❓ Markdown'a Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
-                       <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
-                            ➕ Markdown'a eklemek için kodunuz
+                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            Markdown'a eklemek için kodunuz:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.</Text>
                         <TextArea
@@ -62,21 +62,20 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 color: theme === 'dark' ? '#d0d0d0' : '#222222'
                             }}
                         />
-                        <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
                             src={`${svgSrc}${updateParams}`}
                             alt="Spotify Son Dinlenen Müzikler"
-                            style={{ width: '100%' }}
                             key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
                         />
                     </Space>
                 </TabPane>
                 <TabPane tab="❓ HTML'e Nasıl Eklerim?" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                       <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
-                            ➕ HTML'e eklemek için kodunuz
+                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            HTML'e eklemek için kodunuz:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Lütfen bu kodu HTML kodunuzda eklemek istediğiniz yere ekleyin.</Text>
                         <TextArea
@@ -89,21 +88,20 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 color: theme === 'dark' ? '#d0d0d0' : '#222222'
                             }}
                         />
-                        <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
                             src={`${svgSrc}${updateParams}`}
                             alt="Spotify Son Dinlenen Müzikler"
-                            style={{ width: '100%' }}
                             key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
                         />
                     </Space>
                 </TabPane>
                 <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
                     <Space className="vert-space" direction="vertical" size="small">
-                       <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
-                            📋 Listede Bulunacak Müzik Sayısı
+                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            📋 Listede Bulunacak Müzik Sayısı:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listede bulunan müizk sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5) <br />API URL'sine <b>&count=girdiğinizdeğer</b> ekleyecektir.</Text>
                         <Tooltip title={`${trackCount} müzik`}>
@@ -116,8 +114,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 className="slider"
                             />
                         </Tooltip>
-                       <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
-                            ↔️ Listenin Genişliği(px)
+                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            ↔️ Listenin Genişliği(px):
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width=girdiğinizdeğer</b> ekleyecektir.</Text>
                         <Tooltip title={`${width}px`}>
@@ -130,8 +128,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 className="slider"
                             />
                         </Tooltip>
-                       <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
-                            🔁 Tekrar Dinlenen Müzikler
+                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            🔁 Tekrar Dinlenen Müzikler:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir eklemek yapılmayacaktır.</Text>
                         <Switch
