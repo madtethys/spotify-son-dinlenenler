@@ -1,10 +1,6 @@
-import { Space, Typography, Tabs, Switch, Slider } from 'antd';
-import React, { useState, useCallback } from 'react';
+import { Input, Space, Typography, Tabs, Slider, Switch, InputNumber } from 'antd';
+import React, { useState } from 'react';
 import * as Constants from '../utils/Constants';
-
-const { Text, Title } = Typography;
-const { TextArea } = Input;
-const { TabPane } = Tabs;
 
 interface Props {
     username?: string;
