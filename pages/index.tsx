@@ -44,7 +44,7 @@ export default function Home(): JSX.Element {
     };
 
     const handleAnasayfa = () => {
-        window.open('https://mdusova.com/'); 
+        window.location.href = 'https://mdusova.com/'; 
     };
 
 
