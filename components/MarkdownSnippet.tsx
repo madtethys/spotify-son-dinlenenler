@@ -101,7 +101,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                     </Title>
                     <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Varsayılan HTML Kodu:</Text>
                     <TextArea
-                        className="htmlcode"
+                        className="htmlkodu"
                         autoSize
                         readOnly
                         value={htmlCode}
@@ -118,7 +118,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         ):
                     </Text>
                     <TextArea
-                        className="htmlcode"
+                        className="htmlkodu"
                         autoSize
                         readOnly
                         value={htmlCount}
@@ -135,7 +135,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         ):
                     </Text>
                     <TextArea
-                        className="htmlcode"
+                        className="htmlkodu"
                         autoSize
                         readOnly
                         value={htmlWidth}
@@ -146,7 +146,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                     />
                     <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listede tekrar dinlenen müzikleri göstermek için:</Text>
                     <TextArea
-                        className="htmlcode"
+                        className="htmlkodu"
                         autoSize
                         readOnly
                         value={htmlUniqueTracks}
