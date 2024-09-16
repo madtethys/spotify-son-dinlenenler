@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip } from 'antd';
-import React, { useState } from 'react';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -16,18 +16,33 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
     const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
+    const [pngSrc, setPngSrc] = useState<string | null>(null); // PNG veri URL'sini saklamak için
 
     if (!username) {
         return null;
     }
 
-    // SVG URL'sini ve parametreleri güncelle
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
     const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`;
     const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
-    // Handle değişim fonksiyonları
+    useEffect(() => {
+        const svgImage = new Image();
+        svgImage.src = `${svgSrc}${updateParams}`;
+        svgImage.onload = () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            if (context) {
+                canvas.width = svgImage.width;
+                canvas.height = svgImage.height;
+                context.drawImage(svgImage, 0, 0);
+                const pngDataUrl = canvas.toDataURL('image/png');
+                setPngSrc(pngDataUrl);
+            }
+        };
+    }, [svgSrc, updateParams]);
+
     const handleWidthChange = (value: number | [number, number]) => {
         if (typeof value === 'number') {
             setWidth(value);
@@ -40,10 +55,14 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         }
     };
 
+    const handleImageClick = () => {
+        window.open(`${svgSrc}${updateParams}`, '_blank');
+    };
+
     return (
         <div>
             <Title level={5} style={{ color: theme === 'dark' ? '#e0e0e0' : '#222222', marginBottom: '20px' }}>
-               👤 "{username}" olarak giriş yapıldı.
+                👤 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
                 <TabPane tab="❓ Markdown'a Nasıl Eklerim?" key="1">
@@ -66,9 +85,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={`${svgSrc}${updateParams}`}
+                            src={pngSrc || `${svgSrc}${updateParams}`}
                             alt="Spotify Son Dinlenen Müzikler"
-                            key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
+                            key={updateParams}
+                            onClick={handleImageClick}
+                            style={{ cursor: 'pointer' }} // Görselin tıklanabilir olduğunu belirten işaret
                         />
                     </Space>
                 </TabPane>
@@ -92,9 +113,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={`${svgSrc}${updateParams}`}
+                            src={pngSrc || `${svgSrc}${updateParams}`}
                             alt="Spotify Son Dinlenen Müzikler"
-                            key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
+                            key={updateParams}
+                            onClick={handleImageClick}
+                            style={{ cursor: 'pointer' }} // Görselin tıklanabilir olduğunu belirten işaret
                         />
                     </Space>
                 </TabPane>
