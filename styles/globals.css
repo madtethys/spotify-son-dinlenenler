@@ -18,9 +18,9 @@ html[data-theme='light'] {
 /* Dark Theme */
 html[data-theme='dark'] {
   --background-color: #2e2e2e; /* Daha açık bir koyu gri */
-  --text-color: #f0f0f0;
+  --text-color: #d0d0d0; /* Daha pastel bir gri */
   --input-background: #3c3c3c; /* Orta koyulukta gri */
-  --input-text-color: #e0e0e0; /* Daha açık bir gri */
+  --input-text-color: #b0b0b0; /* Daha pastel bir gri */
   --border-color: #555555;
   --button-background: #64b5f6;
   --button-text-color: #ffffff;
@@ -53,6 +53,33 @@ body {
   margin-bottom: 25px;
 }
 
+/* Mobil görünümde butonları yan yana tut */
+@media screen and (max-width: 768px) {
+  .button-container {
+    flex-direction: row; /* Butonları yan yana tut */
+    flex-wrap: wrap; /* Sıkıştıklarında bir alt satıra geçmelerini sağlar */
+  }
+
+  .content {
+    width: 95%;
+  }
+
+  .footer-content p {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footer-content p {
+    font-size: 10px;
+  }
+}
+
 .content {
   width: 100%;
   max-width: 800px;
@@ -64,6 +91,15 @@ body {
 .auth-button-container {
   display: flex;
   justify-content: center;
+}
+
+/* Mobil görünümde butonları yan yana tut */
+@media screen and (max-width: 768px) {
+  .auth-button-container {
+    flex-direction: row; /* Butonları yan yana tut */
+    flex-wrap: wrap; /* Sıkıştıklarında bir alt satıra geçmelerini sağlar */
+    justify-content: center; /* Ortala */
+  }
 }
 
 input, textarea {
@@ -101,6 +137,12 @@ input, textarea {
   word-break: break-word;
 }
 
+/* Dark theme Markdown ve HTML arka planını kapat */
+html[data-theme='dark'] .markdown, 
+html[data-theme='dark'] .htmlkodu {
+  background-color: transparent; /* Arka planı kaldır */
+}
+
 /* Source Code Button */
 .source-code-btn {
   background-color: var(--source-code-btn-background);
@@ -109,6 +151,7 @@ input, textarea {
   padding: 10px 20px;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
+  text-align: center; /* Buton içi yazıları ortala */
 }
 
 .source-code-btn:hover {
@@ -125,7 +168,7 @@ input, textarea {
   position: relative;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid #444444; /* Daha pastel bir gri */
   margin-top: 20px;
 }
 
@@ -148,40 +191,17 @@ input, textarea {
   text-decoration: underline;
 }
 
-/* Responsive Optimizations */
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 15px;
-  }
-
-  .content {
-    width: 95%;
-  }
-
-  .footer-content p {
-    font-size: 12px;
-  }
+/* Dark theme for Ant Design Tabs */
+html[data-theme='dark'] .ant-tabs-tab {
+  background-color: transparent; /* Tabların arka plan rengini kaldır */
 }
 
-@media screen and (max-width: 480px) {
-  .button-container {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .footer-content p {
-    font-size: 10px;
-  }
+html[data-theme='dark'] .ant-tabs-tab-active {
+  background-color: transparent; /* Aktif tabın arka plan rengini kaldır */
 }
 
-/* Dark Theme for Ant Design Tabs */
-html[data-theme='dark'] .ant-tabs-tab-btn {
-  color: #e0e0e0; /* Daha açık bir gri renk */
-}
-
-html[data-theme='dark'] .ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #64b5f6; /* Seçili tab rengi */
-  background-color: #3c3c3c; /* Tab arka planı */
+html[data-theme='dark'] .ant-tabs-card .ant-tabs-tab {
+  background-color: transparent; /* Kart tarzı tabların arka plan rengini kaldır */
 }
 
 html[data-theme='dark'] .ant-tabs-ink-bar {
