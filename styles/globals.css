@@ -46,16 +46,16 @@ input, textarea {
 }
 
 .spotify-auth-btn {
-  background: var(--button-background) !important;
+  background: #1db954 !important;
   color: var(--button-text-color) !important;
-  border-color: var(--button-border) !important;
+  border-color: #1db954 !important;
   border-radius: 4px;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 .spotify-auth-btn:hover {
-  background: var(--button-hover-background) !important;
-  border-color: var(--button-hover-border) !important;
+  background: #45bb6e !important;
+  border-color: #45bb6e !important;
 }
 
 .vert-space {
