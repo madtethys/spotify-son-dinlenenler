@@ -1,9 +1,17 @@
+/* Varsayılan (Light Mode) */
 html,
 body {
+  background-color: #ffffff;
+  color: #000000;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+/* Dark Mode */
+[data-theme='dark'] {
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
 a {
@@ -40,4 +48,15 @@ a {
 .markdown {
   font-family: monospace;
   margin-bottom: 8px !important;
+}
+
+/* Dark Mode for Buttons and Elements */
+[data-theme='dark'] .spotify-auth-btn {
+  background: #1ed760 !important;
+  border-color: #1ed760 !important;
+}
+
+[data-theme='dark'] .spotify-auth-btn:hover {
+  background: #1db954 !important;
+  border-color: #1db954 !important;
 }
