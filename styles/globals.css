@@ -1,3 +1,18 @@
+
+/* Koyu Mod */
+:root {
+    --color-primary: #1db954;
+    --color-bg-base: #121212;
+    --color-text-base: #e0e0e0;
+}
+
+/* Açık Mod */
+.light-theme {
+    --color-primary: #1890ff;
+    --color-bg-base: #ffffff;
+    --color-text-base: #000000;
+}
+
 html,
 body {
   padding: 0;
