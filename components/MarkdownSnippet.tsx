@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 
 interface Props {
     username?: string;
-    theme?: string;  // Tema prop olarak alınıyor
+    theme: string;
 }
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
@@ -28,14 +28,24 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const htmlWidth = `<img src="${svgSrc}&width={genişlik}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
     const htmlUniqueTracks = `<img src="${svgSrc}&unique=true" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
+    const textAreaStyle = {
+        backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
+        color: theme === 'dark' ? '#ffffff' : '#000000'
+    };
+
     return (
         <Tabs defaultActiveKey="1">
             <TabPane tab="Markdown'a Nasıl Eklerim?" key="1">
                 <Space className="vert-space" direction="vertical" size="small">
                     <Title level={5}>"{username}" olarak giriş yapıldı.</Title>
                     <Text>Varsayılan Markdown Kodu:</Text>
-                    {/* Tema stilini buraya ekledik */}
-                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={markdownCode} />
+                    <TextArea
+                        className="markdown"
+                        autoSize
+                        readOnly
+                        value={markdownCode}
+                        style={textAreaStyle}
+                    />
                     <Text>
                         Listede bulunacak müzik sayısını ayarlamak için: (
                         <b>
@@ -43,7 +53,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </b>
                         ):
                     </Text>
-                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={customCount} />
+                    <TextArea
+                        className="markdown"
+                        autoSize
+                        readOnly
+                        value={customCount}
+                        style={textAreaStyle}
+                    />
                     <Text>
                         Listenin genişliğini ayarlamak için: (
                         <b>
@@ -51,9 +67,21 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </b>
                         ):
                     </Text>
-                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={customWidth} />
+                    <TextArea
+                        className="markdown"
+                        autoSize
+                        readOnly
+                        value={customWidth}
+                        style={textAreaStyle}
+                    />
                     <Text>Listede tekrar dinlenen müzikleri göstermek için:</Text>
-                    <TextArea className={`markdown ${theme}`} autoSize readOnly value={uniqueTracks} />
+                    <TextArea
+                        className="markdown"
+                        autoSize
+                        readOnly
+                        value={uniqueTracks}
+                        style={textAreaStyle}
+                    />
                     <object type="image/svg+xml" data={svgSrc}></object>
                 </Space>
             </TabPane>
@@ -61,7 +89,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 <Space className="vert-space" direction="vertical" size="small">
                     <Title level={5}>"{username}" olarak giriş yapıldı.</Title>
                     <Text>Varsayılan HTML Kodu:</Text>
-                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlCode} />
+                    <TextArea
+                        className="html"
+                        autoSize
+                        readOnly
+                        value={htmlCode}
+                        style={textAreaStyle}
+                    />
                     <Text>
                         Listede bulunacak müzik sayısını ayarlamak için: (
                         <b>
@@ -69,7 +103,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </b>
                         ):
                     </Text>
-                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlCount} />
+                    <TextArea
+                        className="html"
+                        autoSize
+                        readOnly
+                        value={htmlCount}
+                        style={textAreaStyle}
+                    />
                     <Text>
                         Listenin genişliğini ayarlamak için: (
                         <b>
@@ -77,9 +117,21 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </b>
                         ):
                     </Text>
-                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlWidth} />
+                    <TextArea
+                        className="html"
+                        autoSize
+                        readOnly
+                        value={htmlWidth}
+                        style={textAreaStyle}
+                    />
                     <Text>Listede tekrar dinlenen müzikleri göstermek için:</Text>
-                    <TextArea className={`html ${theme}`} autoSize readOnly value={htmlUniqueTracks} />
+                    <TextArea
+                        className="html"
+                        autoSize
+                        readOnly
+                        value={htmlUniqueTracks}
+                        style={textAreaStyle}
+                    />
                     <object type="image/svg+xml" data={svgSrc}></object>
                 </Space>
             </TabPane>
