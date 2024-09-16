@@ -1,11 +1,100 @@
+/* Genel Temalar */
+body.light-theme {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --breadcrumb-color: #000000;
+    --switch-bg: #1890ff;
+    --switch-color: #ffffff;
+}
+
+body.dark-theme {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --breadcrumb-color: #e0e0e0;
+    --switch-bg: #1db954;
+    --switch-color: #000000;
+}
+
+.container {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.spotify-auth-btn {
+    background: #1db954 !important;
+    border-color: #1db954 !important;
+}
+
+.spotify-auth-btn:hover {
+    background: #45bb6e !important;
+    border-color: #45bb6e !important;
+}
+
+/* Ant Design Bileşenleri */
+.ant-breadcrumb a {
+    color: var(--breadcrumb-color);
+}
+
+.ant-breadcrumb a:hover {
+    color: var(--switch-bg);
+}
+
+.ant-switch-checked {
+    background-color: var(--switch-bg);
+}
+
+.ant-switch-checked .ant-switch-inner {
+    color: var(--switch-color);
+}
+
+.ant-btn-primary {
+    background-color: var(--color-primary);
+}
+
+.ant-btn-primary:hover {
+    background-color: var(--color-primary);
+}
+
+.ant-alert,
+.ant-breadcrumb,
+.ant-typography,
+.ant-btn,
+.ant-switch {
+    color: var(--text-color);
+}
+
+/* Markdown ve HTML Snippet */
+.markdown,
+.html {
+    font-family: monospace;
+    margin-bottom: 8px !important;
+}
+
+.dark-theme .markdown,
+.dark-theme .html {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+.light-theme .markdown,
+.light-theme .html {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #ddd;
+}
+
 /* Koyu Mod */
 .dark-theme {
     --color-primary: #1db954;
     --color-bg-base: #121212;
     --color-text-base: #e0e0e0;
-    --color-text-secondary: #b0b0b0; /* Daha açık gri tonları */
-    background-color: var(--color-bg-base);
-    color: var(--color-text-base);
+    --color-text-secondary: #b0b0b0;
 }
 
 /* Açık Mod */
@@ -13,91 +102,27 @@
     --color-primary: #1890ff;
     --color-bg-base: #ffffff;
     --color-text-base: #000000;
-    --color-text-secondary: #333333; /* Daha koyu gri tonları */
-    background-color: var(--color-bg-base);
-    color: var(--color-text-base);
+    --color-text-secondary: #333333;
 }
 
-/* Koyu Mod İçin CSS */
-.dark-theme .markdown,
-.dark-theme .html {
-    background-color: #2c2c2c; /* Koyu arka plan rengi */
-    color: #e0e0e0; /* Koyu mod metin rengi */
-    border: 1px solid #444; /* Koyu mod kenar rengi */
-}
-
-/* Açık Mod İçin CSS (Varsayılan) */
-.light-theme .markdown,
-.light-theme .html {
-    background-color: #ffffff; /* Açık arka plan rengi */
-    color: #000000; /* Açık mod metin rengi */
-    border: 1px solid #ddd; /* Açık mod kenar rengi */
-}
-
-/* Ant Design Buton Renkleri */
-.ant-btn-primary {
-    background-color: var(--color-primary);
-}
-
-/* Ant Design Bileşenleri için Ek CSS */
-.ant-alert,
-.ant-breadcrumb,
-.ant-typography,
-.ant-btn,
-.ant-switch {
-    color: var(--color-text-base); /* Metin rengini ayarlama */
-}
-
-/* Ant Design Butonun üzerine gelindiğinde renk değişimini kontrol et */
-.ant-btn-primary:hover {
-    background-color: var(--color-primary);
-}
-
-/* Koyu mod için genel düzenlemeler */
-.dark-theme .ant-btn {
-    color: var(--color-text-base);
+/* Breadcrumb'ın yanına switch eklemek için */
+.switch-container {
+    display: flex;
+    align-items: center;
 }
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
-}
-
-.container {
-  width: 75%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 25px;
-  padding-bottom: 25px;
-}
-
-.spotify-auth-btn {
-  background: #1db954 !important;
-  border-color: #1db954 !important;
-}
-
-.spotify-auth-btn:hover {
-  background: #45bb6e !important;
-  border-color: #45bb6e !important;
-}
-
-.vert-space {
-  width: 100%;
-}
-
-.markdown {
-  font-family: monospace;
-  margin-bottom: 8px !important;
+    box-sizing: border-box;
 }
