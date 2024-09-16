@@ -75,19 +75,25 @@ export default function Home(): JSX.Element {
                 {!currentUser ? (
                     <Space className="vert-space" direction="vertical" size="middle">
                         <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
-                            "Spotify Hesabınızı Yetkilendirerek Son Dinlediğiniz Şarkıları Görüntüleyin"\n
+                            <b>Spotify Hesabınızı Yetkilendirerek Son Dinlediğiniz Müzikleri Görüntüleyin!<b>
 
-Spotify hesabınızı yetkilendirerek, dinleme geçmişinizi kolayca görüntüleyebilir ve en son dinlediğiniz şarkıları keşfedebilirsiniz. Bu işlem, müzik dinleme alışkanlıklarınızı takip etmenize ve müzik zevkinizi daha iyi anlamanıza olanak tanır. Yetkilendirme işlemi hızlı ve güvenli bir şekilde gerçekleştirilir; tek yapmanız gereken Spotify hesabınıza giriş yapmak ve gerekli izinleri vermek.\nYetkilendirmenin ardından, son dinlediğiniz şarkıları rahatlıkla görebilir ve bu verileri herhangi bir web sitesine veya uygulamaya entegre edebilirsiniz. Bu özellik, kullanıcı deneyiminizi zenginleştirir ve müzikle ilgili içgörüler elde etmenizi sağlar. Ayrıca, embed kodu sayesinde bu bilgileri kendi projelerinize ve platformlarınıza kolayca entegre edebilirsiniz.\nGeriye sadece Spotify'ınızı yetkilendirmek ve müziğin tadını çıkarmak kaldı. Haydi Başlayalım!
+                            Spotify hesabınızı yetkilendirerek, dinleme geçmişinizi kolayca görüntüleyebilir ve en son dinlediğiniz müzikleri keşfedebilirsiniz. Bu işlem, müzik dinleme alışkanlıklarınızı takip etmenize ve müzik zevkinizi daha iyi anlamanıza olanak tanır. Yetkilendirme işlemi hızlı ve güvenli bir şekilde gerçekleştirilir; tek yapmanız gereken Spotify hesabınıza giriş yapmak ve gerekli izinleri vermek.
+                            
+                            Yetkilendirmenin ardından, son dinlediğiniz müzikleri rahatlıkla görebilir ve bu verileri herhangi bir web sitesine veya uygulamaya entegre edebilirsiniz. Bu özellik, kullanıcı deneyiminizi zenginleştirir ve müzikle ilgili içgörüler elde etmenizi sağlar. Ayrıca, embed kodu sayesinde bu bilgileri kendi projelerinize ve platformlarınıza kolayca entegre edebilirsiniz.
+                            
+                            Geriye sadece Spotify hesabınızı yetkilendirmek ve müziğin tadını çıkarmak kaldı. Haydi başlayalım!
                         </Text>
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
                     </Space>
                 ) : (
                     <Space className="vert-space" direction="vertical" size="middle">
                         <MarkdownSnippet username={currentUser} theme={theme} />
-                        <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
-                        <Button type="link" danger onClick={handleClearCreds}>
-                            Yerel kimlik bilgilerini temizle
-                        </Button>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
+                            <Button type="link" danger onClick={handleClearCreds} style={{ marginLeft: '10px' }}>
+                                Yerel kimlik bilgilerini temizle
+                            </Button>
+                        </div>
                     </Space>
                 )}
             </div>
