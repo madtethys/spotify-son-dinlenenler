@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import MarkdownSnippet from '../components/MarkdownSnippet';
 import SpotifyAuthButton from '../components/SpotifyAuthButton';
 import { ClientId, RedirectUri } from '../utils/Constants';
+import { FaMoon, FaSun } from 'react-icons/fa'; // Importing icons
 
 const { Text, Title } = Typography;
 
@@ -16,7 +17,6 @@ export default function Home(): JSX.Element {
     const [theme, setTheme] = useState<string>('light'); // Default theme
 
     useEffect(() => {
-        // Load theme from cookie or default to light
         const savedTheme = Cookie.get('theme') || 'light';
         setTheme(savedTheme);
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -40,37 +40,37 @@ export default function Home(): JSX.Element {
     };
 
     const handleViewSource = () => {
-        window.open('https://github.com/your-repo-url', '_blank'); // Replace with your repository URL
+        window.open('https://github.com/madtethys/spotify-son-dinlenenler', '_blank'); 
     };
 
     return (
         <div className="container">
             <Head>
-                <title>Spotify Son Çalınan Parçalar README Oluşturucu</title>
+                <title>Spotify Son Dinlenen Müzikler by Mustafa Arda Düşova</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: 25 }}>
                 <Breadcrumb separator=">" style={{ marginRight: 20 }}>
-                    <Breadcrumb.Item href="/" className="ant-breadcrumb-link">Anasayfa</Breadcrumb.Item>
+                    <Breadcrumb.Item href="https://mdusova.com/" className="ant-breadcrumb-link">Anasayfa</Breadcrumb.Item>
                 </Breadcrumb>
-                <Button onClick={toggleTheme} className="custom-button">
-                    {theme === 'dark' ? 'Aydınlık Mod' : 'Koyu Mod'}
-                </Button>
                 <Button onClick={handleViewSource} className="source-code-btn">
                     Kaynak Kodunu Görüntüle
+                </Button>
+                <Button onClick={toggleTheme} className="custom-button">
+                    {theme === 'dark' ? <FaSun className="theme-icon" /> : <FaMoon className="theme-icon" />}
                 </Button>
             </div>
 
             <div>
                 <Title level={2} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
-                    Spotify Son Çalınan Parçalar README Oluşturucu
+                    🎧 Spotify Son Dinlenen Müzikler 
                 </Title>
                 {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
                 {!currentUser ? (
                     <Space className="vert-space" direction="vertical" size="middle">
                         <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
-                            Spotify'ı yetkilendirerek başlayalım.
+                            Spotify'ı yetkilendirerek kullanmaya başlayabilirsiniz.
                         </Text>
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
                     </Space>
