@@ -13,10 +13,10 @@ interface Props {
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const { username, theme } = props;
-    const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
-    const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
-    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
-    const [pngSrc, setPngSrc] = useState<string | null>(null); // PNG veri URL'sini saklamak için
+    const [trackCount, setTrackCount] = useState<number>(5);
+    const [width, setWidth] = useState<number>(400);
+    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
+    const [pngSrc, setPngSrc] = useState<string | null>(null);
 
     if (!username) {
         return null;
@@ -25,7 +25,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
     const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`;
-    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler by mdusova.com" />`;
+    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
     useEffect(() => {
         const svgImage = new Image();
@@ -37,30 +37,23 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 canvas.width = svgImage.width;
                 canvas.height = svgImage.height;
                 context.drawImage(svgImage, 0, 0);
-                const pngDataUrl = canvas.toDataURL('image/png');
-                setPngSrc(pngDataUrl);
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        const pngDataUrl = URL.createObjectURL(blob);
+                        setPngSrc(pngDataUrl);
+                    }
+                }, 'image/png');
             }
         };
     }, [svgSrc, updateParams]);
 
-    const handleWidthChange = (value: number | [number, number]) => {
-        if (typeof value === 'number') {
-            setWidth(value);
-        }
-    };
-
-    const handleTrackCountChange = (value: number | [number, number]) => {
-        if (typeof value === 'number') {
-            setTrackCount(value);
-        }
-    };
-
-    const handleImageClick = () => {
+    const handleShareOnInstagram = () => {
         if (pngSrc) {
-            const link = document.createElement('a');
-            link.href = pngSrc;
-            link.download = 'spotify_son_dinlenenler_by_mdusova.png'; // İndirilecek dosyanın adı
-            link.click();
+            window.open(
+                'https://www.instagram.com/', // Instagram ana sayfasına yönlendirir
+                '_blank'
+            );
+            alert('Resmi telefonunuza indirin ve Instagram uygulamasında paylaşın!');
         }
     };
 
@@ -72,7 +65,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             <Tabs defaultActiveKey="1">
                 <TabPane tab="❓ Markdown'a Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
-                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             Markdown'a eklemek için kodunuz:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.</Text>
@@ -90,20 +83,27 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={`${svgSrc}${updateParams}`}
-                            alt="Spotify Son Dinlenen Müzikler by mdusova"
+                            src={pngSrc || `${svgSrc}${updateParams}`}
+                            alt="Spotify Son Dinlenen Müzikler"
                             key={updateParams}
-                            onClick={handleImageClick}
                             style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                if (pngSrc) {
+                                    const link = document.createElement('a');
+                                    link.href = pngSrc;
+                                    link.download = 'spotify_recent_tracks.png'; // İndirilecek dosyanın adı
+                                    link.click();
+                                }
+                            }}
                         />
-                        <a href={pngSrc || `${svgSrc}${updateParams}`} download="spotify_son_dinlenenler_by_mdusova.png">
-                            PNG olarak indir
-                        </a>
+                        <button onClick={handleShareOnInstagram}>
+                            Instagram Hikayesine Paylaş
+                        </button>
                     </Space>
                 </TabPane>
                 <TabPane tab="❓ HTML'e Nasıl Eklerim?" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             HTML'e eklemek için kodunuz:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Lütfen bu kodu HTML kodunuzda eklemek istediğiniz yere ekleyin.</Text>
@@ -121,20 +121,27 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={`${svgSrc}${updateParams}`}
-                            alt="Spotify Son Dinlenen Müzikler by mdusova"
+                            src={pngSrc || `${svgSrc}${updateParams}`}
+                            alt="Spotify Son Dinlenen Müzikler"
                             key={updateParams}
-                            onClick={handleImageClick}
                             style={{ cursor: 'pointer' }}
+                            onClick={() => {
+                                if (pngSrc) {
+                                    const link = document.createElement('a');
+                                    link.href = pngSrc;
+                                    link.download = 'spotify_recent_tracks.png'; // İndirilecek dosyanın adı
+                                    link.click();
+                                }
+                            }}
                         />
-                        <a href={pngSrc || `${svgSrc}${updateParams}`} download="spotify_son_dinlenenler_by_mdusova.png">
-                            PNG olarak indir
-                        </a>
+                        <button onClick={handleShareOnInstagram}>
+                            Instagram Hikayesine Paylaş
+                        </button>
                     </Space>
                 </TabPane>
                 <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
                     <Space className="vert-space" direction="vertical" size="small">
-                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             📋 Listede Bulunacak Müzik Sayısı:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Listede bulunan müizk sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5) <br />API URL'sine <b>&count=girdiğinizdeğer</b> ekleyecektir.</Text>
@@ -148,7 +155,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 className="slider"
                             />
                         </Tooltip>
-                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             ↔️ Listenin Genişliği(px):
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width=girdiğinizdeğer</b> ekleyecektir.</Text>
@@ -162,7 +169,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 className="slider"
                             />
                         </Tooltip>
-                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             🔁 Tekrar Dinlenen Müzikler:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir eklemek yapılmayacaktır.</Text>
