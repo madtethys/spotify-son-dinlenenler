@@ -51,7 +51,7 @@ export default function Home(): JSX.Element {
     return (
         <div className="container">
             <Head>
-                <title>Spotify Son Dinlenen Müzikler by Mustafa Arda Düşova</title>
+                <title>Spotify Son Dinlenen Müzikler | mdusova.com</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
@@ -63,7 +63,7 @@ export default function Home(): JSX.Element {
                     Kaynak Kodunu Görüntüle
                 </Button>
                 <Button onClick={toggleTheme} className="source-code-btn">
-                    {theme === 'dark' ? '☀️' : '🌙'} Temayı Değiştir
+                    {theme === 'dark' ? '☀️ Aydınlık Temayı Kullan' : '🌙 Karanlık Temayı Kullan'} 
                 </Button>
             </div>
 
@@ -75,7 +75,9 @@ export default function Home(): JSX.Element {
                 {!currentUser ? (
                     <Space className="vert-space" direction="vertical" size="middle">
                         <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
-                            Spotify'ı yetkilendirerek kullanmaya başlayabilirsiniz.
+                            "Spotify Hesabınızı Yetkilendirerek Son Dinlediğiniz Şarkıları Görüntüleyin"\n
+
+Spotify hesabınızı yetkilendirerek, dinleme geçmişinizi kolayca görüntüleyebilir ve en son dinlediğiniz şarkıları keşfedebilirsiniz. Bu işlem, müzik dinleme alışkanlıklarınızı takip etmenize ve müzik zevkinizi daha iyi anlamanıza olanak tanır. Yetkilendirme işlemi hızlı ve güvenli bir şekilde gerçekleştirilir; tek yapmanız gereken Spotify hesabınıza giriş yapmak ve gerekli izinleri vermek.\nYetkilendirmenin ardından, son dinlediğiniz şarkıları rahatlıkla görebilir ve bu verileri herhangi bir web sitesine veya uygulamaya entegre edebilirsiniz. Bu özellik, kullanıcı deneyiminizi zenginleştirir ve müzikle ilgili içgörüler elde etmenizi sağlar. Ayrıca, embed kodu sayesinde bu bilgileri kendi projelerinize ve platformlarınıza kolayca entegre edebilirsiniz.\nGeriye sadece Spotify'ınızı yetkilendirmek ve müziğin tadını çıkarmak kaldı. Haydi Başlayalım!
                         </Text>
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
                     </Space>
