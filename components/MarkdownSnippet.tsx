@@ -24,8 +24,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
 
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
-    const markdownCode = `![Spotify Son Dinlenen Müzikler by mdusova](${svgSrc}${updateParams})`;
-    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler by mdusova" />`;
+    const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`;
+    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - ${username}" />`;
 
     const handleTrackCountChange = (value: string) => {
         setTrackCount(parseInt(value, 10));
@@ -37,8 +37,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         }
     };
 
-    const textColor = theme === 'dark' ? '#ffffff' : '#000000';
-    const backgroundColor = theme === 'dark' ? '#333333' : '#ffffff';
+    const textColor = theme === 'dark' ? '#d0d0d0' : '#222222';
+    const backgroundColor = theme === 'dark' ? '#2e2e2e' : '#f9f9f9';
 
     return (
         <div>
@@ -114,12 +114,16 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             step={1}
                             value={width}
                             onChange={handleWidthChange}
-                            marks={{ 300: '300px', 1000: '1000px' }}
+                            tooltip={{
+                                formatter: (value) => `${value}px`,
+                            }}
+                            className="slider" // CSS sınıfını ekleyin
                         />
                         <Text style={{ color: textColor }}>Listede tekrar dinlenen müzikleri göster:</Text>
                         <Switch
                             checked={uniqueTracks}
                             onChange={setUniqueTracks}
+                            className="switch" // CSS sınıfını ekleyin
                             checkedChildren="Evet"
                             unCheckedChildren="Hayır"
                         />
