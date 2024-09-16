@@ -72,6 +72,16 @@ input, textarea {
   border-radius: 4px;
 }
 
+.htmlcode {
+  font-family: monospace;
+  margin-bottom: 8px !important;
+  background-color: var(--input-background);
+  color: var(--input-text-color);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 4px;
+}
+
 /* Responsive Optimizations */
 @media screen and (max-width: 768px) {
   .container {
