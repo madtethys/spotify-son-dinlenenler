@@ -115,9 +115,50 @@ input, textarea {
   border-color: var(--button-hover-background);
 }
 
+/* Dark Mode Custom Button Styles */
+html[data-theme='dark'] .custom-button,
+html[data-theme='dark'] .source-code-btn {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Dark Mode Button Hover Styles */
+html[data-theme='dark'] .custom-button:hover,
+html[data-theme='dark'] .source-code-btn:hover {
+  background: var(--button-hover-background);
+  color: var(--text-color);
+  border-color: var(--button-hover-background);
+}
+
+/* Dark Mode General Button Styles */
+html[data-theme='dark'] button {
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+html[data-theme='dark'] button:hover {
+  background: var(--button-hover-background);
+  color: var(--text-color);
+  border-color: var(--button-hover-background);
+}
+
 /* Dark Mode and Light Mode Icons */
 .theme-icon {
   font-size: 20px;
   cursor: pointer;
   margin: 0 10px;
+  background: transparent; /* Şeffaf arka plan */
+}
+
+/* Icon Button Styles */
+.icon-button {
+  background: transparent; /* Şeffaf arka plan */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
