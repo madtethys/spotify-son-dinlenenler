@@ -41,11 +41,11 @@ export default function Home(): JSX.Element {
     };
 
     const handleViewSource = () => {
-        window.open('https://github.com/madtethys/spotify-son-dinlenenler', '_blank'); 
+        window.open('https://github.com/madtethys/spotify-son-dinlenenler', '_blank');
     };
 
     const handleAnasayfa = () => {
-        window.location.href = 'https://mdusova.com/'; 
+        window.location.href = 'https://mdusova.com/';
     };
 
     return (
@@ -55,7 +55,7 @@ export default function Home(): JSX.Element {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 25 }}>
+            <div className="button-container">
                 <Button onClick={handleAnasayfa} className="source-code-btn">
                     Anasayfa
                 </Button>
@@ -63,32 +63,32 @@ export default function Home(): JSX.Element {
                     Kaynak Kodunu Görüntüle
                 </Button>
                 <Button onClick={toggleTheme} className="source-code-btn">
-                    {theme === 'dark' ? '☀️ Aydınlık Temayı Kullan' : '🌙 Karanlık Temayı Kullan'} 
+                    {theme === 'dark' ? '☀️ Aydınlık Temayı Kullan' : '🌙 Karanlık Temayı Kullan'}
                 </Button>
             </div>
 
-            <div>
-                <Title level={2} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
-                    🎧 Spotify Son Dinlenen Müzikler 
+            <div className="content">
+                <Title level={2} style={{ color: theme === 'dark' ? '#ffffff' : '#000000', textAlign: 'center' }}>
+                    🎧 Spotify Son Dinlenen Müzikler
                 </Title>
-                {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
+                {error && (
+                    <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18, textAlign: 'center' }} />
+                )}
                 {!currentUser ? (
-                    <Space className="vert-space" direction="vertical" size="middle">
-                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
+                    <Space className="vert-space" direction="vertical" size="middle" style={{ width: '100%' }}>
+                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000', textAlign: 'center' }}>
                             <b>Spotify Hesabınızı Yetkilendirerek Son Dinlediğiniz Müzikleri Görüntüleyin!</b>
                             <br /><br />
                             Spotify hesabınızı yetkilendirerek, dinleme geçmişinizi kolayca görüntüleyebilir ve en son dinlediğiniz müzikleri keşfedebilirsiniz. Bu işlem, müzik dinleme alışkanlıklarınızı takip etmenize ve müzik zevkinizi daha iyi anlamanıza olanak tanır. Yetkilendirme işlemi hızlı ve güvenli bir şekilde gerçekleştirilir; tek yapmanız gereken Spotify hesabınıza giriş yapmak ve gerekli izinleri vermek.
-                            <br /><br />
-                            Yetkilendirmenin ardından, son dinlediğiniz müzikleri rahatlıkla görebilir ve bu verileri herhangi bir web sitesine veya uygulamaya entegre edebilirsiniz. Bu özellik, kullanıcı deneyiminizi zenginleştirir ve müzikle ilgili içgörüler elde etmenizi sağlar. Ayrıca, embed kodu sayesinde bu bilgileri kendi projelerinize ve platformlarınıza kolayca entegre edebilirsiniz.
-                            <br /><br />
-                            Geriye sadece Spotify hesabınızı yetkilendirmek ve müziğin tadını çıkarmak kaldı. Haydi başlayalım!
                         </Text>
-                        <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
+                        <div className="auth-button-container">
+                            <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
+                        </div>
                     </Space>
                 ) : (
-                    <Space className="vert-space" direction="vertical" size="middle">
+                    <Space className="vert-space" direction="vertical" size="middle" style={{ width: '100%' }}>
                         <MarkdownSnippet username={currentUser} theme={theme} />
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
                             <Button type="link" danger onClick={handleClearCreds} style={{ marginLeft: '10px' }}>
                                 Yerel kimlik bilgilerini temizle
