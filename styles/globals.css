@@ -1,35 +1,35 @@
 /* Light Theme */
 html[data-theme='light'] {
-  --background-color: #f9f9f9; /* Daha yumuşak bir arka plan */
-  --text-color: #222222; /* Siyah yerine daha koyu gri */
-  --input-background: #f5f5f5; /* Çok hafif gri */
-  --input-text-color: #333333; /* Orta koyulukta gri */
-  --border-color: #cccccc; /* Hafif gri sınır */
-  --button-background: #64b5f6; /* Daha yumuşak mavi */
+  --background-color: #f4f4f9; /* Yumuşak pastel gri-beyaz */
+  --text-color: #4a4a4a; /* Pastel koyu gri */
+  --input-background: #e0e0e5; /* Pastel gri */
+  --input-text-color: #333333; /* Koyu gri */
+  --border-color: #d0d0d0; /* Pastel sınır rengi */
+  --button-background: #a6c8ff; /* Pastel mavi */
   --button-text-color: #ffffff;
-  --button-border: #64b5f6;
-  --button-hover-background: #42a5f5; /* Hover durumda daha koyu ama hala yumuşak bir mavi */
-  --button-hover-border: #42a5f5;
+  --button-border: #a6c8ff;
+  --button-hover-background: #8ab4ff; /* Hover durumunda pastel mavi */
+  --button-hover-border: #8ab4ff;
   --source-code-btn-background: #ffffff; /* Beyaz arka plan */
-  --source-code-btn-text-color: #222222; /* Koyu gri metin */
-  --source-code-btn-border: #cccccc; /* Hafif gri sınır */
+  --source-code-btn-text-color: #4a4a4a; /* Pastel koyu gri metin */
+  --source-code-btn-border: #d0d0d0; /* Pastel sınır rengi */
 }
 
 /* Dark Theme */
 html[data-theme='dark'] {
-  --background-color: #2e2e2e; /* Daha açık bir koyu gri */
-  --text-color: #d0d0d0; /* Daha pastel bir gri */
-  --input-background: #3c3c3c; /* Orta koyulukta gri */
-  --input-text-color: #b0b0b0; /* Daha pastel bir gri */
-  --border-color: #555555;
-  --button-background: #64b5f6;
+  --background-color: #2d2d2d; /* Yumuşak koyu gri */
+  --text-color: #e0e0e0; /* Pastel açık gri */
+  --input-background: #3c3c3c; /* Pastel koyu gri */
+  --input-text-color: #b0b0b0; /* Pastel açık gri */
+  --border-color: #555555; /* Pastel koyu gri */
+  --button-background: #a6c8ff; /* Pastel mavi */
   --button-text-color: #ffffff;
-  --button-border: #64b5f6;
-  --button-hover-background: #42a5f5;
-  --button-hover-border: #42a5f5;
-  --source-code-btn-background: #4a4a4a; /* Koyu gri arka plan */
-  --source-code-btn-text-color: #e0e0e0; /* Açık gri metin */
-  --source-code-btn-border: #555555; /* Koyu gri sınır */
+  --button-border: #a6c8ff;
+  --button-hover-background: #8ab4ff; /* Hover durumunda pastel mavi */
+  --button-hover-border: #8ab4ff;
+  --source-code-btn-background: #3f3f3f; /* Pastel koyu gri arka plan */
+  --source-code-btn-text-color: #e0e0e0; /* Pastel açık gri metin */
+  --source-code-btn-border: #555555; /* Pastel koyu gri sınır */
 }
 
 body {
@@ -168,7 +168,7 @@ html[data-theme='dark'] .htmlkodu {
   position: relative;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #444444; /* Daha pastel bir gri */
+  border-top: 1px solid #707070; /* Pastel gri sınır */
   margin-top: 20px;
 }
 
@@ -194,6 +194,7 @@ html[data-theme='dark'] .htmlkodu {
 /* Dark theme for Ant Design Tabs */
 html[data-theme='dark'] .ant-tabs-tab {
   background-color: transparent; /* Tabların arka plan rengini kaldır */
+  color: var(--source-code-btn-text-color);
 }
 
 html[data-theme='dark'] .ant-tabs-tab-active {
@@ -205,5 +206,5 @@ html[data-theme='dark'] .ant-tabs-card .ant-tabs-tab {
 }
 
 html[data-theme='dark'] .ant-tabs-ink-bar {
-  background: #64b5f6; /* Aktif tab alt çizgi rengi */
+  background: #a6c8ff; /* Aktif tab alt çizgi rengi */
 }
