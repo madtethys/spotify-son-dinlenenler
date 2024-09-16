@@ -2,7 +2,7 @@
 html[data-theme='light'] {
   --background-color: #ffffff;
   --text-color: #000000;
-  --input-background: #f0f0f0; /* Biraz daha fark yaratmak için */
+  --input-background: #f0f0f0; 
   --input-text-color: #333333;
   --border-color: #d9d9d9;
   --button-background: #007bff;
@@ -15,7 +15,7 @@ html[data-theme='light'] {
 /* Dark Theme */
 html[data-theme='dark'] {
   --background-color: #1c1c1c;
-  --text-color: #f0f0f0; /* Beyazı biraz yumuşatabiliriz */
+  --text-color: #f0f0f0;
   --input-background: #2a2a2a;
   --input-text-color: #ffffff;
   --border-color: #444444;
@@ -32,11 +32,32 @@ body {
 }
 
 .container {
-  width: 75%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 25px;
-  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 25px 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 15px;
+  text-align: center;
+}
+
+.auth-button-container {
+  display: flex;
+  justify-content: center;
 }
 
 input, textarea {
@@ -70,118 +91,21 @@ input, textarea {
   border: 1px solid var(--border-color);
   padding: 10px;
   border-radius: 4px;
-  white-space: pre-wrap; /* Satır sonlarını koruyarak kodun düzgün görünmesini sağlar */
-  word-break: break-word; /* Uzun kelimelerin veya kodların taşmasını önler */
-}
-
-/* Dark Mode Styles for Ant Design Components */
-.ant-breadcrumb-link {
-  color: var(--text-color) !important;
-}
-
-.ant-tabs-nav-list {
-  color: var(--text-color) !important;
-}
-
-/* Custom Button Styles */
-.custom-button {
-  background: var(--button-background);
-  color: var(--button-text-color);
-  border: 1px solid var(--button-border);
-  border-radius: 4px;
-  padding: 8px 16px;
-  margin: 0 5px;
-  transition: background-color 0.3s, border-color 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center; /* Yatayda ortalama */
-}
-
-.custom-button:hover {
-  background: var(--button-hover-background);
-  border-color: var(--button-hover-border);
-}
-
-/* Custom Source Code Button Styles */
-.source-code-btn {
-  background: transparent;
-  color: var(--text-color);
-  border: none;
-  border-bottom: 1px solid var(--border-color);
-  padding: 8px 16px;
-  margin: 0 5px;
-  transition: color 0.3s, border-color 0.3s;
-  text-align: center; /* Yatayda ortalama */
-  display: flex;
-  align-items: center; /* Dikeyde ortalama */
-  justify-content: center; /* Buton içindeki içeriği ortalar */
-}
-
-.source-code-btn:hover {
-  color: var(--button-hover-background);
-  border-color: var(--button-hover-background);
-}
-
-/* Dark Mode Custom Button Styles */
-html[data-theme='dark'] .custom-button,
-html[data-theme='dark'] .source-code-btn {
-  background: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-}
-
-/* Dark Mode Button Hover Styles */
-html[data-theme='dark'] .custom-button:hover,
-html[data-theme='dark'] .source-code-btn:hover {
-  background: var(--button-hover-background);
-  color: var(--text-color);
-  border-color: var(--button-hover-background);
-}
-
-/* Dark Mode General Button Styles */
-html[data-theme='dark'] button {
-  background: transparent;
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-}
-
-html[data-theme='dark'] button:hover {
-  background: var(--button-hover-background);
-  color: var(--text-color);
-  border-color: var(--button-hover-background);
-}
-
-/* Dark Mode and Light Mode Icons */
-.theme-icon {
-  font-size: 20px;
-  cursor: pointer;
-  margin: 0 10px;
-  background: transparent; /* Şeffaf arka plan */
-}
-
-/* Icon Button Styles */
-.icon-button {
-  background: transparent; /* Şeffaf arka plan */
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* Footer Styles */
 .site-footer {
   background-color: var(--background-color);
   color: var(--text-color);
-  text-align: center; /* İçeriği ortalayın */
-  padding: 20px; /* Footer içeriğine boşluk ekleyin */
+  text-align: center;
+  padding: 20px;
   position: relative;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #dcdcdc; /* Ayrıcı çizgi */
-  margin-top: 20px; /* İçeriği footer'dan ayırmak için üst boşluk ekler */
+  border-top: 1px solid #dcdcdc;
+  margin-top: 20px;
 }
 
 .footer-content {
@@ -206,19 +130,25 @@ html[data-theme='dark'] button:hover {
 /* Responsive Optimizations */
 @media screen and (max-width: 768px) {
   .container {
-    width: 95%; /* Daha küçük ekranlar için genişliği artırıyoruz */
+    padding: 15px;
   }
 
-  .custom-button, .source-code-btn {
-    padding: 10px 20px; /* Butonları daha büyük yapıyoruz */
-    font-size: 14px; /* Metin boyutunu mobil için optimize ediyoruz */
-  }
-
-  .vert-space {
-    margin-bottom: 20px; /* Mobilde dikey boşlukları artırıyoruz */
+  .content {
+    width: 95%;
   }
 
   .footer-content p {
-    font-size: 12px; /* Mobilde küçük metinler */
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .button-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footer-content p {
+    font-size: 10px;
   }
 }
