@@ -18,6 +18,22 @@
     color: var(--color-text-base);
 }
 
+/* Koyu Mod İçin CSS */
+.dark-theme .markdown,
+.dark-theme .html {
+    background-color: #2c2c2c; /* Koyu arka plan rengi */
+    color: #e0e0e0; /* Koyu mod metin rengi */
+    border: 1px solid #444; /* Koyu mod kenar rengi */
+}
+
+/* Açık Mod İçin CSS (Varsayılan) */
+.light-theme .markdown,
+.light-theme .html {
+    background-color: #ffffff; /* Açık arka plan rengi */
+    color: #000000; /* Açık mod metin rengi */
+    border: 1px solid #ddd; /* Açık mod kenar rengi */
+}
+
 /* Ant Design Buton Renkleri */
 .ant-btn-primary {
     background-color: var(--color-primary);
