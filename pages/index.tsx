@@ -63,7 +63,8 @@ export default function Home(): JSX.Element {
                     </Space>
                 ) : (
                     <Space className="vert-space" direction="vertical" size="middle">
-                        <MarkdownSnippet username={currentUser} />
+                        {/* Temayı MarkdownSnippet'e geçiyoruz */}
+                        <MarkdownSnippet username={currentUser} theme={theme} />
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
                         <Button type="link" danger onClick={handleClearCreds}>
                             Yerel kimlik bilgilerini temizle
