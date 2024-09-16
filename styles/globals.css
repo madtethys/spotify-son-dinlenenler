@@ -58,6 +58,7 @@ body {
   .button-container {
     flex-direction: row; /* Butonları yan yana tut */
     flex-wrap: wrap; /* Sıkıştıklarında bir alt satıra geçmelerini sağlar */
+    gap: 10px;
   }
 
   .content {
@@ -71,8 +72,9 @@ body {
 
 @media screen and (max-width: 480px) {
   .button-container {
-    flex-direction: column;
-    gap: 5px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   .footer-content p {
@@ -90,15 +92,15 @@ body {
 
 .auth-button-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Butonları alt alta yerleştirir */
+  align-items: center;
 }
 
 /* Mobil görünümde butonları yan yana tut */
 @media screen and (max-width: 768px) {
   .auth-button-container {
-    flex-direction: row; /* Butonları yan yana tut */
-    flex-wrap: wrap; /* Sıkıştıklarında bir alt satıra geçmelerini sağlar */
-    justify-content: center; /* Ortala */
+    flex-direction: column; /* Butonları alt alta yerleştirir */
+    gap: 10px; /* Aralarındaki boşluğu artırır */
   }
 }
 
@@ -143,7 +145,6 @@ html[data-theme='dark'] .htmlkodu {
   background-color: transparent; /* Arka planı kaldır */
 }
 
-/* Source Code Button */
 .source-code-btn {
   background-color: var(--source-code-btn-background);
   color: var(--source-code-btn-text-color);
@@ -151,10 +152,13 @@ html[data-theme='dark'] .htmlkodu {
   padding: 10px 20px;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
-  text-align: center; /* Buton içi yazıları ortala */
+  text-align: center; /* Yazıları ortala */
+  display: inline-flex; /* İçeriği ortalamak için flex kullanımı */
+  align-items: center; /* Dikey ortalamak için */
+  justify-content: center; /* Yatay ortalamak için */
+  line-height: 1.5; /* Satır yüksekliğini ayarlayarak metin hizalamasını iyileştirme */
 }
 
-/* Hover state */
 .source-code-btn:hover {
   background-color: var(--button-hover-background); 
   color: var(--button-text-color);
@@ -209,4 +213,3 @@ html[data-theme='dark'] .ant-tabs-card .ant-tabs-tab {
 html[data-theme='dark'] .ant-tabs-ink-bar {
   background: #64b5f6; /* Aktif tab alt çizgi rengi */
 }
-
