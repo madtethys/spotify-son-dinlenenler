@@ -263,3 +263,8 @@ html[data-theme='dark'] .ant-switch.ant-switch-checked {
 html[data-theme='light'] .ant-switch.ant-switch-checked {
   background-color: var(--button-background);
 }
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #64b5f6;
+    font-weight: 500;
+}
