@@ -175,7 +175,7 @@ html[data-theme='dark'] .site-footer {
   margin-top: 20px;
 }
 
-light[data-theme='dark'] .site-footer {
+html[data-theme='light'] .site-footer {
   background-color: var(--background-color);
   color: rgba(127,127,127);
   text-align: center;
@@ -192,7 +192,13 @@ light[data-theme='dark'] .site-footer {
   margin: 0 auto;
 }
 
-.footer-content p {
+html[data-theme='light'] .footer-content p {
+  margin: 0;
+  color: var(--footer-textcolor)
+  font-size: 14px;
+}
+
+html[data-theme='dark'] .footer-content p {
   margin: 0;
   color: var(--footer-textcolor)
   font-size: 14px;
