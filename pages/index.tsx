@@ -12,19 +12,19 @@ const { Text, Title } = Typography;
 export default function Home(): JSX.Element {
     const router = useRouter();
     const [currentUser, setCurrentUser] = useState<string | undefined>(undefined);
-    const [theme, setTheme] = useState<string>('light'); // Tema durumunu burada yönetiyoruz
     const error = router.query['error'];
+    const [theme, setTheme] = useState<string>('light'); // Default theme
 
     useEffect(() => {
+        // Load theme from cookie or default to light
+        const savedTheme = Cookie.get('theme') || 'light';
+        setTheme(savedTheme);
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
         const user = Cookie.get('spotifyuser');
         if (user) {
             setCurrentUser(user);
         }
-
-        // Tema durumunu güncelle
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
-        document.documentElement.setAttribute('data-theme', savedTheme);
     }, []);
 
     const handleClearCreds = () => {
@@ -32,11 +32,15 @@ export default function Home(): JSX.Element {
         window.location.reload();
     };
 
-    const handleThemeToggle = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
+    const toggleTheme = () => {
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
+        Cookie.set('theme', newTheme);
         document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+    };
+
+    const handleViewSource = () => {
+        window.open('https://github.com/madtethys/spotify-son-dinlenenler', '_blank'); // Replace with your repository URL
     };
 
     return (
@@ -46,26 +50,33 @@ export default function Home(): JSX.Element {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <Breadcrumb separator=">" style={{ marginBottom: 25 }}>
-                <Breadcrumb.Item href="/">Anasayfa</Breadcrumb.Item>
-            </Breadcrumb>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: 25 }}>
+                <Breadcrumb separator=">" style={{ marginRight: 20 }}>
+                    <Breadcrumb.Item href="https://mdusova.com/">Anasayfa</Breadcrumb.Item>
+                </Breadcrumb>
+                <Button onClick={toggleTheme} style={{ marginRight: 20 }}>
+                    {theme === 'dark' ? 'Aydınlık Mod' : 'Koyu Mod'}
+                </Button>
+                <Button onClick={handleViewSource}>
+                    Kaynak Kodunu Görüntüle
+                </Button>
+            </div>
 
             <div>
-                <Title level={2}>Spotify Son Çalınan Parçalar README Oluşturucu</Title>
+                <Title level={2} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
+                    Spotify Son Çalınan Parçalar README Oluşturucu
+                </Title>
                 {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
-
-                <Button onClick={handleThemeToggle} style={{ marginBottom: 20 }}>
-                    {theme === 'light' ? 'Koyu Tema' : 'Açık Tema'}
-                </Button>
-
                 {!currentUser ? (
                     <Space className="vert-space" direction="vertical" size="middle">
-                        <Text>Spotify'ı yetkilendirerek başlayalım.</Text>
+                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
+                            Spotify'ı yetkilendirerek başlayalım.
+                        </Text>
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} />
                     </Space>
                 ) : (
                     <Space className="vert-space" direction="vertical" size="middle">
-                        <MarkdownSnippet username={currentUser} theme={theme} /> {/* Tema prop'u ekleyin */}
+                        <MarkdownSnippet username={currentUser} theme={theme} />
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
                         <Button type="link" danger onClick={handleClearCreds}>
                             Yerel kimlik bilgilerini temizle
