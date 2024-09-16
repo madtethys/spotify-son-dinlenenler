@@ -63,7 +63,7 @@ export default function Home(): JSX.Element {
                     Kaynak Kodunu Görüntüle
                 </Button>
                 <Button onClick={toggleTheme} className="source-code-btn">
-                    {theme === 'dark' ? <FaSun className="theme-icon" /> : <FaMoon className="theme-icon" />} Temayı Değiştir
+                    {theme === 'dark' ? ☀️ : 🌙} Temayı Değiştir
                 </Button>
             </div>
 
