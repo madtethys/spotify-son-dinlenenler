@@ -60,5 +60,13 @@ input, textarea {
 }
 
 .ant-typography {
-  color: var(--text-color); /* Ant Design Typography bileşenlerinin yazı rengini güncelledik */
+  color: var(--text-color) !important; /* Ant Design Typography bileşenlerinin yazı rengini güncelledik */
+}
+
+.ant-breadcrumb-link {
+  color: var(--text-color) !important;
+}
+
+.ant-tabs-nav-list {
+  color: var(--text-color) !important;
 }
