@@ -1,6 +1,5 @@
-
 /* Koyu Mod */
-:root {
+.dark-theme {
     --color-primary: #1db954;
     --color-bg-base: #121212;
     --color-text-base: #e0e0e0;
@@ -11,6 +10,15 @@
     --color-primary: #1890ff;
     --color-bg-base: #ffffff;
     --color-text-base: #000000;
+}
+
+body {
+    background-color: var(--color-bg-base);
+    color: var(--color-text-base);
+}
+
+.ant-btn-primary {
+    background-color: var(--color-primary);
 }
 
 html,
