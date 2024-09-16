@@ -3,6 +3,9 @@
     --color-primary: #1db954;
     --color-bg-base: #121212;
     --color-text-base: #e0e0e0;
+    --color-text-secondary: #b0b0b0; /* Daha açık gri tonları */
+    background-color: var(--color-bg-base);
+    color: var(--color-text-base);
 }
 
 /* Açık Mod */
@@ -10,15 +13,33 @@
     --color-primary: #1890ff;
     --color-bg-base: #ffffff;
     --color-text-base: #000000;
-}
-
-body {
+    --color-text-secondary: #333333; /* Daha koyu gri tonları */
     background-color: var(--color-bg-base);
     color: var(--color-text-base);
 }
 
+/* Ant Design Buton Renkleri */
 .ant-btn-primary {
     background-color: var(--color-primary);
+}
+
+/* Ant Design Bileşenleri için Ek CSS */
+.ant-alert,
+.ant-breadcrumb,
+.ant-typography,
+.ant-btn,
+.ant-switch {
+    color: var(--color-text-base); /* Metin rengini ayarlama */
+}
+
+/* Ant Design Butonun üzerine gelindiğinde renk değişimini kontrol et */
+.ant-btn-primary:hover {
+    background-color: var(--color-primary);
+}
+
+/* Koyu mod için genel düzenlemeler */
+.dark-theme .ant-btn {
+    color: var(--color-text-base);
 }
 
 html,
