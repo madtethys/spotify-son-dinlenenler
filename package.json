@@ -22,7 +22,9 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "styled-jsx": "^3.3.3",
-    "webpack": "^4.46.0"
+    "webpack": "^4.46.0",
+    "react-native": "0.65.1",
+    "react-native-share": "^7.2.1"
   },
   "devDependencies": {
     "@types/cookies": "^0.7.6",
@@ -40,6 +42,10 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "prettier": "^2.2.1",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "react-native-cli": "^2.0.1",
+    "babel-jest": "27.4.6",
+    "jest": "27.4.6",
+    "react-test-renderer": "17.0.2"
   }
 }
