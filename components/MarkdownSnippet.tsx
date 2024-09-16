@@ -51,7 +51,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         const options = {
             backgroundImage: backgroundImageUri, // Arka plan resmi
             stickerImage: previewImageUri,       // Ön plan resmi olarak önizleme resmi
-            sourceApplication: 'YourAppId',       // Uygulama ID'nizi buraya ekleyin
+            sourceApplication: Constants.InstagramAppID,       // Uygulama ID'nizi buraya ekleyin
         };
 
         try {
@@ -59,7 +59,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 method: Share.InstagramStories.share(options),
             });
         } catch (error) {
-            console.error('Error sharing to Instagram:', error);
+            console.error('Instagram'a paylaşma sırasında bir hata oluştu:', error);
         }
     };
 
