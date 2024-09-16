@@ -43,10 +43,6 @@ export default function Home(): JSX.Element {
         window.open('https://github.com/madtethys/spotify-son-dinlenenler', '_blank');
     };
 
-    const handleDocument = () => {
-        window.open('https://github.com/madtethys/spotify-son-dinlenenler/blob/main/README.md', '_blank');
-    };
-
     const handleAnasayfa = () => {
         window.location.href = 'https://mdusova.com/';
     };
@@ -64,9 +60,6 @@ export default function Home(): JSX.Element {
                 </Button>
                 <Button onClick={handleViewSource} className="source-code-btn">
                     Kaynak Kodunu Görüntüle
-                </Button>
-                <Button onClick={handleDocument} className="source-code-btn">
-                    Dökümanları Görüntüle
                 </Button>
                 <Button onClick={toggleTheme} className="source-code-btn">
                     {theme === 'dark' ? '☀️ Aydınlık Temayı Kullan' : '🌙 Karanlık Temayı Kullan'}
