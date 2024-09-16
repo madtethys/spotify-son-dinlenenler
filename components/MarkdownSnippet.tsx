@@ -21,11 +21,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         return null;
     }
 
+    // SVG URL'sini ve parametreleri güncelle
     const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
     const markdownCode = `![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`;
     const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
 
+    // Handle değişim fonksiyonları
     const handleWidthChange = (value: number | [number, number]) => {
         if (typeof value === 'number') {
             setWidth(value);
@@ -40,66 +42,65 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
 
     return (
         <div>
-            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000', marginBottom: '20px' }}>
-                "{username}" olarak giriş yapıldı.
+            <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', marginBottom: '20px' }}>
+               👤 "{username}" olarak giriş yapıldı. ✨
             </Title>
             <Tabs defaultActiveKey="1">
-                <TabPane tab="Markdown'a Nasıl Eklerim?" key="1">
+                <TabPane tab="❓ Markdown'a Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Varsayılan Markdown Kodu:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>Varsayılan Markdown Kodu:</Text>
                         <TextArea
                             className="markdown"
                             autoSize
                             readOnly
                             value={markdownCode}
                             style={{
-                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
-                                color: theme === 'dark' ? '#ffffff' : '#000000'
+                                backgroundColor: theme === 'dark' ? '#222222' : '#d0d0d0',
+                                color: theme === 'dark' ? '#d0d0d0' : '#222222'
                             }}
                         />
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
                             Önizleme
                         </Title>
                         <object
                             type="image/svg+xml"
                             data={`${svgSrc}${updateParams}`}
-                            style={{ width: '100%', height: 'auto' }}
                         >
-                            Önizleme için SVG desteği bulunmuyor.
+                           🚫 Önizleme için SVG desteği bulunmuyor.
                         </object>
                     </Space>
                 </TabPane>
-                <TabPane tab="HTML'e Nasıl Eklerim?" key="2">
+                <TabPane tab="❓ HTML'e Nasıl Eklerim?" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Varsayılan HTML Kodu:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>Varsayılan HTML Kodu:</Text>
                         <TextArea
                             className="htmlkodu"
                             autoSize
                             readOnly
                             value={htmlCode}
                             style={{
-                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
-                                color: theme === 'dark' ? '#ffffff' : '#000000'
+                                backgroundColor: theme === 'dark' ? '#222222' : '#d0d0d0',
+                                color: theme === 'dark' ? '#d0d0d0' : '#222222'
                             }}
                         />
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
                             Önizleme
                         </Title>
                         <object
                             type="image/svg+xml"
                             data={`${svgSrc}${updateParams}`}
-                            style={{ width: '100%', height: 'auto' }}
                         >
-                            Önizleme için SVG desteği bulunmuyor.
+                           🚫 Önizleme için SVG desteği bulunmuyor.
                         </object>
                     </Space>
                 </TabPane>
-                <TabPane tab="Ayarlar" key="3">
+                <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>
-                            Ayarları Yapılandırın
+                        <Title level={5} style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>
+                            🔨 Ayarları Yapılandırın
                         </Title>
-                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listede bulunacak müzik sayısını ayarlayın:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>📋 Listede Bulunacak Müzik Sayısı</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listede bulunan müizk sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5) <br />API URL'sine <b>&count={girdiğinizdeğer}</b> ekleyecektir.</Text>
                         <Tooltip title={`${trackCount} müzik`}>
                             <Slider
                                 min={1}
@@ -110,7 +111,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 className="slider"
                             />
                         </Tooltip>
-                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listenin genişliğini ayarlayın (px):</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>↔️ Listenin Genişliği(px)</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width={girdiğinizdeğer}</b> ekleyecektir.</Text>
                         <Tooltip title={`${width}px`}>
                             <Slider
                                 min={300}
@@ -121,12 +123,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 className="slider"
                             />
                         </Tooltip>
-                        <Text style={{ color: theme === 'dark' ? '#ffffff' : '#000000' }}>Listede tekrar dinlenen müzikleri göster:</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222' }}>🔁 Tekrar Dinlenen Müzikler</Text>
+                        <Text style={{ color: theme === 'dark' ? '#d0d0d0' : '#222222', fontSize: '14px' }}>ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir eklemek yapılmayacaktır.</Text>
                         <Switch
                             checked={uniqueTracks}
                             onChange={checked => setUniqueTracks(checked)}
-                            checkedChildren="Evet"
-                            unCheckedChildren="Hayır"
+                            checkedChildren="Gösterilsin"
+                            unCheckedChildren="Gösterilmesin"
                             className="switch"
                         />
                     </Space>
