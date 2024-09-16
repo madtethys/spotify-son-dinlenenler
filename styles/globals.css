@@ -15,6 +15,7 @@ body.dark-theme {
     --switch-color: #000000;
 }
 
+/* Konteyner ve Arka Plan */
 .container {
     background-color: var(--background-color);
     color: var(--text-color);
@@ -23,16 +24,6 @@ body.dark-theme {
     margin-right: auto;
     padding-top: 25px;
     padding-bottom: 25px;
-}
-
-.spotify-auth-btn {
-    background: #1db954 !important;
-    border-color: #1db954 !important;
-}
-
-.spotify-auth-btn:hover {
-    background: #45bb6e !important;
-    border-color: #45bb6e !important;
 }
 
 /* Ant Design Bileşenleri */
@@ -89,7 +80,7 @@ body.dark-theme {
     border: 1px solid #ddd;
 }
 
-/* Koyu Mod */
+/* Tema Renkleri */
 .dark-theme {
     --color-primary: #1db954;
     --color-bg-base: #121212;
@@ -97,7 +88,6 @@ body.dark-theme {
     --color-text-secondary: #b0b0b0;
 }
 
-/* Açık Mod */
 .light-theme {
     --color-primary: #1890ff;
     --color-bg-base: #ffffff;
@@ -111,11 +101,14 @@ body.dark-theme {
     align-items: center;
 }
 
+/* Genel Stil ve Temizleme */
 html,
 body {
     padding: 0;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-color: var(--background-color); /* Arka plan rengini buradan ayarla */
+    color: var(--text-color); /* Metin rengini buradan ayarla */
 }
 
 a {
