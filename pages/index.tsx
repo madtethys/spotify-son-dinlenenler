@@ -12,6 +12,7 @@ const { Text, Title } = Typography;
 export default function Home(): JSX.Element {
     const router = useRouter();
     const [currentUser, setCurrentUser] = useState<string | undefined>(undefined);
+    const [theme, setTheme] = useState<string>('light');
     const error = router.query['error'];
 
     useEffect(() => {
@@ -19,7 +20,18 @@ export default function Home(): JSX.Element {
         if (user) {
             setCurrentUser(user);
         }
-    });
+
+        const savedTheme = Cookie.get('theme') || 'light';
+        setTheme(savedTheme);
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    }, []);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        Cookie.set('theme', newTheme);
+    };
 
     const handleClearCreds = () => {
         Cookie.remove('spotifyuser');
@@ -38,6 +50,10 @@ export default function Home(): JSX.Element {
             </Breadcrumb>
 
             <div>
+                <Button onClick={toggleTheme}>
+                    {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                </Button>
+
                 <Title level={2}>Spotify Son Çalınan Parçalar README Oluşturucu</Title>
                 {error && <Alert message="Hata" description={error} type="error" style={{ marginBottom: 18 }} />}
 
@@ -51,7 +67,8 @@ export default function Home(): JSX.Element {
                         <MarkdownSnippet username={currentUser} />
                         <SpotifyAuthButton clientId={ClientId} redirectUri={RedirectUri} label="Yeniden Yetkilendir" />
                         <Button type="link" danger onClick={handleClearCreds}>
-                        Yerel kimlik bilgilerini temizle</Button>
+                            Yerel kimlik bilgilerini temizle
+                        </Button>
                     </Space>
                 )}
             </div>
