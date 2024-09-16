@@ -4,6 +4,8 @@ export const ClientId = process.env.NEXT_PUBLIC_CLIENT_ID;
 export const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 // Redirect URI
 export const RedirectUri = process.env.NEXT_PUBLIC_REDIRECT_URI;
+// Instagram APP ID
+export const InstagramAppID = process.env.INSTAGRAM_APP_ID;
 
 export const defaultCount = 5;
 export const defaultUniqueTrack = false;
