@@ -1,4 +1,4 @@
-import { Alert, Breadcrumb, Button, Space, Typography } from 'antd';
+import { Alert, Breadcrumb, Button, Space, Typography, Layout } from 'antd';
 import Cookie from 'js-cookie';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -9,6 +9,7 @@ import { ClientId, RedirectUri } from '../utils/Constants';
 import { FaMoon, FaSun } from 'react-icons/fa'; // Importing icons
 
 const { Text, Title } = Typography;
+const { Footer } = Layout;
 
 export default function Home(): JSX.Element {
     const router = useRouter();
@@ -46,7 +47,6 @@ export default function Home(): JSX.Element {
     const handleAnasayfa = () => {
         window.location.href = 'https://mdusova.com/'; 
     };
-
 
     return (
         <div className="container">
@@ -89,6 +89,12 @@ export default function Home(): JSX.Element {
                     </Space>
                 )}
             </div>
+
+            <Footer className="site-footer">
+                <div className="footer-content">
+                    <p>Copyright © 2024 <a href="https://mdusova.com/" target="_blank" rel="noopener noreferrer">Mustafa Arda Düşova</a> - Tüm Hakları Saklıdır.</p>
+                </div>
+            </Footer>
         </div>
     );
 }
