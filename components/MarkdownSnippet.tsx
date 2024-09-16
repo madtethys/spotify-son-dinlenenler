@@ -1,6 +1,11 @@
-import { Input, Space, Typography, Tabs, Slider, Switch, InputNumber } from 'antd';
+import { Input, Space, Typography, Tabs, Select, Slider, Switch } from 'antd';
 import React, { useState } from 'react';
 import * as Constants from '../utils/Constants';
+
+const { Text, Title } = Typography;
+const { TextArea } = Input;
+const { TabPane } = Tabs;
+const { Option } = Select;
 
 interface Props {
     username?: string;
@@ -9,90 +14,114 @@ interface Props {
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const { username, theme } = props;
-    const [trackCount, setTrackCount] = useState<number>(5);
-    const [width, setWidth] = useState<number>(400);
-    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
+    const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
+    const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
+    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
 
     if (!username) {
         return null;
     }
 
-    const generateUrl = useCallback(() => {
-        const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
-        const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
-        return `${svgSrc}${updateParams}`;
-    }, [username, trackCount, width, uniqueTracks]);
+    const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+    const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
+    const markdownCode = `![Spotify Son Dinlenen Müzikler by mdusova](${svgSrc}${updateParams})`;
+    const htmlCode = `<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler by mdusova" />`;
 
-    const finalUrl = generateUrl();
-    const markdownCode = `![Spotify Son Dinlenen Müzikler](${finalUrl})`;
-    const htmlCode = `<img src="${finalUrl}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`;
+    const handleTrackCountChange = (value: string) => {
+        setTrackCount(parseInt(value, 10));
+    };
+
+    const handleWidthChange = (value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setWidth(value);
+        }
+    };
+
+    const textColor = theme === 'dark' ? '#ffffff' : '#000000';
+    const backgroundColor = theme === 'dark' ? '#333333' : '#ffffff';
 
     return (
-        <div className={`container ${theme}`}>
-            <Title level={5} className="header">
+        <div>
+            <Title level={5} style={{ color: textColor, marginBottom: '20px' }}>
                 "{username}" olarak giriş yapıldı.
             </Title>
-            <Tabs defaultActiveKey="1" className="tabs">
+            <Tabs defaultActiveKey="1">
                 <TabPane tab="Markdown'a Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text className="description">Varsayılan Markdown Kodu:</Text>
+                        <Text style={{ color: textColor }}>Varsayılan Markdown Kodu:</Text>
                         <TextArea
                             className="markdown"
                             autoSize
                             readOnly
                             value={markdownCode}
-                            className={`text-area ${theme}`}
+                            style={{ backgroundColor, color: textColor }}
                         />
-                        <Text className="description">Önizleme:</Text>
-                        <object type="image/svg+xml" data={finalUrl} className="preview"></object>
+                        <Title level={5} style={{ color: textColor }}>
+                            Önizleme
+                        </Title>
+                        <object
+                            type="image/svg+xml"
+                            data={`${svgSrc}${updateParams}`}
+                            style={{ width: '100%', height: 'auto' }}
+                        >
+                            Önizleme için SVG desteği bulunmuyor.
+                        </object>
                     </Space>
                 </TabPane>
                 <TabPane tab="HTML'e Nasıl Eklerim?" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Text className="description">Varsayılan HTML Kodu:</Text>
+                        <Text style={{ color: textColor }}>Varsayılan HTML Kodu:</Text>
                         <TextArea
                             className="htmlkodu"
                             autoSize
                             readOnly
                             value={htmlCode}
-                            className={`text-area ${theme}`}
+                            style={{ backgroundColor, color: textColor }}
                         />
-                        <Text className="description">Önizleme:</Text>
-                        <object type="image/svg+xml" data={finalUrl} className="preview"></object>
+                        <Title level={5} style={{ color: textColor }}>
+                            Önizleme
+                        </Title>
+                        <object
+                            type="image/svg+xml"
+                            data={`${svgSrc}${updateParams}`}
+                            style={{ width: '100%', height: 'auto' }}
+                        >
+                            Önizleme için SVG desteği bulunmuyor.
+                        </object>
                     </Space>
                 </TabPane>
                 <TabPane tab="Ayarlar" key="3">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Title level={5} className="settings-title">
+                        <Title level={5} style={{ color: textColor }}>
                             Ayarları Yapılandırın
                         </Title>
-                        <Text className="description">Listede bulunacak müzik sayısını ayarlayın:</Text>
-                        <Slider
-                            min={1}
-                            max={10}
-                            step={1}
-                            value={trackCount}
-                            onChange={value => setTrackCount(value as number)}
-                            className={`slider ${theme}`}
-                            marks={{ 1: '1', 10: '10' }}
-                        />
-                        <Text className="description">Listenin genişliğini ayarlayın (px):</Text>
+                        <Text style={{ color: textColor }}>Listede bulunacak müzik sayısını ayarlayın:</Text>
+                        <Select
+                            value={trackCount.toString()}
+                            onChange={handleTrackCountChange}
+                            style={{ width: '100%' }}
+                        >
+                            {[...Array(10).keys()].map(i => (
+                                <Option key={i + 1} value={(i + 1).toString()}>
+                                    {i + 1}
+                                </Option>
+                            ))}
+                        </Select>
+                        <Text style={{ color: textColor }}>Listenin genişliğini ayarlayın (px):</Text>
                         <Slider
                             min={300}
                             max={1000}
                             step={1}
                             value={width}
-                            onChange={value => setWidth(value as number)}
-                            className={`slider ${theme}`}
+                            onChange={handleWidthChange}
                             marks={{ 300: '300px', 1000: '1000px' }}
                         />
-                        <Text className="description">Listede tekrar dinlenen müzikleri göster:</Text>
+                        <Text style={{ color: textColor }}>Listede tekrar dinlenen müzikleri göster:</Text>
                         <Switch
                             checked={uniqueTracks}
-                            onChange={checked => setUniqueTracks(checked)}
+                            onChange={setUniqueTracks}
                             checkedChildren="Evet"
                             unCheckedChildren="Hayır"
-                            className={`switch ${theme}`}
                         />
                     </Space>
                 </TabPane>
