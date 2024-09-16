@@ -13,6 +13,10 @@ html[data-theme='light'] {
   --source-code-btn-background: #ffffff; /* Beyaz arka plan */
   --source-code-btn-text-color: #222222; /* Koyu gri metin */
   --source-code-btn-border: #cccccc; /* Hafif gri sınır */
+  --slider-background: #e0e0e0; /* Slider arka plan rengi */
+  --slider-track-background: #64b5f6; /* Slider izinin rengi */
+  --switch-background: #e0e0e0; /* Switch arka plan rengi */
+  --switch-checked-background: #64b5f6; /* Switch seçili arka plan rengi */
 }
 
 /* Dark Theme */
@@ -30,6 +34,10 @@ html[data-theme='dark'] {
   --source-code-btn-background: #4a4a4a; /* Koyu gri arka plan */
   --source-code-btn-text-color: #e0e0e0; /* Açık gri metin */
   --source-code-btn-border: #555555; /* Koyu gri sınır */
+  --slider-background: #3c3c3c; /* Slider arka plan rengi */
+  --slider-track-background: #64b5f6; /* Slider izinin rengi */
+  --switch-background: #3c3c3c; /* Switch arka plan rengi */
+  --switch-checked-background: #64b5f6; /* Switch seçili arka plan rengi */
 }
 
 body {
@@ -212,4 +220,32 @@ html[data-theme='dark'] .ant-tabs-card .ant-tabs-tab {
 
 html[data-theme='dark'] .ant-tabs-ink-bar {
   background: #64b5f6; /* Aktif tab alt çizgi rengi */
+}
+
+/* Slider Stilleri */
+.ant-slider {
+  background-color: var(--slider-background);
+}
+
+.ant-slider-track {
+  background-color: var(--slider-track-background);
+}
+
+.ant-slider-handle {
+  border-color: var(--button-background);
+  background-color: var(--button-background);
+}
+
+/* Switch Stilleri */
+.ant-switch {
+  background-color: var(--switch-background);
+}
+
+.ant-switch-checked {
+  background-color: var(--switch-checked-background);
+}
+
+.ant-switch-handle {
+  border-color: var(--button-background);
+  background-color: var(--button-background);
 }
