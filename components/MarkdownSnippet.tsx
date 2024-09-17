@@ -42,13 +42,14 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
 
     // Instagram Stories için paylaşım fonksiyonu
     const shareToInstagramStory = () => {
-        // Önizleme resmi URL'si
         const previewImageUri = `${svgSrc}${updateParams}`;
-        // Instagram'a paylaşmak için URL oluştur
-        const instagramShareUrl = `https://instagram.com/stories/create?url=${encodeURIComponent(previewImageUri)}`;
+        const backgroundImageUri = 'https://images.hdqwalls.com/download/landscape-reflection-lake-trees-in-1080x1920.jpg'; // Arka plan resmi
 
-        // Kullanıcıyı Instagram Story paylaşım sayfasına yönlendir
-        window.open(instagramShareUrl, '_blank');
+        // Instagram hikaye paylaşım URL'si
+        const instagramShareUrl = `instagram://story-camera?image=${encodeURIComponent(previewImageUri)}&background=${encodeURIComponent(backgroundImageUri)}`;
+        
+        // Kullanıcıyı Instagram uygulamasına yönlendirin
+        window.location.href = instagramShareUrl;
     };
 
     return (
@@ -151,7 +152,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             🔁 Tekrar Dinlenen Müzikler:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz API URl'SİNE <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir ekleme yapılmayacaktır.
+                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir eklemek yapılmayacaktır.
                         </Text>
                         <Switch
                             checked={uniqueTracks}
@@ -165,9 +166,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             </Tabs>
             {/* Paylaşım butonu ekleyelim */}
             <Button onClick={shareToInstagramStory} type="primary" style={{ marginTop: 20 }}>
-                Instagram Stories'e Paylaş
+                Instagram Hikayende Paylaş
             </Button>
         </div>
     );
 }
-
