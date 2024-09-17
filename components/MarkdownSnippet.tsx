@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select } from 'antd';
 import * as Constants from '../utils/Constants';
 import axios from 'axios';
+import domtoimage from 'dom-to-image';  // dom-to-image kütüphanesini ekledik
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
@@ -18,6 +19,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
     const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
+
     if (!username) {
         return null;
     }
@@ -39,8 +41,29 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         }
     };
 
-    const handleBackgroundChange = (value: string) => {
-        setBackgroundImage(value);
+    // SVG'yi PNG'ye dönüştürme ve paylaşım yapma
+    const shareImage = async () => {
+        const svgElement = document.querySelector('img'); // Görseli seçiyoruz
+        if (!svgElement) return;
+
+        try {
+            const dataUrl = await domtoimage.toPng(svgElement); // SVG'yi PNG'ye dönüştürüyoruz
+            const blob = await fetch(dataUrl).then(res => res.blob()); // PNG'yi Blob formatına çeviriyoruz
+            const file = new File([blob], 'spotify-last-tracks.png', { type: 'image/png' }); // Paylaşılacak dosyayı oluşturuyoruz
+
+            // Web Share API'yi kullanarak paylaşım yapıyoruz
+            if (navigator.share) {
+                await navigator.share({
+                    title: 'Spotify Son Dinlenen Müzikler',
+                    text: 'En son dinlediğim müziklere göz at!',
+                    files: [file], // Paylaşılacak dosya
+                });
+            } else {
+                alert('Tarayıcınız paylaşma özelliğini desteklemiyor.');
+            }
+        } catch (error) {
+            console.error('Paylaşma hatası:', error);
+        }
     };
 
     return (
@@ -115,46 +138,51 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </Text>
                         <Tooltip title={`${trackCount} müzik`}>
                             <Slider
-                               min={1}
-                               max={10}
-                               step={1}
-                               value={trackCount}
-                               onChange={handleTrackCountChange}
-                               className="slider"
-                           />
-                       </Tooltip>
-                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                           ↔️ Listenin Genişliği(px):
-                       </Title>
-                       <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                           ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width=girdiğinizdeğer</b> ekleyecektir.
-                       </Text>
-                       <Tooltip title={`${width}px`}>
-                           <Slider
-                               min={300}
-                               max={1000}
-                               step={1}
-                               value={width}
-                               onChange={handleWidthChange}
-                               className="slider"
-                           />
-                       </Tooltip>
-                       <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                           🔁 Tekrar Dinlenen Müzikler:
-                       </Title>
-                       <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                           ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir ekleme yapılmayacaktır.
-                       </Text>
-                       <Switch
-                           checked={uniqueTracks}
-                           onChange={checked => setUniqueTracks(checked)}
-                           checkedChildren="Gösterilsin"
-                           unCheckedChildren="Gösterilmesin"
-                           className="switch"
-                       />
-                   </Space>
-               </TabPane>
-           </Tabs>
-       </div>
-   );
+                                min={1}
+                                max={10}
+                                step={1}
+                                value={trackCount}
+                                onChange={handleTrackCountChange}
+                                className="slider"
+                            />
+                        </Tooltip>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            ↔️ Listenin Genişliği(px):
+                        </Title>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400) <br />API URL'sine <b>&width=girdiğinizdeğer</b> ekleyecektir.
+                        </Text>
+                        <Tooltip title={`${width}px`}>
+                            <Slider
+                                min={300}
+                                max={1000}
+                                step={1}
+                                value={width}
+                                onChange={handleWidthChange}
+                                className="slider"
+                            />
+                        </Tooltip>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            🔁 Tekrar Dinlenen Müzikler:
+                        </Title>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir ekleme yapılmayacaktır.
+                        </Text>
+                        <Switch
+                            checked={uniqueTracks}
+                            onChange={checked => setUniqueTracks(checked)}
+                            checkedChildren="Gösterilsin"
+                            unCheckedChildren="Gösterilmesin"
+                            className="switch"
+                        />
+                    </Space>
+                </TabPane>
+            </Tabs>
+            
+            {/* Paylaşım Butonu */}
+            <Button type="primary" onClick={shareImage} style={{ marginTop: '20px' }}>
+                🎉 Instagram'da Paylaş
+            </Button>
+        </div>
+    );
 }
