@@ -18,7 +18,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
     const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
-    const [backgroundImage, setBackgroundImage] = useState<string>('../public/arkaplan.jpg'); // Varsayılan arka plan resmi
+    const [backgroundImage, setBackgroundImage] = useState<string>('/arkaplan.jpg'); // Varsayılan arka plan resmi
 
     if (!username) {
         return null;
