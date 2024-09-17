@@ -41,12 +41,12 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     };
 
     const backgrounds = [
-        'spotify.mdusova.com/arkaplan1.png',
-        'spotify.mdusova.com/arkaplan2.png',
-        'spotify.mdusova.com/arkaplan3.png',
-        'spotify.mdusova.com/arkaplan4.png',
-        'spotify.mdusova.com/arkaplan5.png',
-        'spotify.mdusova.com/arkaplan6.png',
+        'https://spotify.mdusova.com/arkaplan1.png',
+        'https://spotify.mdusova.com/arkaplan2.png',
+        'https://spotify.mdusova.com/arkaplan3.png',
+        'https://spotify.mdusova.com/arkaplan4.png',
+        'https://spotify.mdusova.com/arkaplan5.png',
+        'https://spotify.mdusova.com/arkaplan6.png',
     ];
 
     const handleBackgroundSelect = (background: string) => {
