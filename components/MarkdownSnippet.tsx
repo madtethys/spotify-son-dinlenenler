@@ -18,7 +18,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
     const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
-    const [backgroundImage, setBackgroundImage] = useState<string>('/arkaplan.jpg'); // Varsayılan arka plan resmi
+    const [backgroundImage, setBackgroundImage] = useState<string>('/arkaplan.png'); // Varsayılan arka plan resmi
 
     if (!username) {
         return null;
@@ -45,56 +45,56 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         setBackgroundImage(value);
     };
 
-const combineImages = async () => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // Resimleri yükleyen fonksiyonları oluştur
     const loadImage = (src: string): Promise<HTMLImageElement> => {
         return new Promise((resolve, reject) => {
             const img = new Image();
+            img.crossOrigin = 'Anonymous'; // CORS desteği için
             img.onload = () => resolve(img);
             img.onerror = reject;
             img.src = src;
         });
     };
 
-    const backgroundPromise = loadImage(backgroundImage);
-    const overlayPromise = loadImage(imageUrl);
+    const combineImages = async () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
 
-    try {
-        // Resimleri yükleyin
-        const [background, overlay] = await Promise.all([backgroundPromise, overlayPromise]);
+        const backgroundPromise = loadImage(backgroundImage);
+        const overlayPromise = loadImage(imageUrl);
 
-        if (ctx) {
-            canvas.width = background.width;
-            canvas.height = background.height;
+        try {
+            // Resimleri yükleyin
+            const [background, overlay] = await Promise.all([backgroundPromise, overlayPromise]);
 
-            // Resimleri çiz
-            ctx.drawImage(background, 0, 0);
-            
-            // Overlay resmini yerleştir
-            const padding = 50;
-            const overlayWidth = background.width - 2 * padding;
-            const overlayHeight = background.height - 2 * padding;
-            
-            ctx.drawImage(overlay, padding, padding, overlayWidth, overlayHeight);
-            
-            // Metinleri ekle
-            ctx.fillStyle = 'white';
-            ctx.font = '30px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('Şimdi son dinlediğin müzikleri paylaş!', canvas.width / 2, canvas.height - 40);
-            ctx.fillText('spotify.mdusova.com', canvas.width / 2, canvas.height - 10);
+            if (ctx) {
+                canvas.width = background.width;
+                canvas.height = background.height;
 
-            // Son görseli paylaş
-            const finalImage = canvas.toDataURL('image/png');
-            shareToInstagramStory(finalImage);
+                // Resimleri çiz
+                ctx.drawImage(background, 0, 0);
+                
+                // Overlay resmini yerleştir
+                const padding = 50;
+                const overlayWidth = background.width - 2 * padding;
+                const overlayHeight = background.height - 2 * padding;
+                
+                ctx.drawImage(overlay, padding, padding, overlayWidth, overlayHeight);
+                
+                // Metinleri ekle
+                ctx.fillStyle = 'white';
+                ctx.font = '30px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Şimdi son dinlediğin müzikleri paylaş!', canvas.width / 2, canvas.height - 40);
+                ctx.fillText('spotify.mdusova.com', canvas.width / 2, canvas.height - 10);
+
+                // Son görseli paylaş
+                const finalImage = canvas.toDataURL('image/png');
+                shareToInstagramStory(finalImage);
+            }
+        } catch (error) {
+            console.error('Resim yükleme hatası:', error);
         }
-    } catch (error) {
-        console.error('Resim yükleme hatası:', error);
-    }
-};
+    };
 
     const shareToInstagramStory = async (finalImage: string) => {
         const instagramToken = Constants.InstagramAppToken;
@@ -249,13 +249,13 @@ const combineImages = async () => {
                            style={{ width: '100%' }}
                            onChange={handleBackgroundChange}
                        >
-                           <Option value="https://images.hdqwalls.com/download/landscape-reflection-lake-trees-in-1080x1920.jpg">
+                           <Option value="/arkaplan.png">
                                Arka Plan 1
                            </Option>
-                           <Option value="https://images.hdqwalls.com/download/forest-river-1080x1920.jpg">
+                           <Option value="/arkaplan.png">
                                Arka Plan 2
                            </Option>
-                           <Option value="https://images.hdqwalls.com/download/sunrise-over-mountains-1080x1920.jpg">
+                           <Option value="/arkaplan.png">
                                Arka Plan 3
                            </Option>
                            {/* Diğer arka plan seçenekleri buraya eklenebilir */}
@@ -268,4 +268,4 @@ const combineImages = async () => {
            </Button>
        </div>
    );
-   }
+}
