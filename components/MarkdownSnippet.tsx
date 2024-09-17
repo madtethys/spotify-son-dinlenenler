@@ -51,6 +51,10 @@ const combineImages = async () => {
     const backgroundImg = new Image();
     const overlayImg = new Image();
 
+    // CORS ayarını ekleyin
+    backgroundImg.crossOrigin = 'Anonymous';
+    overlayImg.crossOrigin = 'Anonymous';
+
     backgroundImg.src = backgroundImage;
     overlayImg.src = imageUrl;
 
