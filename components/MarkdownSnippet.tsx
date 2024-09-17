@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select } from 'antd';
 import * as Constants from '../utils/Constants';
 import axios from 'axios';
-import domtoimage from 'dom-to-image';  // dom-to-image kütüphanesini ekledik
+import domtoimage from 'dom-to-image'; 
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
