@@ -20,7 +20,7 @@ Yetkilendirdikten sonra, aşağıdaki kodu websitenize/profilinize ekleyin ve `?
 ```md
 <img src="https://spotify.mdusova.com/api?user=xxxxx" alt="Spotify Son Dinlenen Müzikler by madtethys" />
 ```
-
+ 
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu)
 
 ## BÖLÜM 2: Listede bulunan müzik sayısı ayarlamak
