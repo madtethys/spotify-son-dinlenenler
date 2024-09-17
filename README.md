@@ -162,5 +162,8 @@ Son olarak, `utils/Constants.ts` dosyasını düzenleyin ve `ClientId`, `BaseUrl
 #### + Anlık Veri Çekme:
 > Bu proje [Vercel](https://vercel.com/) tarafından desteklenmektedir. Şu anda %100 anlık veri çekemesek de %92.4 gibi güzel bir oranda anlık veri çekebiliyoruz. Bu gecikmenin sebebi ise projenin [Vercel](https://vercel.com/)'in Europe-West1 (Ireland) ve [Firebase Veritabanı](https://firebase.google.com/)'nın Europe-West1 (Belgium) sunucusunda bulunmasından dolayıdır. Yakın zamanda proje başka sağlayıcıya(Türkiye sunucularına) taşınacaktır. 
 
-## • BÖLÜM 7: Lisans
+## • BÖLÜM 7: Gizlilik Politikası
+Gizlilik politikasını [buradan](./gizlilik-politikası.md) okuyabilirsiniz.
+
+## • BÖLÜM 8: Lisans
 Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır. Daha fazla bilgi için lisans dosyasına bakınız.
