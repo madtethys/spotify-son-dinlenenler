@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button } from 'antd';
 import * as Constants from '../utils/Constants';
+import axios from 'axios';
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
@@ -9,10 +10,11 @@ const { TabPane } = Tabs;
 interface Props {
     username?: string;
     theme: string;
+    instagramToken: Constants.InstagramAppID; // Instagram Token'ınızı buraya ekleyin
 }
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
-    const { username, theme } = props;
+    const { username, theme, instagramToken } = props;
     const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
     const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
@@ -40,16 +42,36 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         }
     };
 
-    // Instagram Stories için paylaşım fonksiyonu
-    const shareToInstagramStory = () => {
-        const previewImageUri = `${svgSrc}${updateParams}`;
-        const backgroundImageUri = 'https://images.hdqwalls.com/download/landscape-reflection-lake-trees-in-1080x1920.jpg'; // Arka plan resmi
+    // Instagram API üzerinden paylaşım fonksiyonu
+    const shareToInstagramStory = async () => {
+        const imageUrl = `${svgSrc}${updateParams}`;
+        try {
+            // Medya nesnesi oluştur
+            const mediaResponse = await axios.post(
+                `https://graph.facebook.com/v16.0/{page_id}/media`,
+                {
+                    image_url: imageUrl,
+                    caption: "Your caption here",
+                    access_token: instagramToken,
+                }
+            );
 
-        // Instagram hikaye paylaşım URL'si
-        const instagramShareUrl = `instagram://story-camera?image=${encodeURIComponent(previewImageUri)}&background=${encodeURIComponent(backgroundImageUri)}`;
-        
-        // Kullanıcıyı Instagram uygulamasına yönlendirin
-        window.location.href = instagramShareUrl;
+            const mediaId = mediaResponse.data.id;
+
+            // Medya nesnesini yayınla
+            await axios.post(
+                `https://graph.facebook.com/v16.0/{page_id}/media_publish`,
+                {
+                    creation_id: mediaId,
+                    access_token: instagramToken,
+                }
+            );
+
+            alert('Görsel başarıyla paylaşıldı!');
+        } catch (error) {
+            console.error('Paylaşım hatası:', error);
+            alert('Bir hata oluştu.');
+        }
     };
 
     return (
@@ -166,7 +188,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             </Tabs>
             {/* Paylaşım butonu ekleyelim */}
             <Button onClick={shareToInstagramStory} type="primary" style={{ marginTop: 20 }}>
-                Instagram Hikayende Paylaş
+                Instagram Stories'e Paylaş
             </Button>
         </div>
     );
