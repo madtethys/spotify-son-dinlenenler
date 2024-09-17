@@ -3,48 +3,40 @@ import 'antd/dist/antd.css';
 import { AppProps } from 'next/app';
 
 
-const express = require('express');
-const bodyParser = require('body-parser');
+import express, { Request, Response } from 'express';
 
 const app = express();
 const port = 3000;
 
-// Token ve doğrulama kodu
 const VERIFY_TOKEN = 'IGQWRONFZAYRTlfWlEtbmZAtb05YczF0NHBVaUZAxcVRqOUE3SzJKd0FtZAXkzeEVtXzlscHRHT0xNNWM3c3ItdFhmdmRFQnc1aHhMWklkX1l0dEJyM1ZADdWY2bnRWQkdqNlZAjQ3VMbUpibU1mSzhpcTlGaWhiOGR6a0EZD';
 
-// Body parser middleware
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Webhook doğrulama endpoint'i
-app.get('/webhook', (req, res) => {
-    const mode = req.query['hub.mode'];
-    const challenge = req.query['hub.challenge'];
-    const token = req.query['hub.verify_token'];
+app.get('/webhook', (req: Request, res: Response) => {
+    const mode = req.query['hub.mode'] as string;
+    const challenge = req.query['hub.challenge'] as string;
+    const token = req.query['hub.verify_token'] as string;
 
     if (mode && token) {
         if (mode === 'subscribe' && token === VERIFY_TOKEN) {
             console.log('Webhook Verified');
-            res.status(200).send(challenge);
+            return res.status(200).send(challenge);
         } else {
-            res.sendStatus(403);
+            return res.sendStatus(403);
         }
     }
+    return res.sendStatus(400);
 });
 
-// Webhook veri alım endpoint'i
-app.post('/webhook', (req, res) => {
+app.post('/webhook', (req: Request, res: Response) => {
     console.log('Received webhook event:', req.body);
 
-    // Instagram'dan gelen veri işlenir
-    // Burada gelen olaylara göre işlem yapabilirsiniz
-
-    res.sendStatus(200); // Instagram'a başarı yanıtı döner
+    res.sendStatus(200);
 });
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
-
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     return <Component {...pageProps} />;
