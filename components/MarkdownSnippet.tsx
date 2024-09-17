@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 interface Props {
     username?: string;
     theme: string;
-    instagramToken: Constants.InstagramAppID; // Instagram Token'ınızı buraya ekleyin
+    instagramToken: `${Constants.InstagramAppID}`; // Instagram Token'ınızı buraya ekleyin
 }
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
