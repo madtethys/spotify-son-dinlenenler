@@ -48,7 +48,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         const imageUrl = `${svgSrc}${updateParams}`;
         if (!instagramToken) {
             alert('Instagram token eksik. Görsel paylaşımı yapılamaz.');
-            console.log('Instagram Token:', instagramToken);
+            console.log('Instagram Token:', process.env.REACT_APP_INSTAGRAM_TOKEN);
             return;
         }
         try {
