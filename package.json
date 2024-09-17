@@ -24,6 +24,7 @@
     "styled-jsx": "^3.3.3",
     "webpack": "^4.46.0",
     "react-native": "0.65.1",
+    "express": "^4.17.1",
     "react-native-share": "^7.2.1"
   },
   "devDependencies": {
