@@ -51,44 +51,53 @@ const combineImages = async () => {
     const backgroundImg = new Image();
     const overlayImg = new Image();
 
-    // CORS ayarını ekleyin
     backgroundImg.crossOrigin = 'Anonymous';
     overlayImg.crossOrigin = 'Anonymous';
 
     backgroundImg.src = backgroundImage;
     overlayImg.src = imageUrl;
 
-    backgroundImg.onload = () => {
-        canvas.width = backgroundImg.width;
-        canvas.height = backgroundImg.height;
-        
+    // Resimlerin yüklenmesini bekleyin
+    const backgroundPromise = new Promise((resolve) => {
+        backgroundImg.onload = () => resolve(backgroundImg);
+    });
+
+    const overlayPromise = new Promise((resolve) => {
+        overlayImg.onload = () => resolve(overlayImg);
+    });
+
+    try {
+        const [background, overlay] = await Promise.all([backgroundPromise, overlayPromise]);
+
+        canvas.width = background.width;
+        canvas.height = background.height;
         if (ctx) {
-            ctx.drawImage(backgroundImg, 0, 0);
+            ctx.drawImage(background, 0, 0);
 
-            overlayImg.onload = () => {
-                const padding = 50;
-                const overlayWidth = backgroundImg.width - 2 * padding;
-                const overlayHeight = backgroundImg.height - 2 * padding;
+            const padding = 50;
+            const overlayWidth = background.width - 2 * padding;
+            const overlayHeight = background.height - 2 * padding;
 
-                ctx.drawImage(
-                    overlayImg,
-                    padding,
-                    padding,
-                    overlayWidth,
-                    overlayHeight
-                );
+            ctx.drawImage(
+                overlay,
+                padding,
+                padding,
+                overlayWidth,
+                overlayHeight
+            );
 
-                ctx.fillStyle = 'white';
-                ctx.font = '30px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('Şimdi son dinlediğin müzikleri paylaş!', canvas.width / 2, canvas.height - 40);
-                ctx.fillText('spotify.mdusova.com', canvas.width / 2, canvas.height - 10);
+            ctx.fillStyle = 'white';
+            ctx.font = '30px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Şimdi son dinlediğin müzikleri paylaş!', canvas.width / 2, canvas.height - 40);
+            ctx.fillText('spotify.mdusova.com', canvas.width / 2, canvas.height - 10);
 
-                const finalImage = canvas.toDataURL('image/png');
-                shareToInstagramStory(finalImage);
-            };
+            const finalImage = canvas.toDataURL('image/png');
+            shareToInstagramStory(finalImage);
         }
-    };
+    } catch (error) {
+        console.error('Resim yükleme hatası:', error);
+    }
 };
 
     const shareToInstagramStory = async (finalImage: string) => {
