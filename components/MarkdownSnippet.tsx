@@ -58,14 +58,18 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
+        if (!ctx) {
+            throw new Error("Canvas context alınamadı.");
+        }
+
         const bgImg = new Image();
         const apiImg = new Image();
         bgImg.src = backgroundImage;
         apiImg.src = apiImage;
 
         await Promise.all([
-            new Promise((resolve) => (bgImg.onload = resolve)),
-            new Promise((resolve) => (apiImg.onload = resolve)),
+            new Promise<void>((resolve) => { bgImg.onload = () => resolve(); }),
+            new Promise<void>((resolve) => { apiImg.onload = () => resolve(); }),
         ]);
 
         // Canvas boyutlarını ayarla
@@ -230,35 +234,35 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             ℹ️ Seçtiğiniz arka plan ve API'den gelen görseli birleştirip Instagram hikayesi olarak paylaşabilirsiniz.
                         </Text>
                         <Button
-  type="primary"
-  onClick={async () => {
-    // Görseli arka planla birleştir
-    const mergedImageUrl = await mergeImageWithBackground(imageUrl, selectedBackground);
+                            type="primary"
+                            onClick={async () => {
+                                try {
+                                    // Görseli arka planla birleştir
+                                    const mergedImageUrl = await mergeImageWithBackground(imageUrl, selectedBackground);
 
-    // Görseli indir
-    const link = document.createElement('a');
-    link.href = mergedImageUrl;
-    link.download = `spotify_story_${username}.png`;
-    link.click();
+                                    // Görseli indir
+                                    const link = document.createElement('a');
+                                    link.href = mergedImageUrl;
+                                    link.download = `spotify_son_dinlenenler_mdusova_${username}.png`;
+                                    link.click();
 
-    // Görseli panoya kopyala
-    try {
-      const response = await fetch(mergedImageUrl);
-      const blob = await response.blob();
-      const clipboardItem = new ClipboardItem({ 'image/png': blob });
-      await navigator.clipboard.write([clipboardItem]);
-      alert("Görsel başarıyla panoya kopyalandı!");
-    } catch (error) {
-      console.error("Panoya kopyalama hatası:", error);
-      alert("Panoya kopyalama başarısız oldu.");
-    }
+                                    // Görseli panoya kopyala
+                                    const response = await fetch(mergedImageUrl);
+                                    const blob = await response.blob();
+                                    const clipboardItem = new ClipboardItem({ 'image/png': blob });
+                                    await navigator.clipboard.write([clipboardItem]);
+                                    alert("Görsel başarıyla panoya kopyalandı!");
 
-    // Instagram'a yönlendir
-    window.open('https://www.instagram.com/create/story/', '_blank');
-  }}
->
-  📤 Instagram Hikayesi Olarak İndir
-</Button>
+                                    // Instagram'a yönlendir
+                                    window.open('https://www.instagram.com/create/story/', '_blank');
+                                } catch (error) {
+                                    console.error("Hata:", error);
+                                    alert("Bir hata oluştu.");
+                                }
+                            }}
+                        >
+                            📤 Instagram Hikayesi Olarak İndir
+                        </Button>
                     </Space>
                 </TabPane>
             </Tabs>
