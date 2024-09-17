@@ -6,11 +6,12 @@ import axios from 'axios';
 const { Text, Title } = Typography;
 const { TextArea } = Input;
 const { TabPane } = Tabs;
+const instagramToken = process.env.REACT_APP_INSTAGRAM_TOKEN;
 
 interface Props {
     username?: string;
     theme: string;
-    instagramToken: `IGQWRONFZAYRTlfWlEtbmZAtb05YczF0NHBVaUZAxcVRqOUE3SzJKd0FtZAXkzeEVtXzlscHRHT0xNNWM3c3ItdFhmdmRFQnc1aHhMWklkX1l0dEJyM1ZADdWY2bnRWQkdqNlZAjQ3VMbUpibU1mSzhpcTlGaWhiOGR6a0EZD`; // Instagram Token'ınızı buraya ekleyin
+    instagramToken?: string; // Opsiyonel hale getirildi
 }
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
@@ -45,6 +46,10 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     // Instagram API üzerinden paylaşım fonksiyonu
     const shareToInstagramStory = async () => {
         const imageUrl = `${svgSrc}${updateParams}`;
+        if (!instagramToken) {
+            alert('Instagram token eksik. Görsel paylaşımı yapılamaz.');
+            return;
+        }
         try {
             // Medya nesnesi oluştur
             const mediaResponse = await axios.post(
