@@ -246,13 +246,6 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                     link.download = `spotify_son_dinlenenler_mdusova_${username}.png`;
                                     link.click();
 
-                                    // Görseli panoya kopyala
-                                    const response = await fetch(mergedImageUrl);
-                                    const blob = await response.blob();
-                                    const clipboardItem = new clipboardItem({ 'image/png': blob });
-                                    await navigator.clipboard.write([clipboardItem]);
-                                    alert("Görsel başarıyla panoya kopyalandı!");
-
                                     // Instagram'a yönlendir
                                     window.open('https://www.instagram.com/create/story/', '_blank');
                                 } catch (error) {
