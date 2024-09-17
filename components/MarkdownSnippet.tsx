@@ -48,50 +48,46 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
 const combineImages = async () => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const backgroundImg = new Image();
-    const overlayImg = new Image();
+    
+    // Resimleri yükleyen fonksiyonları oluştur
+    const loadImage = (src: string): Promise<HTMLImageElement> => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    };
 
-    backgroundImg.crossOrigin = 'Anonymous';
-    overlayImg.crossOrigin = 'Anonymous';
-
-    backgroundImg.src = backgroundImage;
-    overlayImg.src = imageUrl;
-
-    // Resimlerin yüklenmesini bekleyin
-    const backgroundPromise = new Promise((resolve) => {
-        backgroundImg.onload = () => resolve(backgroundImg);
-    });
-
-    const overlayPromise = new Promise((resolve) => {
-        overlayImg.onload = () => resolve(overlayImg);
-    });
+    const backgroundPromise = loadImage(backgroundImage);
+    const overlayPromise = loadImage(imageUrl);
 
     try {
+        // Resimleri yükleyin
         const [background, overlay] = await Promise.all([backgroundPromise, overlayPromise]);
 
-        canvas.width = background.width;
-        canvas.height = background.height;
         if (ctx) {
-            ctx.drawImage(background, 0, 0);
+            canvas.width = background.width;
+            canvas.height = background.height;
 
+            // Resimleri çiz
+            ctx.drawImage(background, 0, 0);
+            
+            // Overlay resmini yerleştir
             const padding = 50;
             const overlayWidth = background.width - 2 * padding;
             const overlayHeight = background.height - 2 * padding;
-
-            ctx.drawImage(
-                overlay,
-                padding,
-                padding,
-                overlayWidth,
-                overlayHeight
-            );
-
+            
+            ctx.drawImage(overlay, padding, padding, overlayWidth, overlayHeight);
+            
+            // Metinleri ekle
             ctx.fillStyle = 'white';
             ctx.font = '30px Arial';
             ctx.textAlign = 'center';
             ctx.fillText('Şimdi son dinlediğin müzikleri paylaş!', canvas.width / 2, canvas.height - 40);
             ctx.fillText('spotify.mdusova.com', canvas.width / 2, canvas.height - 10);
 
+            // Son görseli paylaş
             const finalImage = canvas.toDataURL('image/png');
             shareToInstagramStory(finalImage);
         }
