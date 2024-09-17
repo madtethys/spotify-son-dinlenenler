@@ -6,7 +6,7 @@ import axios from 'axios';
 const { Text, Title } = Typography;
 const { TextArea } = Input;
 const { TabPane } = Tabs;
-const instagramToken = process.env.REACT_APP_INSTAGRAM_TOKEN;
+const instagramToken = Constants.InstagramAppToken;
 
 interface Props {
     username?: string;
