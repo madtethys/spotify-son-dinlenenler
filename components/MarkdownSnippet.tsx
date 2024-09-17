@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button } from 'antd';
-import Share from 'react-native-share'; // react-native-share kütüphanesini import ettik
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -42,25 +41,14 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     };
 
     // Instagram Stories için paylaşım fonksiyonu
-    const shareToInstagramStory = async () => {
+    const shareToInstagramStory = () => {
         // Önizleme resmi URL'si
         const previewImageUri = `${svgSrc}${updateParams}`;
-        // Arka plan resmi URL'si (örneğin, boş bir arka plan resmi kullanabilirsiniz)
-        const backgroundImageUri = 'https://example.com/your-background-image.png'; 
+        // Instagram'a paylaşmak için URL oluştur
+        const instagramShareUrl = `https://instagram.com/stories/create?url=${encodeURIComponent(previewImageUri)}`;
 
-        const options = {
-            backgroundImage: backgroundImageUri, // Arka plan resmi
-            stickerImage: previewImageUri,       // Ön plan resmi olarak önizleme resmi
-            sourceApplication: Constants.InstagramAppID,       // Uygulama ID'nizi buraya ekleyin
-        };
-
-        try {
-            await Share.open({
-                method: Share.InstagramStories.share(options),
-            });
-        } catch (error) {
-            console.error('Instagram'a paylaşma sırasında bir hata oluştu:', error);
-        }
+        // Kullanıcıyı Instagram Story paylaşım sayfasına yönlendir
+        window.open(instagramShareUrl, '_blank');
     };
 
     return (
@@ -163,7 +151,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             🔁 Tekrar Dinlenen Müzikler:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz; API URL'sine <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir eklemek yapılmayacaktır.
+                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz. <br /> Gösterilsin veya gösterilmesin şeklindedir. Varsayılan olarak gösterilmeyecek şekilde ayarlıdır. <br />"Gösterilsin"i seçerseniz API URl'SİNE <b>&unique=true</b> ekleyecektir. <br />"Gösterilmesin"i seçtiyseniz API URL'sine herhangi bir ekleme yapılmayacaktır.
                         </Text>
                         <Switch
                             checked={uniqueTracks}
@@ -181,4 +169,5 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             </Button>
         </div>
     );
-} 
+}
+
