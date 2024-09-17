@@ -88,7 +88,7 @@ const combineImages = async () => {
 };
 
     const shareToInstagramStory = async (finalImage: string) => {
-        const instagramToken = Contants.InstagramAppToken;
+        const instagramToken = Constants.InstagramAppToken;
         if (!instagramToken) {
             alert('Instagram token eksik. Görsel paylaşımı yapılamaz.');
             console.log('Instagram Token:', instagramToken);
