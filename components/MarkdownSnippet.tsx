@@ -45,26 +45,28 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         setBackgroundImage(value);
     };
 
-    const combineImages = async () => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const backgroundImg = new Image();
-        const overlayImg = new Image();
+const combineImages = async () => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const backgroundImg = new Image();
+    const overlayImg = new Image();
 
-        backgroundImg.src = backgroundImage;
-        overlayImg.src = imageUrl;
+    backgroundImg.src = backgroundImage;
+    overlayImg.src = imageUrl;
 
-        backgroundImg.onload = () => {
-            canvas.width = backgroundImg.width;
-            canvas.height = backgroundImg.height;
-            ctx?.drawImage(backgroundImg, 0, 0);
+    backgroundImg.onload = () => {
+        canvas.width = backgroundImg.width;
+        canvas.height = backgroundImg.height;
+        
+        if (ctx) {
+            ctx.drawImage(backgroundImg, 0, 0);
 
             overlayImg.onload = () => {
                 const padding = 50;
                 const overlayWidth = backgroundImg.width - 2 * padding;
                 const overlayHeight = backgroundImg.height - 2 * padding;
 
-                ctx?.drawImage(
+                ctx.drawImage(
                     overlayImg,
                     padding,
                     padding,
@@ -72,17 +74,18 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                     overlayHeight
                 );
 
-                ctx?.fillStyle = 'white';
-                ctx?.font = '30px Arial';
-                ctx?.textAlign = 'center';
-                ctx?.fillText('Şimdi son dinlediğin müzikleri paylaş!', canvas.width / 2, canvas.height - 40);
-                ctx?.fillText('spotify.mdusova.com', canvas.width / 2, canvas.height - 10);
+                ctx.fillStyle = 'white';
+                ctx.font = '30px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Şimdi son dinlediğin müzikleri paylaş!', canvas.width / 2, canvas.height - 40);
+                ctx.fillText('spotify.mdusova.com', canvas.width / 2, canvas.height - 10);
 
                 const finalImage = canvas.toDataURL('image/png');
                 shareToInstagramStory(finalImage);
             };
-        };
+        }
     };
+};
 
     const shareToInstagramStory = async (finalImage: string) => {
         const instagramToken = Contants.InstagramAppToken;
