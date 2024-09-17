@@ -249,7 +249,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                     // Görseli panoya kopyala
                                     const response = await fetch(mergedImageUrl);
                                     const blob = await response.blob();
-                                    const clipboardItem = new ClipboardItem({ 'image/png': blob });
+                                    const clipboardItem = new clipboardItem({ 'image/png': blob });
                                     await navigator.clipboard.write([clipboardItem]);
                                     alert("Görsel başarıyla panoya kopyalandı!");
 
