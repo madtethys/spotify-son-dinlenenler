@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select } from 'antd';
 import * as Constants from '../utils/Constants';
 import axios from 'axios';
-import domtoimage from 'dom-to-image'; 
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
@@ -40,33 +39,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             setTrackCount(value);
         }
     };
-
-    // SVG'yi PNG'ye dönüştürme ve paylaşım yapma
-    const shareImage = async () => {
-        const svgElement = document.querySelector('img'); // Görseli seçiyoruz
-        if (!svgElement) return;
-
-        try {
-            const dataUrl = await domtoimage.toPng(svgElement); // SVG'yi PNG'ye dönüştürüyoruz
-            const blob = await fetch(dataUrl).then(res => res.blob()); // PNG'yi Blob formatına çeviriyoruz
-            const file = new File([blob], 'spotify-last-tracks.png', { type: 'image/png' }); // Paylaşılacak dosyayı oluşturuyoruz
-
-            // Web Share API'yi kullanarak paylaşım yapıyoruz
-            if (navigator.share) {
-                await navigator.share({
-                    title: 'Spotify Son Dinlenen Müzikler',
-                    text: 'En son dinlediğim müziklere göz at!',
-                    files: [file], // Paylaşılacak dosya
-                });
-            } else {
-                alert('Tarayıcınız paylaşma özelliğini desteklemiyor.');
-            }
-        } catch (error) {
-            console.error('Paylaşma hatası:', error);
-        }
-    };
-
-    return (
+   return (
         <div>
             <Title level={5} style={{ color: theme === 'dark' ? '#e0e0e0' : '#222222', marginBottom: '20px' }}>
                 👤 "{username}" olarak giriş yapıldı.
@@ -178,11 +151,6 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                     </Space>
                 </TabPane>
             </Tabs>
-            
-            {/* Paylaşım Butonu */}
-            <Button type="primary" onClick={shareImage} style={{ marginTop: '20px' }}>
-                🎉 Instagram'da Paylaş
-            </Button>
         </div>
     );
 }
