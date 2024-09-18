@@ -73,7 +73,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
     ctx?.drawImage(bgImg, 0, 0);
 
     const padding = 20; // Boşluk ayarı
-    const scaleFactor = 2; // Görseli büyütmek için ölçek faktörü
+    const scaleFactor = 2.5; // Görseli büyütmek için ölçek faktörü
     const imgWidth = apiImg.width * scaleFactor;
     const imgHeight = apiImg.height * scaleFactor;
 
