@@ -205,33 +205,35 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         </Text>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                             {backgrounds.map((background, index) => (
-                                <Radio
-                                    key={index}
-                                    value={background}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        padding: '10px',
-                                        backgroundColor: theme === 'dark' ? '#555' : '#f5f5f5',
-                                        borderRadius: '8px',
-                                        cursor: 'pointer',
-                                    }}
-                                    checked={selectedBackground === background}
-                                    onChange={handleBackgroundSelect}
-                                >
-                                    <img
-                                        src={background}
-                                        alt={`Arka Plan ${index + 1}`}
+                                <div key={index} style={{ width: 'calc(50% - 5px)' }}>
+                                    <Radio
+                                        value={background}
                                         style={{
-                                            width: '60px',
-                                            height: '60px',
-                                            marginRight: '10px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            padding: '10px',
+                                            backgroundColor: theme === 'dark' ? '#555' : '#f5f5f5',
                                             borderRadius: '8px',
-                                            objectFit: 'cover',
+                                            cursor: 'pointer',
+                                            width: '100%',
                                         }}
-                                    />
-                                    Arka Plan {index + 1}
-                                </Radio>
+                                        checked={selectedBackground === background}
+                                        onChange={handleBackgroundSelect}
+                                    >
+                                        <img
+                                            src={background}
+                                            alt={`Arka Plan ${index + 1}`}
+                                            style={{
+                                                width: '60px',
+                                                height: '60px',
+                                                marginRight: '10px',
+                                                borderRadius: '8px',
+                                                objectFit: 'cover',
+                                            }}
+                                        />
+                                        Arka Plan {index + 1}
+                                    </Radio>
+                                </div>
                             ))}
                         </div>
 
