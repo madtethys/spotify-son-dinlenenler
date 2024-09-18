@@ -203,20 +203,57 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Lütfen arka planda kullanacağınız görüntüyü seçiniz.
                         </Text>
-                        <Select
-                            style={{ width: '100%' }}
+                        <Select                
+                            style={{
+                                width: '100%',
+                                height: '75px',
+                                backgroundColor: theme === 'dark' ? '#333' : '#fff',
+                                color: theme === 'dark' ? '#fff' : '#000',
+                                border: theme === 'dark' ? '1px solid #555' : '1px solid #d9d9d9',
+                                borderRadius: '8px',
+                                boxShadow: theme === 'dark' ? '0px 0px 15px rgba(255, 255, 255, 0.2)' : '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                            }}
+                            dropdownStyle={{
+                                backgroundColor: theme === 'dark' ? '#444' : '#fff',
+                                color: theme === 'dark' ? '#fff' : '#000',
+                                borderRadius: '8px',
+                                padding: '5px',
+                            }}
                             value={selectedBackground}
-                            onChange={handleBackgroundSelect}
-                            dropdownStyle={{ backgroundColor: theme === 'dark' ? '#333333' : '#ffffff' }}
+                            onChange={onSelect}
                         >
-                            {backgrounds.map((background) => (
-                                <Option key={background} value={background}>
-                                    <img src={background} alt="Background" style={{ width: '100%' }} />
+                            {backgrounds.map((background, index) => (
+                                <Option key={index} value={background}>
+                                    <div
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            padding: '10px',
+                                            backgroundColor: theme === 'dark' ? '#555' : '#f5f5f5',
+                                            borderRadius: '8px',
+                                            marginBottom: '5px',
+                                            transition: 'background-color 0.3s',
+                                        }}
+                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme === 'dark' ? '#666' : '#e0e0e0'}
+                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = theme === 'dark' ? '#555' : '#f5f5f5'}
+                                    >
+                                        <img
+                                            src={background}
+                                            alt={`Arka Plan ${index + 1}`}
+                                            style={{
+                                                width: '50px',
+                                                height: '50px',
+                                                marginRight: '10px',
+                                                border: theme === 'dark' ? '2px solid #888' : '1px solid #ccc',
+                                                borderRadius: '8px',
+                                                objectFit: 'cover',
+                                            }}
+                                        />
+                                        <span style={{ color: theme === 'dark' ? '#fff' : '#000' }}>Arka Plan {index + 1}</span>
+                                    </div>
                                 </Option>
                             ))}
                         </Select>
-                         ))}
-                       </Select>
 
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             📤 Instagram Hikayesi için Paylaş:
