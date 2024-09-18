@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Button, Select, message } from 'antd';
 import * as Constants from '../utils/Constants';
+import InstagramIcon from './InstagramIcon';
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
@@ -205,6 +206,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                          defaultValue={selectedBackground}
                          style={{
                            width: 200,
+                           height: 75,
                            backgroundColor: theme === 'dark' ? '#333' : '#fff',
                            color: theme === 'dark' ? '#fff' : '#000',
                            border: theme === 'dark' ? '1px solid #555' : '1px solid #d9d9d9',
@@ -252,17 +254,13 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             ℹ️ Aşağıdaki butona basarak görseli indirebilir ve ardından Instagram hikayenizde paylaşabilirsiniz.
                         </Text>
                         <Button
-                           type="primary"
-                           onClick={handleShareClick}
-                           loading={loading}
-                             style={{
-                                backgroundColor: theme === 'dark' ? '#1db954' : '#1890ff',
-                                borderColor: theme === 'dark' ? '#1db954' : '#1890ff',
-                                color: theme === 'dark' ? '#fff' : '#fff',
-                                boxShadow: theme === 'dark' ? '0px 4px 10px rgba(0, 0, 0, 0.3)' : '0px 4px 10px rgba(0, 0, 0, 0.1)',
-                                }}
-                          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme === 'dark' ? '#17a84f' : '#40a9ff')}
-                          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme === 'dark' ? '#1db954' : '#1890ff')}
+                          className="instagram-share-btn"
+                          shape="round"
+                          icon={<Icon component={InstagramIcon} />}
+                          size="large"
+                          type="primary"
+                          onClick={handleShareClick}
+                          loading={loading}
                         >
                         Görseli İndir ve Instagram Hikayesinde Paylaş
                         </Button>
