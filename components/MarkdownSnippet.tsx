@@ -106,6 +106,18 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         }
     };
 
+        const handleWidthChange = useCallback((value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setWidth(value);
+        }
+    }, []);
+
+    const handleTrackCountChange = useCallback((value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setTrackCount(value);
+        }
+    }, []);
+
     return (
         <div>
             <Title level={5} style={{ color: theme === 'dark' ? '#e0e0e0' : '#222222', marginBottom: '20px' }}>
