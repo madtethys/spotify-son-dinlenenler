@@ -58,7 +58,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const loadImage = (src: string) => {
         return new Promise<HTMLImageElement>((resolve, reject) => {
             const img = new Image();
-            img.crossOrigin = 'Anonymous'; // CORS başlığı
+            img.crossOrigin = 'use-credentials'; // CORS başlığı
             img.onload = () => resolve(img);
             img.onerror = reject;
             img.src = src;
