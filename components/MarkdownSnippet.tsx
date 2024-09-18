@@ -19,6 +19,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
     const [selectedBackground, setSelectedBackground] = useState<string>('https://spotify.mdusova.com/arkaplan1.png');
     const [loading, setLoading] = useState<boolean>(false);
+    const [dynamicSvgSrc, setDynamicSvgSrc] = useState<string>(`${Constants.BaseUrl}/api?user=${username}`);
 
     if (!username) {
         return null;
@@ -28,16 +29,21 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     let dynamicSvgSrc = `${Constants.BaseUrl}/api?user=${username}`;
     let svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
 
-    // Ayar yapıldığında dinamik URL'yi güncelle
+useEffect(() => {
+    let newSvgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+
     if (trackCount !== 5) {
-        dynamicSvgSrc += `&tracks=${trackCount}`;
+        newSvgSrc += `&count=${trackCount}`;
     }
     if (width !== 400) {
-        dynamicSvgSrc += `&width=${width}`;
+        newSvgSrc += `&width=${width}`;
     }
     if (uniqueTracks) {
-        dynamicSvgSrc += `&unique=${uniqueTracks}`;
+        newSvgSrc += `&unique=${uniqueTracks}`;
     }
+
+    setDynamicSvgSrc(newSvgSrc);
+}, [trackCount, width, uniqueTracks, username]);
 
     const backgrounds = [
         'https://spotify.mdusova.com/arkaplan1.png',
@@ -146,7 +152,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                 👤 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
-                <TabPane tab="❓ Kodu Nasıl Eklerim?" key="1">
+                <TabPane tab="🌐 Websiteme Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             HTML'e eklemek için kodunuz:
