@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select } from 'antd';
 import * as Constants from '../utils/Constants';
 
@@ -17,7 +17,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
     const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
-    const [selectedBackground, setSelectedBackground] = useState<string>('spotify.mdusova.com/arkaplan1.png'); // Varsayılan arka plan
+    const [selectedBackground, setSelectedBackground] = useState<string>('https://spotify.mdusova.com/arkaplan1.png'); // Varsayılan arka plan
+    const [previewImage, setPreviewImage] = useState<string | null>(null); // Önizleme için state
 
     if (!username) {
         return null;
@@ -28,17 +29,17 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
     const imageUrl = `${svgSrc}${updateParams}`;
 
-    const handleWidthChange = (value: number | [number, number]) => {
+    const handleWidthChange = useCallback((value: number | [number, number]) => {
         if (typeof value === 'number') {
             setWidth(value);
         }
-    };
+    }, []);
 
-    const handleTrackCountChange = (value: number | [number, number]) => {
+    const handleTrackCountChange = useCallback((value: number | [number, number]) => {
         if (typeof value === 'number') {
             setTrackCount(value);
         }
-    };
+    }, []);
 
     const backgrounds = [
         'https://spotify.mdusova.com/arkaplan1.png',
@@ -49,12 +50,20 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         'https://spotify.mdusova.com/arkaplan6.png',
     ];
 
-    const handleBackgroundSelect = (background: string) => {
+    const handleBackgroundSelect = useCallback((background: string) => {
         setSelectedBackground(background);
+    }, []);
+
+    // Görsel yükleme işlemi için yardımcı fonksiyon
+    const loadImage = (img: HTMLImageElement) => {
+        return new Promise<void>((resolve, reject) => {
+            img.onload = () => resolve();
+            img.onerror = reject;
+        });
     };
 
     // Canvas ile arka plan ve API görselini birleştir
-    const mergeImageWithBackground = async (apiImage: string, backgroundImage: string) => {
+    const mergeImageWithBackground = useCallback(async (apiImage: string, backgroundImage: string) => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -67,10 +76,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         bgImg.src = backgroundImage;
         apiImg.src = apiImage;
 
-        await Promise.all([
-            new Promise<void>((resolve) => { bgImg.onload = () => resolve(); }),
-            new Promise<void>((resolve) => { apiImg.onload = () => resolve(); }),
-        ]);
+        await Promise.all([loadImage(bgImg), loadImage(apiImg)]);
 
         // Canvas boyutlarını ayarla
         canvas.width = bgImg.width;
@@ -87,7 +93,24 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         ctx.drawImage(apiImg, imgX + padding, imgY, apiImg.width - padding * 2, apiImg.height);
 
         return canvas.toDataURL('image/png'); // PNG çıktısı
-    };
+    }, []);
+
+    // useEffect ile önizlemeyi güncelle
+    useEffect(() => {
+        const apiImage = new Image();
+        const bgImage = new Image();
+
+        apiImage.src = imageUrl;
+        bgImage.src = selectedBackground;
+
+        Promise.all([loadImage(apiImage), loadImage(bgImage)])
+            .then(() => {
+                mergeImageWithBackground(imageUrl, selectedBackground)
+                    .then((mergedImage) => setPreviewImage(mergedImage))
+                    .catch((error) => console.error("Birleştirme hatası:", error));
+            })
+            .catch((error) => console.error('Görsel yüklenemedi:', error));
+    }, [imageUrl, selectedBackground, mergeImageWithBackground]);
 
     return (
         <div>
@@ -95,36 +118,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 👤 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
-                <TabPane tab="❓ Markdown'a Nasıl Eklerim?" key="1">
-                    <Space className="vert-space" direction="vertical" size="small">
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            Markdown'a eklemek için kodunuz:
-                        </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.
-                        </Text>
-                        <TextArea
-                            className="markdown"
-                            autoSize
-                            readOnly
-                            value={`![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`}
-                            style={{
-                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
-                                color: theme === 'dark' ? '#e0e0e0' : '#222222'
-                            }}
-                        />
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            spotify.mdusova.com - Önizleme:
-                        </Title>
-                        <img
-                            src={`${svgSrc}${updateParams}`}
-                            alt="Spotify Son Dinlenen Müzikler"
-                            key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
-                        />
-                    </Space>
-                </TabPane>
-
-                <TabPane tab="❓ HTML'e Nasıl Eklerim?" key="2">
+                <TabPane tab="❓ Kodu Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             HTML'e eklemek için kodunuz:
@@ -142,67 +136,37 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
                             }}
                         />
+                        
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            Markdown'a eklemek için kodunuz:
+                        </Title>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.
+                        </Text>
+                        <TextArea
+                            className="markdown"
+                            autoSize
+                            readOnly
+                            value={`![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`}
+                            style={{
+                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
+                                color: theme === 'dark' ? '#e0e0e0' : '#222222'
+                            }}
+                        />
+
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
                             src={`${svgSrc}${updateParams}`}
                             alt="Spotify Son Dinlenen Müzikler"
-                            key={updateParams} // Key özelliğini ekleyerek her değişimde yeniden render edilmesini sağlıyoruz
+                            key={updateParams}
                         />
                     </Space>
                 </TabPane>
 
-                <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
+                <TabPane tab="🎨 Instagram Hikayesinde Paylaş" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            📋 Listede Bulunacak Müzik Sayısı:
-                        </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Listede bulunan müzik sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5)
-                        </Text>
-                        <Tooltip title={`${trackCount} müzik`}>
-                            <Slider
-                                min={1}
-                                max={10}
-                                step={1}
-                                value={trackCount}
-                                onChange={handleTrackCountChange}
-                                className="slider"
-                            />
-                        </Tooltip>
-
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            ↔️ Listenin Genişliği(px):
-                        </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400)
-                        </Text>
-                        <Tooltip title={`${width}px`}>
-                            <Slider
-                                min={300}
-                                max={1000}
-                                step={1}
-                                value={width}
-                                onChange={handleWidthChange}
-                                className="slider"
-                            />
-                        </Tooltip>
-
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            🔁 Tekrar Dinlenen Müzikler:
-                        </Title>
-                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz.
-                        </Text>
-                        <Switch
-                            checked={uniqueTracks}
-                            onChange={checked => setUniqueTracks(checked)}
-                            className="switch"
-                            checkedChildren="Gizle"
-                            unCheckedChildren="Göster"
-                        />
-
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             🎨 Arka Plan Seçimi:
                         </Title>
@@ -219,7 +183,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 <Option key={index} value={background}>
                                     <img
                                         src={background}
-                                        alt={`Background ${index + 1}`}
+                                        alt={`Arka Plan ${index + 1}`}
                                         style={{ width: '50px', height: '50px', marginRight: '10px' }}
                                     />
                                     Arka Plan {index + 1}
@@ -228,34 +192,78 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </Select>
 
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            🖼️ Instagram Hikayesi için Paylaş:
+                            🖼️ Önizleme:
+                        </Title>
+                        {previewImage && (
+                            <img
+                                src={previewImage}
+                                alt="Önizleme"
+                                style={{ width: '100%', maxWidth: '500px' }}
+                            />
+                        )}
+
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            📤 Instagram Hikayesi için Paylaş:
                         </Title>
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Seçtiğiniz arka plan ve API'den gelen görseli birleştirip Instagram hikayesi olarak paylaşabilirsiniz.
+                            Paylaşmak için aşağıdaki butona tıklayarak önizlemenizi Instagram hikayenize ekleyin.
                         </Text>
-                        <Button
-                            type="primary"
-                            onClick={async () => {
-                                try {
-                                    // Görseli arka planla birleştir
-                                    const mergedImageUrl = await mergeImageWithBackground(imageUrl, selectedBackground);
-
-                                    // Görseli indir
-                                    const link = document.createElement('a');
-                                    link.href = mergedImageUrl;
-                                    link.download = `spotify_son_dinlenenler_mdusova_${username}.png`;
-                                    link.click();
-
-                                    // Instagram'a yönlendir
-                                    window.open('https://www.instagram.com/create/story/', '_blank');
-                                } catch (error) {
-                                    console.error("Hata:", error);
-                                    alert("Bir hata oluştu.");
-                                }
-                            }}
-                        >
-                            📤 Instagram Hikayesi Olarak İndir
+                        <Button type="primary" onClick={() => console.log('Instagram için paylaş')}>
+                            Instagram'da Paylaş
                         </Button>
+                    </Space>
+                </TabPane>
+
+                <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
+                    <Space direction="vertical" size="large" style={{ marginBottom: 16 }}>
+                        <div>
+                            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                                🎵 Listedeki Müzik Sayısı:
+                            </Title>
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                              ℹ️ Listede bulunan müzik sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5)
+                            </Text>
+                            <Slider
+                                defaultValue={trackCount}
+                                min={1}
+                                max={10}
+                                onChange={handleTrackCountChange}
+                                value={trackCount}
+                                style={{ maxWidth: '400px' }}
+                            />
+                        </div>
+
+                        <div>
+                            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                                📐 Liste Genişliği(px):
+                            </Title>
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                             ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400)
+                            </Text>
+                            <Slider
+                                defaultValue={width}
+                                min={200}
+                                max={600}
+                                onChange={handleWidthChange}
+                                value={width}
+                                style={{ maxWidth: '400px' }}
+                            />
+                        </div>
+
+                        <div>
+                            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                                🎧 Tekrarlanan Müzikler:
+                            </Title>
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz.
+                            </Text>
+                            <Switch
+                                checked={uniqueTracks}
+                                onChange={setUniqueTracks}
+                                checkedChildren="Göster"
+                                unCheckedChildren="Gösterme"
+                            />
+                        </div>
                     </Space>
                 </TabPane>
             </Tabs>
