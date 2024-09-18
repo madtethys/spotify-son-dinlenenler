@@ -41,21 +41,25 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         setSelectedBackground(background);
     }, []);
 
-    const svgToPng = async (svgUrl: string) => {
-        const response = await fetch(svgUrl);
-        const svgText = await response.text();
-        const canvas = document.createElement('canvas');
-        const img = new Image();
-        img.src = 'data:image/svg+xml;base64,' + btoa(svgText);
-        await new Promise((resolve) => {
-            img.onload = () => resolve(null);
-        });
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx?.drawImage(img, 0, 0);
-        return canvas.toDataURL('image/png');
-    };
+const svgToPng = async (svgUrl: string) => {
+    const response = await fetch(svgUrl);
+    const svgText = await response.text();
+
+    // UTF-8 ile Base64 kodlama
+    const base64 = btoa(unescape(encodeURIComponent(svgText)));
+
+    const canvas = document.createElement('canvas');
+    const img = new Image();
+    img.src = 'data:image/svg+xml;base64,' + base64;
+    await new Promise((resolve) => {
+        img.onload = () => resolve(null);
+    });
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx?.drawImage(img, 0, 0);
+    return canvas.toDataURL('image/png');
+};
 
     const mergeImageWithBackground = async (apiImage: string, backgroundImage: string) => {
         const canvas = document.createElement('canvas');
@@ -95,7 +99,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             const finalImage = await mergeImageWithBackground(pngImage, selectedBackground);
             const link = document.createElement('a');
             link.href = finalImage;
-            link.download = 'spotify-image.png';
+            link.download = `spotify_son_dinlenenler_${username}.png`;
             link.click();
             message.success('Resim indirildi, Instagram hikayenize yükleyebilirsiniz!');
         } catch (error) {
