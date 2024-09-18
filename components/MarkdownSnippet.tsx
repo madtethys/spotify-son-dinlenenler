@@ -24,10 +24,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         return null;
     }
 
-    // API URL ve parametrelerini güncelle
-    const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+    // API URL ve parametrelerini güncelle (Proxy kullanarak)
+    const proxyUrl = 'https://spotifybackend.mdusova.com/proxy?url=';
+    const svgSrc = `${proxyUrl}${encodeURIComponent(`${Constants.BaseUrl}/api?user=${username}`)}`;
     const updateParams = `&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
-    const imageUrl = `${svgSrc}${updateParams}`;
+    const imageUrl = `${svgSrc}${encodeURIComponent(updateParams)}`;
 
     const handleWidthChange = useCallback((value: number | [number, number]) => {
         if (typeof value === 'number') {
@@ -130,7 +131,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             className="htmlkodu"
                             autoSize
                             readOnly
-                            value={`<img src="${svgSrc}${updateParams}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`}
+                            value={`<img src="${svgSrc}${encodeURIComponent(updateParams)}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`}
                             style={{
                                 backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
@@ -147,7 +148,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             className="markdown"
                             autoSize
                             readOnly
-                            value={`![Spotify Son Dinlenen Müzikler](${svgSrc}${updateParams})`}
+                            value={`![Spotify Son Dinlenen Müzikler](${svgSrc}${encodeURIComponent(updateParams)})`}
                             style={{
                                 backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
@@ -158,7 +159,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
-                            src={`${svgSrc}${updateParams}`}
+                            src={`${svgSrc}${encodeURIComponent(updateParams)}`}
                             alt="Spotify Son Dinlenen Müzikler"
                             key={updateParams}
                         />
