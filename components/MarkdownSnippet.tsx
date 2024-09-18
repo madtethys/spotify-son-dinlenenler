@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Input, Space, Typography, Tabs, Slider, Switch, Button, Select, Spin, Alert } from 'antd';
+import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select } from 'antd';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -14,13 +14,12 @@ interface Props {
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const { username, theme } = props;
-    const [trackCount, setTrackCount] = useState<number>(5);
-    const [width, setWidth] = useState<number>(400);
-    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
-    const [selectedBackground, setSelectedBackground] = useState<string>('https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan1.png');
-    const [previewImage, setPreviewImage] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(false); // Yeni state
-    const [shareStatus, setShareStatus] = useState<string | null>(null); // Paylaşım durumu
+    const [trackCount, setTrackCount] = useState<number>(5); // Varsayılan değeri 5
+    const [width, setWidth] = useState<number>(400); // Varsayılan değeri 400
+    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false); // Varsayılan değeri hayır
+    const [selectedBackground, setSelectedBackground] = useState<string>('https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan1.png'); // Varsayılan arka plan
+    const [previewImage, setPreviewImage] = useState<string | null>(null); // Önizleme için state
+    const [loading, setLoading] = useState<boolean>(false); // Yükleniyor durumu
 
     if (!username) {
         return null;
@@ -56,10 +55,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         setSelectedBackground(background);
     }, []);
 
-    const loadImage = (img: HTMLImageElement) => {
-        return new Promise<void>((resolve, reject) => {
-            img.onload = () => resolve();
+    const loadImage = (src: string) => {
+        return new Promise<HTMLImageElement>((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous'; // CORS başlığı
+            img.onload = () => resolve(img);
             img.onerror = reject;
+            img.src = src;
         });
     };
 
@@ -71,12 +73,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
             throw new Error("Canvas context alınamadı.");
         }
 
-        const bgImg = new Image();
-        const apiImg = new Image();
-        bgImg.src = backgroundImage;
-        apiImg.src = apiImage;
-
-        await Promise.all([loadImage(bgImg), loadImage(apiImg)]);
+        const bgImg = await loadImage(backgroundImage);
+        const apiImg = await loadImage(apiImage);
 
         canvas.width = bgImg.width;
         canvas.height = bgImg.height;
@@ -93,55 +91,30 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     }, []);
 
     useEffect(() => {
-        const apiImage = new Image();
-        const bgImage = new Image();
-
-        apiImage.src = imageUrl;
-        bgImage.src = selectedBackground;
-
-        Promise.all([loadImage(apiImage), loadImage(bgImage)])
-            .then(() => {
-                mergeImageWithBackground(imageUrl, selectedBackground)
-                    .then((mergedImage) => setPreviewImage(mergedImage))
-                    .catch((error) => console.error("Birleştirme hatası:", error));
-            })
-            .catch((error) => console.error('Görsel yüklenemedi:', error));
-    }, [imageUrl, selectedBackground, mergeImageWithBackground]);
-
-    const handleShareToInstagram = async () => {
         setLoading(true);
-        setShareStatus(null);
-
-        try {
-            // İşlem yapıldığı yeri buraya ekleyin. Örneğin, API'ye görsel gönderme işlemi.
-            // Örnek: await sendImageToInstagram(previewImage);
-
-            // Örnek gecikme (simülasyon)
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            setShareStatus('Başarıyla paylaşıldı!');
-        } catch (error) {
-            console.error('Paylaşım hatası:', error);
-            setShareStatus('Bir hata oluştu. Lütfen tekrar deneyin.');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const textColor = theme === 'dark' ? '#e0e0e0' : '#222222';
-    const backgroundColor = theme === 'dark' ? '#333333' : '#ffffff';
+        mergeImageWithBackground(imageUrl, selectedBackground)
+            .then((mergedImage) => {
+                setPreviewImage(mergedImage);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Birleştirme hatası:", error);
+                setLoading(false);
+            });
+    }, [imageUrl, selectedBackground, mergeImageWithBackground]);
 
     return (
         <div>
-            <Title level={5} style={{ color: textColor, marginBottom: '20px' }}>
+            <Title level={5} style={{ color: theme === 'dark' ? '#e0e0e0' : '#222222', marginBottom: '20px' }}>
                 👤 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
                 <TabPane tab="❓ Kodu Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             HTML'e eklemek için kodunuz:
                         </Title>
-                        <Text style={{ color: textColor, fontSize: '14px' }}>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Lütfen bu kodu HTML kodunuzda eklemek istediğiniz yere ekleyin.
                         </Text>
                         <TextArea
@@ -150,15 +123,15 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             readOnly
                             value={`<img src="${svgSrc}${encodeURIComponent(updateParams)}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`}
                             style={{
-                                backgroundColor: backgroundColor,
-                                color: textColor
+                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
+                                color: theme === 'dark' ? '#e0e0e0' : '#222222'
                             }}
                         />
                         
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             Markdown'a eklemek için kodunuz:
                         </Title>
-                        <Text style={{ color: textColor, fontSize: '14px' }}>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Lütfen bu kodu markdown dosyanızda eklemek istediğiniz yere ekleyin.
                         </Text>
                         <TextArea
@@ -167,12 +140,12 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             readOnly
                             value={`![Spotify Son Dinlenen Müzikler](${svgSrc}${encodeURIComponent(updateParams)})`}
                             style={{
-                                backgroundColor: backgroundColor,
-                                color: textColor
+                                backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
+                                color: theme === 'dark' ? '#e0e0e0' : '#222222'
                             }}
                         />
 
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             spotify.mdusova.com - Önizleme:
                         </Title>
                         <img
@@ -185,10 +158,10 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
 
                 <TabPane tab="🎨 Instagram Hikayesinde Paylaş" key="2">
                     <Space className="vert-space" direction="vertical" size="small">
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             🎨 Arka Plan Seçimi:
                         </Title>
-                        <Text style={{ color: textColor, fontSize: '14px' }}>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Arka planı seçerek görselinize ekleyebilirsiniz. Varsayılan arka plan seçilmezse <br />
                             <code>spotify.mdusova.com/arkaplan1.png</code> arka planı kullanılacaktır.
                         </Text>
@@ -209,45 +182,41 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             ))}
                         </Select>
 
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             🖼️ Önizleme:
                         </Title>
-                        {previewImage && (
+                        {loading ? (
+                            <Text>Yükleniyor...</Text>
+                        ) : previewImage ? (
                             <img
                                 src={previewImage}
                                 alt="Önizleme"
                                 style={{ width: '100%', maxWidth: '500px' }}
                             />
+                        ) : (
+                            <Text>Önizleme yok.</Text>
                         )}
 
-                        <Title level={5} style={{ color: textColor }}>
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             📤 Instagram Hikayesi için Paylaş:
                         </Title>
-                        <Text style={{ color: textColor, fontSize: '14px' }}>
+                        <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             Paylaşmak için aşağıdaki butona tıklayarak önizlemenizi Instagram hikayenize ekleyin.
                         </Text>
-                        <Button type="primary" onClick={handleShareToInstagram} disabled={loading}>
-                            {loading ? <Spin size="small" /> : 'Instagram\'da Paylaş'}
+                        <Button type="primary" onClick={() => console.log('Instagram için paylaş')}>
+                            Instagram'da Paylaş
                         </Button>
-                        {shareStatus && (
-                            <Alert
-                                style={{ marginTop: '10px' }}
-                                message={shareStatus}
-                                type={shareStatus.includes('Başarıyla') ? 'success' : 'error'}
-                                showIcon
-                            />
-                        )}
                     </Space>
                 </TabPane>
 
                 <TabPane tab="⚙️ Ayarları Yapılandırın" key="3">
                     <Space direction="vertical" size="large" style={{ marginBottom: 16 }}>
                         <div>
-                            <Title level={5} style={{ color: textColor }}>
+                            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 🎵 Listedeki Müzik Sayısı:
                             </Title>
-                            <Text style={{ color: textColor, fontSize: '14px' }}>
-                                ℹ️ Listede bulunan müzik sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5)
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                              ℹ️ Listede bulunan müzik sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5)
                             </Text>
                             <Slider
                                 defaultValue={trackCount}
@@ -260,11 +229,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </div>
 
                         <div>
-                            <Title level={5} style={{ color: textColor }}>
+                            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 📐 Liste Genişliği(px):
                             </Title>
-                            <Text style={{ color: textColor, fontSize: '14px' }}>
-                                ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400)
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                             ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400)
                             </Text>
                             <Slider
                                 defaultValue={width}
@@ -277,11 +246,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </div>
 
                         <div>
-                            <Title level={5} style={{ color: textColor }}>
+                            <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 🎧 Tekrarlanan Müzikler:
                             </Title>
-                            <Text style={{ color: textColor, fontSize: '14px' }}>
-                                ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz.
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz.
                             </Text>
                             <Switch
                                 checked={uniqueTracks}
