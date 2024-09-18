@@ -25,7 +25,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         return null;
     }
 
-    const svgSrc = `${encodeURIComponent(`${Constants.BaseUrl}/api?user=${username}`)}`;
+    const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
 
     const backgrounds = [
         'https://spotify.mdusova.com/arkaplan1.png',
