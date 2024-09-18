@@ -212,7 +212,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                                             display: 'flex',
                                             alignItems: 'center',
                                             padding: '10px',
-                                            backgroundColor: theme === 'dark' ? '#555' : '#f5f5f5',
+                                            backgroundColor: theme === 'dark' ? '#333333' : '#efefef',
                                             borderRadius: '8px',
                                             cursor: 'pointer',
                                             width: '100%',
