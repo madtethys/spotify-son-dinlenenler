@@ -50,15 +50,70 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         'https://spotify.mdusova.com/arkaplan8.png',
     ];
 
-    const handleBackgroundSelect = useCallback((background: string) => {
+  const handleBackgroundSelect = useCallback((background: string) => {
         setSelectedBackground(background);
     }, []);
+
+const svgToPng = async (svgUrl: string) => {
+    const response = await fetch(svgUrl);
+    const svgText = await response.text();
+
+    // UTF-8 ile Base64 kodlama
+    const base64 = btoa(unescape(encodeURIComponent(svgText)));
+
+    const canvas = document.createElement('canvas');
+    const img = new Image();
+    img.src = 'data:image/svg+xml;base64,' + base64;
+    await new Promise((resolve) => {
+        img.onload = () => resolve(null);
+    });
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx?.drawImage(img, 0, 0);
+    return canvas.toDataURL('image/png');
+};
+
+const mergeImageWithBackground = async (apiImage: string, backgroundImage: string) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const bgImg = await loadImage(backgroundImage);
+    const apiImg = await loadImage(apiImage);
+
+    canvas.width = bgImg.width;
+    canvas.height = bgImg.height;
+
+    ctx?.drawImage(bgImg, 0, 0);
+
+    const padding = 20; // Boşluk ayarı
+    const scaleFactor = 2.5; // Görseli büyütmek için ölçek faktörü
+    const imgWidth = apiImg.width * scaleFactor;
+    const imgHeight = apiImg.height * scaleFactor;
+
+    const imgX = (canvas.width - imgWidth) / 2;
+    const imgY = (canvas.height - imgHeight) / 2;
+
+    ctx?.drawImage(apiImg, imgX + padding, imgY, imgWidth - padding * 2, imgHeight);
+
+    return canvas.toDataURL('image/png');
+};
+
+
+    const loadImage = (src: string) => {
+        return new Promise<HTMLImageElement>((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'use-credentials';
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    };
 
     const handleShareClick = async () => {
         setLoading(true);
         try {
-            // SVG'yi PNG'ye çevir ve arka planla birleştir
-            const pngImage = await svgToPng(dynamicSvgSrc);
+            const pngImage = await svgToPng(svgSrc);
             const finalImage = await mergeImageWithBackground(pngImage, selectedBackground);
             const link = document.createElement('a');
             link.href = finalImage;
