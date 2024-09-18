@@ -220,7 +220,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                                 padding: '5px',
                             }}
                             value={selectedBackground}
-                            onChange={onSelect}
+                            onChange={handleBackgroundSelect}
                         >
                             {backgrounds.map((background, index) => (
                                 <Option key={index} value={background}>
