@@ -26,6 +26,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
 
     // Varsayılan URL, parametreler eklenmeden
     let dynamicSvgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+    let svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
 
     // Ayar yapıldığında dinamik URL'yi güncelle
     if (trackCount !== 5) {
