@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Input, Space, Typography, Tabs, Slider, Switch, Button, Select, message, Image } from 'antd';
+import { Input, Space, Typography, Tabs, Slider, Switch, Button, Select, message } from 'antd';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -20,9 +20,24 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [selectedBackground, setSelectedBackground] = useState<string>('https://spotify.mdusova.com/arkaplan1.png');
     const [loading, setLoading] = useState<boolean>(false);
 
-    if (!username) return null;
+    if (!username) {
+        return null;
+    }
 
-    const svgSrc = `${Constants.BaseUrl}/api?user=${username}&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
+    // Varsayılan URL, parametreler eklenmeden
+    let dynamicSvgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+    let svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+
+    // Ayar yapıldığında dinamik URL'yi güncelle
+    if (trackCount !== 5) {
+        dynamicSvgSrc += `&tracks=${trackCount}`;
+    }
+    if (width !== 400) {
+        dynamicSvgSrc += `&width=${width}`;
+    }
+    if (uniqueTracks) {
+        dynamicSvgSrc += `&unique=${uniqueTracks}`;
+    }
 
     const backgrounds = [
         'https://spotify.mdusova.com/arkaplan1.png',
@@ -42,7 +57,8 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const handleShareClick = async () => {
         setLoading(true);
         try {
-            const pngImage = await svgToPng(svgSrc);
+            // SVG'yi PNG'ye çevir ve arka planla birleştir
+            const pngImage = await svgToPng(dynamicSvgSrc);
             const finalImage = await mergeImageWithBackground(pngImage, selectedBackground);
             const link = document.createElement('a');
             link.href = finalImage;
@@ -57,12 +73,16 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         }
     };
 
-    const handleWidthChange = useCallback((value: number) => {
-        setWidth(value);
+    const handleWidthChange = useCallback((value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setWidth(value);
+        }
     }, []);
 
-    const handleTrackCountChange = useCallback((value: number) => {
-        setTrackCount(value);
+    const handleTrackCountChange = useCallback((value: number | [number, number]) => {
+        if (typeof value === 'number') {
+            setTrackCount(value);
+        }
     }, []);
 
     return (
@@ -71,7 +91,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                 👤 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
-                <TabPane tab="❓ Kodu Nasıl Eklerim?" key="1">
+                <TabPane tab="🌐 Websiteme Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             HTML'e eklemek için kodunuz:
@@ -80,7 +100,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             className="htmlkodu"
                             autoSize
                             readOnly
-                            value={`<img src="${svgSrc}" alt="Spotify Son Dinlenen Müzikler - ${username}" />`}
+                            value={`<img src="${dynamicSvgSrc}" alt="Spotify Son Dinlenen Müzikler - ${username}" />`}
                             style={{
                                 backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
@@ -93,21 +113,17 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             className="markdown"
                             autoSize
                             readOnly
-                            value={`![Spotify Son Dinlenen Müzikler](${svgSrc})`}
+                            value={`![Spotify Son Dinlenen Müzikler](${dynamicSvgSrc})`}
                             style={{
                                 backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
                             }}
                         />
+
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             Önizleme:
                         </Title>
-                        <Image
-                            src={svgSrc}
-                            alt="Spotify Son Dinlenen Müzikler Önizleme"
-                            preview={false}
-                            style={{ width: '100%', maxHeight: '300px', objectFit: 'contain' }}
-                        />
+                        <img src={dynamicSvgSrc} alt="Spotify Son Dinlenen Müzikler Önizleme" style={{ width: '100%', maxWidth: `${width}px` }} />
                     </Space>
                 </TabPane>
 
@@ -117,12 +133,12 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                             🎨 Arka Plan Seçimi:
                         </Title>
                         <Select
-                            value={selectedBackground}
+                            defaultValue={selectedBackground}
                             style={{ width: 200 }}
                             onChange={handleBackgroundSelect}
                         >
                             {backgrounds.map((background, index) => (
-                                <Option key={index} value="Arka Plan Seçiniz.">
+                                <Option key={index} value='Arka Plan Seçiniz.'>
                                     <img
                                         src={background}
                                         alt={`Arka Plan ${index + 1}`}
@@ -134,10 +150,10 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                         </Select>
 
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            📤 Instagram Hikayende Paylaş:
+                            📤 Instagram Hikayesi için Paylaş:
                         </Title>
                         <Button type="primary" onClick={handleShareClick} loading={loading}>
-                            Instagram Hikayende Paylaş
+                            Instagram'da Paylaş
                         </Button>
                     </Space>
                 </TabPane>
@@ -149,10 +165,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 🎵 Listedeki Müzik Sayısı:
                             </Title>
                             <Slider
+                                defaultValue={trackCount}
                                 min={1}
                                 max={10}
-                                value={trackCount}
                                 onChange={handleTrackCountChange}
+                                value={trackCount}
                                 style={{ maxWidth: '400px' }}
                             />
                         </div>
@@ -162,10 +179,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
                                 📐 Liste Genişliği(px):
                             </Title>
                             <Slider
-                                min={300}
-                                max={1000}
-                                value={width}
+                                defaultValue={width}
+                                min={200}
+                                max={600}
                                 onChange={handleWidthChange}
+                                value={width}
                                 style={{ maxWidth: '400px' }}
                             />
                         </div>
