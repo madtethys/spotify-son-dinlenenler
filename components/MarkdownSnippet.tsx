@@ -60,26 +60,31 @@ const svgToPng = async (svgUrl: string) => {
     return canvas.toDataURL('image/png');
 };
 
-    const mergeImageWithBackground = async (apiImage: string, backgroundImage: string) => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+const mergeImageWithBackground = async (apiImage: string, backgroundImage: string) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
-        const bgImg = await loadImage(backgroundImage);
-        const apiImg = await loadImage(apiImage);
+    const bgImg = await loadImage(backgroundImage);
+    const apiImg = await loadImage(apiImage);
 
-        canvas.width = bgImg.width;
-        canvas.height = bgImg.height;
+    canvas.width = bgImg.width;
+    canvas.height = bgImg.height;
 
-        ctx?.drawImage(bgImg, 0, 0);
+    ctx?.drawImage(bgImg, 0, 0);
 
-        const padding = 20; // Boşluk ayarı
-        const imgX = (canvas.width - apiImg.width) / 2;
-        const imgY = (canvas.height - apiImg.height) / 2;
+    const padding = 20; // Boşluk ayarı
+    const scaleFactor = 2; // Görseli büyütmek için ölçek faktörü
+    const imgWidth = apiImg.width * scaleFactor;
+    const imgHeight = apiImg.height * scaleFactor;
 
-        ctx?.drawImage(apiImg, imgX + padding, imgY, apiImg.width - padding * 2, apiImg.height);
+    const imgX = (canvas.width - imgWidth) / 2;
+    const imgY = (canvas.height - imgHeight) / 2;
 
-        return canvas.toDataURL('image/png');
-    };
+    ctx?.drawImage(apiImg, imgX + padding, imgY, imgWidth - padding * 2, imgHeight);
+
+    return canvas.toDataURL('image/png');
+};
+
 
     const loadImage = (src: string) => {
         return new Promise<HTMLImageElement>((resolve, reject) => {
