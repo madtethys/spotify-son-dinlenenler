@@ -203,21 +203,23 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Lütfen arka planda kullanacağınız görüntüyü seçiniz.
                         </Text>
+                        
                         <Select                
                             style={{
                                 width: '100%',
-                                height: '200px',
                                 backgroundColor: theme === 'dark' ? '#333' : '#fff',
                                 color: theme === 'dark' ? '#fff' : '#000',
                                 border: theme === 'dark' ? '1px solid #555' : '1px solid #d9d9d9',
                                 borderRadius: '8px',
                                 boxShadow: theme === 'dark' ? '0px 0px 15px rgba(255, 255, 255, 0.2)' : '0px 0px 10px rgba(0, 0, 0, 0.1)',
+                                padding: '10px 0', // Yukarıdan ve aşağıdan padding ekleyin
                             }}
                             dropdownStyle={{
-                                backgroundColor: theme === 'dark' ? '#444' : '#fff',
+                                backgroundColor: theme === 'dark' ? '#333' : '#fff',
                                 color: theme === 'dark' ? '#fff' : '#000',
                                 borderRadius: '8px',
                                 padding: '5px',
+                                overflowY: 'auto', // Taşma durumunda kaydırma çubuğu
                             }}
                             value={selectedBackground}
                             onChange={handleBackgroundSelect}
