@@ -57,9 +57,9 @@ useEffect(() => {
         'https://spotify.mdusova.com/arkaplan8.png',
     ];
 
-    const handleBackgroundSelect = useCallback((background: string) => {
-        setSelectedBackground(background);
-    }, []);
+const handleBackgroundSelect = useCallback((e: RadioChangeEvent) => {
+    setSelectedBackground(e.target.value);
+}, []);
 
 const svgToPng = async (svgUrl: string) => {
     const response = await fetch(svgUrl);
