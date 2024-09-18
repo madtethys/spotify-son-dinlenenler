@@ -272,7 +272,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                           onClick={handleShareClick}
                           loading={loading}
                         >
-                        Görseli İndir ve Instagram Hikayesinde Paylaş
+                        Instagram Hikayende Paylaş
                         </Button>
 
                     </Space>
