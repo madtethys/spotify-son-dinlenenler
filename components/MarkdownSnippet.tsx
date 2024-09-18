@@ -203,48 +203,54 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Lütfen arka planda kullanacağınız görüntüyü seçiniz.
                         </Text>
-                       <Select
-                         defaultValue={selectedBackground}
-                         style={{
-                           width: 200,
-                           height: 75,
-                           backgroundColor: theme === 'dark' ? '#333' : '#fff',
-                           color: theme === 'dark' ? '#fff' : '#000',
-                           border: theme === 'dark' ? '1px solid #555' : '1px solid #d9d9d9',
-                           boxShadow: theme === 'dark' ? '0px 0px 10px rgba(255, 255, 255, 0.2)' : 'none',
-                         }}
-                         dropdownStyle={{
-                           backgroundColor: theme === 'dark' ? '#444' : '#fff',
-                           color: theme === 'dark' ? '#fff' : '#000',
-                         }}
-                         onChange={handleBackgroundSelect}
-                       >
-                         {backgrounds.map((background, index) => (
-                           <Option key={index} value={background}>
-                             <div
-                               style={{
-                                 display: 'flex',
-                                 alignItems: 'center',
-                                 padding: '5px',
-                                 backgroundColor: theme === 'dark' ? '#555' : '#f0f0f0',
-                                 borderRadius: '4px',
-                                 marginBottom: '5px',
-                               }}
-                             >
-                               <img
-                                 src={background}
-                                 alt={`Arka Plan ${index + 1}`}
-                                 style={{
-                                   width: '50px',
-                                   height: '50px',
-                                   marginRight: '10px',
-                                   border: theme === 'dark' ? '2px solid #888' : '1px solid #ccc',
-                                   borderRadius: '4px',
-                                 }}
-                               />
-                               <span style={{ color: theme === 'dark' ? '#fff' : '#000' }}>Arka Plan {index + 1}</span>
-                             </div>
-                           </Option>
+<Select
+      defaultValue={selectedBackground}
+      style={{
+        width: 200,
+        height: 75,
+        backgroundColor: theme === 'dark' ? '#333' : '#fff',
+        color: theme === 'dark' ? '#fff' : '#000',
+        border: theme === 'dark' ? '1px solid #555' : '1px solid #d9d9d9',
+        borderRadius: '8px',
+        boxShadow: theme === 'dark' ? '0px 0px 15px rgba(255, 255, 255, 0.2)' : '0px 0px 10px rgba(0, 0, 0, 0.1)',
+      }}
+      dropdownStyle={{
+        backgroundColor: theme === 'dark' ? '#444' : '#fff',
+        color: theme === 'dark' ? '#fff' : '#000',
+        borderRadius: '8px',
+      }}
+      onChange={handleBackgroundSelect}
+    >
+      {backgrounds.map((background, index) => (
+        <Option key={index} value={background}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '10px',
+              backgroundColor: theme === 'dark' ? '#555' : '#f5f5f5',
+              borderRadius: '8px',
+              marginBottom: '5px',
+              transition: 'background-color 0.3s',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme === 'dark' ? '#666' : '#e0e0e0'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = theme === 'dark' ? '#555' : '#f5f5f5'}
+          >
+            <img
+              src={background}
+              alt={`Arka Plan ${index + 1}`}
+              style={{
+                width: '50px',
+                height: '50px',
+                marginRight: '10px',
+                border: theme === 'dark' ? '2px solid #888' : '1px solid #ccc',
+                borderRadius: '8px',
+                objectFit: 'cover',
+              }}
+            />
+            <span style={{ color: theme === 'dark' ? '#fff' : '#000' }}>Arka Plan {index + 1}</span>
+          </div>
+        </Option>
                          ))}
                        </Select>
 
