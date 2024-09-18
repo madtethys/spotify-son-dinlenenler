@@ -123,6 +123,19 @@ input, textarea {
   border-color: #45bb6e !important;
 }
 
+.instagram-share-btn {
+  background: #e4405f !important; /* Instagram'ın ana rengi */
+  color: var(--button-text-color) !important; /* Buton metin rengi */
+  border-color: #e4405f !important; /* Sınır rengi */
+  border-radius: 4px; /* Kenar köşe yuvarlama */
+  transition: background-color 0.3s, border-color 0.3s; /* Geçiş efektleri */
+}
+
+.instagram-share-btn:hover {
+  background: #d62976 !important; /* Hover durumu için Instagram moru */
+  border-color: #d62976 !important; /* Hover durumu sınır rengi */
+}
+
 .vert-space {
   width: 100%;
 }
