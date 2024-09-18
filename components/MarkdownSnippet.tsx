@@ -205,17 +205,19 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         </Text>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                             {backgrounds.map((background, index) => (
-                                <div key={index} style={{ width: 'calc(50% - 5px)' }}>
+                                <div key={index} style={{ flex: '1 1 calc(50% - 10px)', minWidth: '120px' }}>
                                     <Radio
                                         value={background}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             padding: '10px',
-                                            backgroundColor: theme === 'dark' ? '#333333' : '#efefef',
+                                            backgroundColor: theme === 'dark' ? '#313131' : '#efefef',
                                             borderRadius: '8px',
                                             cursor: 'pointer',
                                             width: '100%',
+                                            flexDirection: 'row',
+                                            wordWrap: 'break-word'
                                         }}
                                         checked={selectedBackground === background}
                                         onChange={handleBackgroundSelect}
@@ -224,14 +226,14 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                                             src={background}
                                             alt={`Arka Plan ${index + 1}`}
                                             style={{
-                                                width: '60px',
-                                                height: '60px',
+                                                width: '50px',
+                                                height: '50px',
                                                 marginRight: '10px',
                                                 borderRadius: '8px',
                                                 objectFit: 'cover',
                                             }}
                                         />
-                                        Arka Plan {index + 1}
+                                        <span style={{ flex: 1, textAlign: 'left', color: theme === 'dark' ? '#e0e0e0' : '#434242' }}>Arka Plan {index + 1}</span>
                                     </Radio>
                                 </div>
                             ))}
