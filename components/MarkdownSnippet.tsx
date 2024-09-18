@@ -203,60 +203,37 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Lütfen arka planda kullanacağınız görüntüyü seçiniz.
                         </Text>
-                        
-                        <Select
-                            style={{
-                                width: 250, // Genişliği biraz artırdık
-                                backgroundColor: theme === 'dark' ? '#333' : '#fff',
-                                color: theme === 'dark' ? '#fff' : '#000',
-                                border: theme === 'dark' ? '1px solid #555' : '1px solid #d9d9d9',
-                                borderRadius: '8px',
-                                boxShadow: theme === 'dark' ? '0px 0px 15px rgba(255, 255, 255, 0.2)' : '0px 0px 10px rgba(0, 0, 0, 0.1)',
-                                padding: '10px 0',
-                            }}
-                            dropdownStyle={{
-                                backgroundColor: theme === 'dark' ? '#333' : '#fff',
-                                color: theme === 'dark' ? '#fff' : '#000',
-                                borderRadius: '8px',
-                                padding: '5px',
-                                overflowY: 'auto',
-                            }}
-                            value={selectedBackground}
-                            onChange={handleBackgroundSelect}
-                        >
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                             {backgrounds.map((background, index) => (
-                                <Option key={index} value={background}>
-                                    <div
+                                <Radio
+                                    key={index}
+                                    value={background}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        padding: '10px',
+                                        backgroundColor: theme === 'dark' ? '#555' : '#f5f5f5',
+                                        borderRadius: '8px',
+                                        cursor: 'pointer',
+                                    }}
+                                    checked={selectedBackground === background}
+                                    onChange={handleBackgroundSelect}
+                                >
+                                    <img
+                                        src={background}
+                                        alt={`Arka Plan ${index + 1}`}
                                         style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            padding: '12px', // Yukarıdan ve aşağıdan padding artırıldı
-                                            backgroundColor: theme === 'dark' ? '#555' : '#f5f5f5',
+                                            width: '60px',
+                                            height: '60px',
+                                            marginRight: '10px',
                                             borderRadius: '8px',
-                                            marginBottom: '5px',
-                                            transition: 'background-color 0.3s',
-                                            cursor: 'pointer',
+                                            objectFit: 'cover',
                                         }}
-                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = theme === 'dark' ? '#666' : '#e0e0e0'}
-                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = theme === 'dark' ? '#555' : '#f5f5f5'}
-                                    >
-                                        <img
-                                            src={background}
-                                            alt={`Arka Plan ${index + 1}`}
-                                            style={{
-                                                width: '60px', // Görsel boyutu artırıldı
-                                                height: '60px', // Görsel boyutu artırıldı
-                                                marginRight: '15px', // Sağdan boşluk artırıldı
-                                                border: theme === 'dark' ? '2px solid #888' : '1px solid #ccc',
-                                                borderRadius: '8px',
-                                                objectFit: 'cover',
-                                            }}
-                                        />
-                                        <span style={{ color: theme === 'dark' ? '#fff' : '#000', fontSize: '16px' }}>Arka Plan {index + 1}</span> {/* Yazı boyutu artırıldı */}
-                                    </div>
-                                </Option>
+                                    />
+                                    Arka Plan {index + 1}
+                                </Radio>
                             ))}
-                        </Select>
+                        </div>
 
 
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
