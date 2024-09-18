@@ -17,7 +17,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [trackCount, setTrackCount] = useState<number>(5);
     const [width, setWidth] = useState<number>(400);
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
-    const [selectedBackground, setSelectedBackground] = useState<string>('https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan1.png');
+    const [selectedBackground, setSelectedBackground] = useState<string>('https://spotify.mdusova.com/arkaplan1.png');
     const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,16 +25,15 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         return null;
     }
 
-    const proxyUrl = 'https://spotifybackend.mdusova.com/proxy?url=';
-    const svgSrc = `${proxyUrl}${encodeURIComponent(`${Constants.BaseUrl}/api?user=${username}`)}`;
+    const svgSrc = `${encodeURIComponent(`${Constants.BaseUrl}/api?user=${username}`)}`;
 
     const backgrounds = [
-        'https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan1.png',
-        'https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan2.png',
-        'https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan3.png',
-        'https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan4.png',
-        'https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan5.png',
-        'https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan6.png',
+        'https://spotify.mdusova.com/arkaplan1.png',
+        'https://spotify.mdusova.com/arkaplan2.png',
+        'https://spotify.mdusova.com/arkaplan3.png',
+        'https://spotify.mdusova.com/arkaplan4.png',
+        'https://spotify.mdusova.com/arkaplan5.png',
+        'https://spotify.mdusova.com/arkaplan6.png',
     ];
 
     const handleBackgroundSelect = useCallback((background: string) => {
