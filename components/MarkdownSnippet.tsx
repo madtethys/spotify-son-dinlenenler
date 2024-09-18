@@ -1,8 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Input, Space, Typography, Tabs, Button, Select, message } from 'antd';
+import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select, message } from 'antd';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
+const { TextArea } = Input;
+const { TabPane } = Tabs;
 const { Option } = Select;
 
 interface Props {
@@ -12,7 +14,11 @@ interface Props {
 
 export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const { username, theme } = props;
+    const [trackCount, setTrackCount] = useState<number>(5);
+    const [width, setWidth] = useState<number>(400);
+    const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
     const [selectedBackground, setSelectedBackground] = useState<string>('https://spotifybackend.mdusova.com/proxy?url=https://spotify.mdusova.com/arkaplan1.png');
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     if (!username) {
