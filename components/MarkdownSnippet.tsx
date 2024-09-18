@@ -206,7 +206,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         <Select                
                             style={{
                                 width: '100%',
-                                height: '75px',
+                                height: '200px',
                                 backgroundColor: theme === 'dark' ? '#333' : '#fff',
                                 color: theme === 'dark' ? '#fff' : '#000',
                                 border: theme === 'dark' ? '1px solid #555' : '1px solid #d9d9d9',
