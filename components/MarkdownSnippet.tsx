@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { Input, Space, Typography, Tabs, Slider, Switch, Button, Select, message } from 'antd';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select, message } from 'antd';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -18,26 +18,14 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [width, setWidth] = useState<number>(400);
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
     const [selectedBackground, setSelectedBackground] = useState<string>('https://spotify.mdusova.com/arkaplan1.png');
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
     if (!username) {
         return null;
     }
 
-    // Varsayılan URL, parametreler eklenmeden
-    let dynamicSvgSrc = `${Constants.BaseUrl}/api?user=${username}`;
-    let svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
-
-    // Ayar yapıldığında dinamik URL'yi güncelle
-    if (trackCount !== 5) {
-        dynamicSvgSrc += `&tracks=${trackCount}`;
-    }
-    if (width !== 400) {
-        dynamicSvgSrc += `&width=${width}`;
-    }
-    if (uniqueTracks) {
-        dynamicSvgSrc += `&unique=${uniqueTracks}`;
-    }
+    const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
 
     const backgrounds = [
         'https://spotify.mdusova.com/arkaplan1.png',
@@ -50,7 +38,7 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         'https://spotify.mdusova.com/arkaplan8.png',
     ];
 
-  const handleBackgroundSelect = useCallback((background: string) => {
+    const handleBackgroundSelect = useCallback((background: string) => {
         setSelectedBackground(background);
     }, []);
 
@@ -128,7 +116,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
         }
     };
 
-    const handleWidthChange = useCallback((value: number | [number, number]) => {
+        const handleWidthChange = useCallback((value: number | [number, number]) => {
         if (typeof value === 'number') {
             setWidth(value);
         }
@@ -146,7 +134,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                 👤 "{username}" olarak giriş yapıldı.
             </Title>
             <Tabs defaultActiveKey="1">
-                <TabPane tab="🌐 Websiteme Nasıl Eklerim?" key="1">
+                <TabPane tab="❓ Kodu Nasıl Eklerim?" key="1">
                     <Space className="vert-space" direction="vertical" size="small">
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                             HTML'e eklemek için kodunuz:
@@ -155,7 +143,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             className="htmlkodu"
                             autoSize
                             readOnly
-                            value={`<img src="${dynamicSvgSrc}" alt="Spotify Son Dinlenen Müzikler - ${username}" />`}
+                            value={`<img src="${svgSrc}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`}
                             style={{
                                 backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
@@ -168,17 +156,12 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             className="markdown"
                             autoSize
                             readOnly
-                            value={`![Spotify Son Dinlenen Müzikler](${dynamicSvgSrc})`}
+                            value={`![Spotify Son Dinlenen Müzikler](${svgSrc})`}
                             style={{
                                 backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
                             }}
                         />
-
-                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            Önizleme:
-                        </Title>
-                        <img src={dynamicSvgSrc} alt="Spotify Son Dinlenen Müzikler Önizleme" style={{ width: '100%', maxWidth: `${width}px` }} />
                     </Space>
                 </TabPane>
 
@@ -193,7 +176,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             onChange={handleBackgroundSelect}
                         >
                             {backgrounds.map((background, index) => (
-                                <Option key={index} value='Arka Plan Seçiniz.'>
+                                <Option key={index} value='{background}'>
                                     <img
                                         src={background}
                                         alt={`Arka Plan ${index + 1}`}
@@ -219,6 +202,9 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 🎵 Listedeki Müzik Sayısı:
                             </Title>
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                              ℹ️ Listede bulunan müzik sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5)
+                            </Text>
                             <Slider
                                 defaultValue={trackCount}
                                 min={1}
@@ -233,6 +219,9 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 📐 Liste Genişliği(px):
                             </Title>
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                             ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400)
+                            </Text>
                             <Slider
                                 defaultValue={width}
                                 min={200}
@@ -247,6 +236,9 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 🎧 Tekrarlanan Müzikler:
                             </Title>
+                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
+                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz.
+                            </Text>
                             <Switch
                                 checked={uniqueTracks}
                                 onChange={setUniqueTracks}
