@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { Input, Space, Typography, Tabs, Slider, Switch, Tooltip, Button, Select, message } from 'antd';
+import React, { useState, useCallback } from 'react';
+import { Input, Space, Typography, Tabs, Slider, Switch, Button, Select, message, Image } from 'antd';
 import * as Constants from '../utils/Constants';
 
 const { Text, Title } = Typography;
@@ -18,14 +18,11 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
     const [width, setWidth] = useState<number>(400);
     const [uniqueTracks, setUniqueTracks] = useState<boolean>(false);
     const [selectedBackground, setSelectedBackground] = useState<string>('https://spotify.mdusova.com/arkaplan1.png');
-    const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    if (!username) {
-        return null;
-    }
+    if (!username) return null;
 
-    const svgSrc = `${Constants.BaseUrl}/api?user=${username}`;
+    const svgSrc = `${Constants.BaseUrl}/api?user=${username}&count=${trackCount}&width=${width}${uniqueTracks ? '&unique=true' : ''}`;
 
     const backgrounds = [
         'https://spotify.mdusova.com/arkaplan1.png',
@@ -34,67 +31,13 @@ export default function MarkdownSnippet(props: Props): JSX.Element | null {
         'https://spotify.mdusova.com/arkaplan4.png',
         'https://spotify.mdusova.com/arkaplan5.png',
         'https://spotify.mdusova.com/arkaplan6.png',
+        'https://spotify.mdusova.com/arkaplan7.png',
+        'https://spotify.mdusova.com/arkaplan8.png',
     ];
 
     const handleBackgroundSelect = useCallback((background: string) => {
         setSelectedBackground(background);
     }, []);
-
-const svgToPng = async (svgUrl: string) => {
-    const response = await fetch(svgUrl);
-    const svgText = await response.text();
-
-    // UTF-8 ile Base64 kodlama
-    const base64 = btoa(unescape(encodeURIComponent(svgText)));
-
-    const canvas = document.createElement('canvas');
-    const img = new Image();
-    img.src = 'data:image/svg+xml;base64,' + base64;
-    await new Promise((resolve) => {
-        img.onload = () => resolve(null);
-    });
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext('2d');
-    ctx?.drawImage(img, 0, 0);
-    return canvas.toDataURL('image/png');
-};
-
-const mergeImageWithBackground = async (apiImage: string, backgroundImage: string) => {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const bgImg = await loadImage(backgroundImage);
-    const apiImg = await loadImage(apiImage);
-
-    canvas.width = bgImg.width;
-    canvas.height = bgImg.height;
-
-    ctx?.drawImage(bgImg, 0, 0);
-
-    const padding = 20; // Boşluk ayarı
-    const scaleFactor = 2.5; // Görseli büyütmek için ölçek faktörü
-    const imgWidth = apiImg.width * scaleFactor;
-    const imgHeight = apiImg.height * scaleFactor;
-
-    const imgX = (canvas.width - imgWidth) / 2;
-    const imgY = (canvas.height - imgHeight) / 2;
-
-    ctx?.drawImage(apiImg, imgX + padding, imgY, imgWidth - padding * 2, imgHeight);
-
-    return canvas.toDataURL('image/png');
-};
-
-
-    const loadImage = (src: string) => {
-        return new Promise<HTMLImageElement>((resolve, reject) => {
-            const img = new Image();
-            img.crossOrigin = 'use-credentials';
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-            img.src = src;
-        });
-    };
 
     const handleShareClick = async () => {
         setLoading(true);
@@ -114,16 +57,12 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
         }
     };
 
-        const handleWidthChange = useCallback((value: number | [number, number]) => {
-        if (typeof value === 'number') {
-            setWidth(value);
-        }
+    const handleWidthChange = useCallback((value: number) => {
+        setWidth(value);
     }, []);
 
-    const handleTrackCountChange = useCallback((value: number | [number, number]) => {
-        if (typeof value === 'number') {
-            setTrackCount(value);
-        }
+    const handleTrackCountChange = useCallback((value: number) => {
+        setTrackCount(value);
     }, []);
 
     return (
@@ -141,7 +80,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             className="htmlkodu"
                             autoSize
                             readOnly
-                            value={`<img src="${svgSrc}" alt="Spotify Son Dinlenen Müzikler - Mustafa Arda Düşova" />`}
+                            value={`<img src="${svgSrc}" alt="Spotify Son Dinlenen Müzikler - ${username}" />`}
                             style={{
                                 backgroundColor: theme === 'dark' ? '#333333' : '#ffffff',
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
@@ -160,6 +99,15 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                                 color: theme === 'dark' ? '#e0e0e0' : '#222222'
                             }}
                         />
+                        <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
+                            Önizleme:
+                        </Title>
+                        <Image
+                            src={svgSrc}
+                            alt="Spotify Son Dinlenen Müzikler Önizleme"
+                            preview={false}
+                            style={{ width: '100%', maxHeight: '300px', objectFit: 'contain' }}
+                        />
                     </Space>
                 </TabPane>
 
@@ -169,12 +117,12 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             🎨 Arka Plan Seçimi:
                         </Title>
                         <Select
-                            defaultValue={selectedBackground}
+                            value={selectedBackground}
                             style={{ width: 200 }}
                             onChange={handleBackgroundSelect}
                         >
                             {backgrounds.map((background, index) => (
-                                <Option key={index} value={background}>
+                                <Option key={index} value="Arka Plan Seçiniz.">
                                     <img
                                         src={background}
                                         alt={`Arka Plan ${index + 1}`}
@@ -186,10 +134,10 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                         </Select>
 
                         <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
-                            📤 Instagram Hikayesi için Paylaş:
+                            📤 Instagram Hikayende Paylaş:
                         </Title>
                         <Button type="primary" onClick={handleShareClick} loading={loading}>
-                            Instagram'da Paylaş
+                            Instagram Hikayende Paylaş
                         </Button>
                     </Space>
                 </TabPane>
@@ -200,15 +148,11 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 🎵 Listedeki Müzik Sayısı:
                             </Title>
-                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                              ℹ️ Listede bulunan müzik sayısını bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 1 / Maksimum değer: 10 (Varsayılan değer: 5)
-                            </Text>
                             <Slider
-                                defaultValue={trackCount}
                                 min={1}
                                 max={10}
-                                onChange={handleTrackCountChange}
                                 value={trackCount}
+                                onChange={handleTrackCountChange}
                                 style={{ maxWidth: '400px' }}
                             />
                         </div>
@@ -217,15 +161,11 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 📐 Liste Genişliği(px):
                             </Title>
-                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                             ℹ️ Listenizin genişliğini bu ayar ile ayarlayabilirsiniz. <br /> Minimum değer: 300 / Maksimum değer: 1000 (Varsayılan değer: 400)
-                            </Text>
                             <Slider
-                                defaultValue={width}
-                                min={200}
-                                max={600}
-                                onChange={handleWidthChange}
+                                min={300}
+                                max={1000}
                                 value={width}
+                                onChange={handleWidthChange}
                                 style={{ maxWidth: '400px' }}
                             />
                         </div>
@@ -234,9 +174,6 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             <Title level={5} style={{ color: theme === 'dark' ? '#ffffff' : '#222222' }}>
                                 🎧 Tekrarlanan Müzikler:
                             </Title>
-                            <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
-                            ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz.
-                            </Text>
                             <Switch
                                 checked={uniqueTracks}
                                 onChange={setUniqueTracks}
