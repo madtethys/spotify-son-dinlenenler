@@ -152,15 +152,21 @@ Son olarak, `utils/Constants.ts` dosyasını düzenleyin ve `ClientId`, `BaseUrl
 #### ❓ SORU: Firebase veritabanı URL'si nedir?
 ✔️ Firebase veritabanı URL'si, Firebase'da oluşturduğunuz projenin veritabanı URL'sidir. Bu URL, Firebase'da projenizi tanımlamak için kullanılır ve `FIREBASE_DATABASE_URL` ortam değişkeninde ayarlanmalıdır. 
 
-## • BÖLÜM 6: Eklenecek Özellikler
-#### + Ayarlar Sekmesi:
-> API'nin URL'siyle uğraşmanıza gerek kalmadan ayarlar sekmesinden yapacağınız ayarlar ile URL'yi daha kolay şekilde temin edebileceksiniz.
+## • BÖLÜM 6: Eklenen Özellikler
 
-#### + Instagram Hikayesine Ekleme:
-> API'den aldığımız görüntüyü Instagram hikayesinde paylaşma eklenecek. Bunun için `Backend` ve `Instagram Graph API` çalışmalarım devam ediyor. 
+#### 🌙 Karanlık Tema (v0.9.4-beta.2):
+> Kullanıcı deneyimini daha da iyileştirmek amacıyla karanlık tema desteği ekledik! Gece kullanımı için daha uygun bir arayüz sunarak göz yorgunluğunu azaltmayı hedefliyoruz. Koyu mod, kullanıcıların daha rahat bir deneyim yaşamasına yardımcı olacak.
 
-#### + Anlık Veri Çekme:
-> Bu proje [Vercel](https://vercel.com/) tarafından desteklenmektedir. Şu anda %100 anlık veri çekemesek de %92.4 gibi güzel bir oranda anlık veri çekebiliyoruz. Bu gecikmenin sebebi ise projenin [Vercel](https://vercel.com/)'in Europe-West1 (Ireland) ve [Firebase Veritabanı](https://firebase.google.com/)'nın Europe-West1 (Belgium) sunucusunda bulunmasından dolayıdır. Yakın zamanda proje başka sağlayıcıya(Türkiye sunucularına) taşınacaktır. 
+#### ⚙️ Ayarlar Sekmesi (v0.9.5-beta.2):
+> API'nin URL'siyle uğraşmanıza gerek kalmadan, artık ayarlar sekmesinden kolayca ayarlamalar yapabileceksiniz. Bu yeni özellik sayesinde, URL’yi daha basit ve hızlı bir şekilde temin edebilir, tüm yapılandırmaları tek bir yerden yönetebilirsiniz. Kullanıcı dostu arayüzümüzle, istediğiniz ayarları kolayca yapılandırarak API deneyiminizi kişiselleştirin. Tüm ayarlarınızı tek bir tıkla güncelleyerek zamandan tasarruf edin!
+
+#### 🔗 Instagram Hikayesine Ekleme (v0.9.9-beta.4):
+> API'den aldığımız görüntüyü Instagram hikayesinde paylaşma özelliği eklendi! Artık son dinlediğiniz müzikleri kolayca hikayenizde paylaşabilirsiniz. Üstelik, paylaşım yaparken görselin arka planını değiştirebilme seçeneğiniz de var. Böylece müziklerinizi daha özgün bir şekilde sunabilir, kendi tarzınıza uygun bir estetik yaratabilirsiniz.
+
+#### 📶 Anlık Veri Çekme (v1.0.0-alpha):
+> Projemiz artık tamamen Türk sunucularına taşınmış durumda! Bu sayede %100 anlık veri çekme kapasitesine ulaştık. Önceki gecikme sorunları, projenin [Vercel](https://vercel.com/)'in Europe-West1 (İrlanda) ve [Firebase Veritabanı](https://firebase.google.com/)'nın Europe-West1 (Belçika) sunucularında bulunmasından kaynaklanıyordu.
+
+> Şimdi anlık veri çekme performansımız önemli ölçüde iyileşti ve kullanıcı deneyiminizi daha da geliştirmek için çalışmalara devam ediyoruz.
 
 ## • BÖLÜM 7: Gizlilik Politikası
 Gizlilik politikasını [buradan](./gizlilik-politikası.md) okuyabilirsiniz.
