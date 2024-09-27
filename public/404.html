@@ -51,10 +51,6 @@
           color: var(--second-color);
         }
             
-        a:visited {
-          color: var(--second-color);
-        }
-            
         a:active {
           color: var(--second-color);
         }
@@ -205,11 +201,27 @@
         }
 
         .home__footer {
-          display: flex;
-          justify-content: center;
-          column-gap: .5rem;
-          font-size: var(--smaller-font-size);
-          align-self: flex-end;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Elemanların birden fazla satıra geçebilmesi için */
+            column-gap: .5rem;
+            font-size: var(--smaller-font-size);
+            align-self: flex-end;
+            padding: 1rem;
+            background-color: var(--first-color); /* Arka plan rengi ekle */
+            position: relative; /* Konumlandırmayı ayarladık */
+            z-index: 10; /* Üstte görünmesi için z-index */
+        }
+
+        @media screen and (max-width: 768px) {
+            .home__footer {
+                font-size: .8rem; /* Küçük ekranlar için yazı boyutunu azalt */
+            }
+            .home__footer span {
+                display: block; /* Her bir span öğesini ayrı satırlara yerleştir */
+                margin: .2rem 0; /* Üst ve alt boşluk ekle */
+            }
         }
 
         @keyframes floaty {
@@ -292,6 +304,24 @@
             zoom: 3.1;
           }
         }
+
+        @media screen and (max-width: 768px) {
+            .home__img img {
+                width: 150px; /* İstediğin boyut */
+                height: auto; /* Oranı koru */
+            }
+        }
+            
+        @media screen and (max-width: 768px) {
+            .home {
+                padding-top: 2rem; /* İstediğin boşluk miktarını ayarla */
+            }
+    
+            .home__img {
+                margin-top: 1rem; /* Görselin üstündeki boşluğu azalt */
+            }
+        }
+
         </style>
         
         <title>404 Sayfa Bulunamadı! - mdusova.com</title>
@@ -306,7 +336,7 @@
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="https://spotify.mdusova.com/#" class="nav__link">Spotify Projesi</a>
+                            <a href="https://spotify.mdusova.com/#" class="nav__link">Spotify Hizmeti</a>
                         </li>
                         <li class="nav__item">
                             <a href="https://mdusova.com/#" class="nav__link">Anasayfa</a>
@@ -335,33 +365,31 @@
 
         <main class="main">
             <section class="home">
-                <div class="home__container container">
-                    <div class="home__data">
-                        <span class="home__subtitle">Hata Kodu: 404</span>
-                        <h1 class="home__title">Hey Dostum!</h1>
-                        <p class="home__description">
-                            Görünüşe göre böyle bir sayfa yok veya taşınmış. URL'yi kontrol edip tekrar dener misin? Bir yanlışlık olduğunu düşünüyorsanız lütfen bize bildirmekten çekinmeyin.
-                        </p>
-                        <a href="https://spotify.mdusova.com/#" class="home__button">
-                            Spotify Son Dinlenen Müziklere Dön
-                        </a>
-                    </div>
-
-                    <div class="home__img">
-                        <img src="https://mdusova.com/dosyalar/resimler/hayalet.png" alt="Hayalet Resmi">
-                        <div class="home__shadow"></div>
-                    </div>
+            <div class="home__container container">
+                <div class="home__img">
+                    <img src="https://mdusova.com/dosyalar/resimler/hayalet.png" alt="Hayalet Resmi">
+                    <div class="home__shadow"></div>
                 </div>
+        
+                <div class="home__data">
+                    <span class="home__subtitle">Hata Kodu: 404</span>
+                    <h1 class="home__title">Hey Dostum!</h1>
+                    <p class="home__description">
+                        Görünüşe göre böyle bir sayfa yok veya taşınmış. <br>URL'yi kontrol edip tekrar dener misin? <br>Bir yanlışlık olduğunu düşünüyorsanız lütfen bize bildirmekten çekinmeyin.
+                    </p>
+                    <a href="https://spotify.mdusova.com/#" class="home__button">
+                        Spotify Hizmetine Dön
+                    </a>
+                </div>
+            </div>
 
                 <footer class="home__footer">
-                    <span>Copyright © 2024 <a href="https://mdusova.com" target="_blank">Mustafa Arda Düşova</a> - Tüm Hakları Saklıdır.</span>
-                    <span>|</span>
-                    <span><a href="mailto:info@mdusova.com" target="_blank">info@mdusova.com</a></span>
+                    <span>Copyright © 2024 <a href="https://mdusova.com" target="_blank">Mustafa Arda Düşova</a></span>
                 </footer>
             </section>
         </main>
 
-        <script src="assets/js/scrollreveal.min.js"></script>
-        <script src="assets/js/main.js"></script>
+        <script src="https://mdusova.com/dosyalar/js/404scrollreveal.min.js"></script>
+        <script src="https://mdusova.com/dosyalar/js/404.js"></script>
     </body>
 </html>
