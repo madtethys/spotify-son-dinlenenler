@@ -172,4 +172,4 @@ Son olarak, `utils/Constants.ts` dosyasını düzenleyin ve `ClientId`, `BaseUrl
 Gizlilik politikasını [buradan](./gizlilik-politikası.md) okuyabilirsiniz.
 
 ## • BÖLÜM 8: Lisans
-Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır. Daha fazla bilgi için lisans dosyasına bakınız.
+Bu proje [Apache License 2.0](LICENSE) altında lisanslanmıştır. Daha fazla bilgi için lisans dosyasına bakınız.
