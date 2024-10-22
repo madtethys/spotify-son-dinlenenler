@@ -93,7 +93,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
 
     ctx?.drawImage(bgImg, 0, 0);
 
-    const padding = 20; // Boşluk ayarı
+    const padding = 17; // Boşluk ayarı
     const scaleFactor = 2.5; // Görseli büyütmek için ölçek faktörü
     const imgWidth = apiImg.width * scaleFactor;
     const imgHeight = apiImg.height * scaleFactor;
@@ -126,10 +126,10 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
             link.href = finalImage;
             link.download = `spotify_son_dinlenenler_${username}.png`;
             link.click();
-            message.success('Resim indirildi, Instagram hikayenize yükleyebilirsiniz!');
+            message.success('Resim indirildi, Instagram hikayenizde paylaşabilirsiniz.');
         } catch (error) {
-            console.error("Birleştirme hatası:", error);
-            message.error('Bir hata oluştu.');
+            console.error("Görsel birleştirme sırasında hata oluştu:", error);
+            message.error('Bir hata oluştu. Hata hakkında bilgi alabilmek için konsolu inceleyebilirsiniz.');
         } finally {
             setLoading(false);
         }
