@@ -82,6 +82,10 @@ Listede tekrar dinlenen müzikleri göstermek için API URL'sine `&unique=true` 
 
 ![Spotify Son Oynatılan Parçalar](https://spotify.mdusova.com/api?user=31e4wu2ua42rf5qvqaukgjwgz7tu&unique=true)
 
+## • BÖLÜM 2.3: Kullanıcı dostu arayüz ile ayarlar sekmesini kullanarak liste genişliğini, gösterilecek müzik sayısını ve parça benzersizliğini ayarlama
+
+> Yeni kullanıcı dostu arayüz ile ayarlar sekmesini kullanarak liste genişliğini, gösterilecek müzik saysını ve tekrar oynatılan müzikleri URL'ye herhangi bir değer vermeden kolayca düzenleyebilirsiniz.
+
 ## • BÖLÜM 3: Kendi uygulamanı Vercel üzerinden oluştur
 [![Vercel Üzerinden Oluştur](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fmadtethys%2Fspotify-son-dinlenenler&env=NEXT_PUBLIC_CLIENT_ID,NEXT_PUBLIC_BASE_URL,NEXT_PUBLIC_REDIRECT_URI,CLIENT_SECRET,FIREBASE_PROJECT_ID,FIREBASE_PRIVATE_KEY_B64,FIREBASE_CLIENT_EMAIL)
 
