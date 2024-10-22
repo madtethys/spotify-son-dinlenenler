@@ -20,7 +20,7 @@ export default function TrackListHeader(props: Props): JSX.Element {
                     style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Image preview={false} className="spotify-icon" src={SpotifyIcon} width={100}></Image>
                 </a>
-                <Text className="spotify-title">Son Oynatılanlar</Text>
+                <Text className="spotify-title">Son Dinlediklerim</Text>
             </Space>
         </div>
     );
