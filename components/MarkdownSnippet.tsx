@@ -303,7 +303,7 @@ const mergeImageWithBackground = async (apiImage: string, backgroundImage: strin
                             </Title>
                             <Text style={{ color: theme === 'dark' ? '#e0e0e0' : '#434242', fontSize: '14px' }}>
                             ℹ️ Listede tekrar dinlediğiniz müzikleri bu ayar ile gösterebilirsiniz.
-                            </Text>
+                            </Text><br></br>
                             <Switch
                                 checked={uniqueTracks}
                                 onChange={setUniqueTracks}
